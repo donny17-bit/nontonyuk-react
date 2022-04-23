@@ -1,0 +1,126 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Mulish&display=swap");
+
+.banner {
+  position: relative;
+}
+
+.banner__img {
+  width: 750px;
+  /* height: 100%; */
+  object-fit: contain;
+}
+
+.banner__overlay {
+  position: absolute;
+  width: 750px;
+  height: 100%;
+  background-color: #2b156bcc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.banner__overlay_title h1 {
+  letter-spacing: 5px;
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 48px;
+  line-height: 58px;
+
+  letter-spacing: 0.003em;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.form {
+  margin-right: 1%;
+  margin-top: 13%;
+  margin-left: 6%;
+}
+
+.form h1 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 48px;
+  line-height: 58px;
+
+  letter-spacing: 0.003em;
+
+  color: #121212;
+}
+
+.form__caption {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  letter-spacing: 0.007em;
+  color: #aaaaaa;
+}
+
+.form_label {
+  font-family: "Mulish", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+
+  align-items: center;
+  color: #4e4b66;
+}
+
+.form .form_control {
+  background: #fcfdfe;
+
+  /* border: 1px solid #dedede; */
+  box-sizing: border-box;
+  border-radius: 16px;
+  padding: 5%;
+
+  font-family: "Mulish";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0.75px;
+  color: #a0a3bd;
+}
+
+.d_grid .btn {
+  height: 64px;
+  /* width: 400px; */
+  border-radius: 16px;
+  background-color: #5f2eea;
+
+  font-family: "Mulish";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 28px;
+
+  text-align: center;
+  letter-spacing: 0.75px;
+
+  color: #f7f7fc;
+}
+
+.form__additional {
+  font-family: "Inter";
+  font-style: medium;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19.36px;
+  letter-spacing: 0.005em;
+
+  text-align: center;
+  color: #8692a6;
+}
+
+.form__additional a {
+  color: #5f2eea;
+}
