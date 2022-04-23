@@ -1,24 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import BasicCounter from "./pages/basic/Counter/classComponent";
+import BasicReact from "./pages/basic/React/index";
+import BasicLogin from "./pages/basic/Login";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="basic/counter" element={<BasicCounter />} />
+        <Route path="basic/react" element={<BasicReact />} />
+        <Route path="basic/login" element={<BasicLogin />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
