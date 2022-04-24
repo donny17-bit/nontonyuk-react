@@ -1,2 +1,2 @@
 goals 
-sign in & sign up, home page, movie detail, order page, payment page, view all
+sign in & up, home page, movie detail, order page, payment page, view all
