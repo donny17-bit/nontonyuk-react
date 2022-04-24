@@ -1,0 +1,299 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+
+.banner__text h4 {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 30px;
+  color: #a0a3bd;
+}
+
+.banner__text h1 {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 56px;
+  line-height: 70px;
+  color: rgb(74, 76, 201);
+}
+
+.banner__text {
+  margin-top: 250px;
+}
+
+.banner__image {
+  margin: 100px 110px;
+}
+
+.image__2 {
+  margin-top: 50px;
+}
+
+.image {
+  margin-bottom: 50px;
+}
+
+.now__showing {
+  background-color: #f5f6f8;
+  padding: 64px 10%;
+  padding-bottom: 104px;
+}
+
+.now__showing--title {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 30px;
+  letter-spacing: 0.25px;
+
+  color: #5f2eea;
+}
+
+.now__showing--link {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+
+  text-decoration: none;
+  letter-spacing: 0.15px;
+
+  color: #5f2eea;
+}
+
+.now__showing--assesoris {
+  height: 3px;
+  width: 100px;
+  border-radius: 20px;
+  background-color: #5f2eea;
+}
+
+/* kurang scroll */
+
+.card {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 2px solid #ffffff;
+  box-sizing: border-box;
+  border-radius: 8px;
+  padding: 32px;
+}
+
+.col {
+  width: 25%;
+}
+
+.upcoming__movies {
+  padding: 5% 10%;
+}
+
+.upcoming__movies h2 {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 30px;
+
+  color: #14142b;
+}
+
+.upcoming__movies a {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+
+  text-decoration: none;
+  letter-spacing: 0.15px;
+
+  color: #5f2eea;
+}
+
+.upcoming__movies--button--row {
+  white-space: nowrap;
+  overflow-x: hidden;
+  padding-bottom: 20px;
+}
+
+.upcoming__movies--button--row:hover {
+  overflow-x: auto;
+}
+
+.upcoming__movies--button--col {
+  display: inline-block;
+  margin: 0px 7px;
+}
+
+.btn__upcoming__movies {
+  background: white;
+  border-radius: 4px;
+
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 18px;
+
+  text-align: center;
+  color: #5f2eea;
+  border-color: #5f2eea;
+  width: 127px;
+  padding: 12px 27px;
+}
+
+.btn__upcoming__movies:hover {
+  background: #5f2eea;
+  box-shadow: 0px 8px 30px rgba(95, 46, 234, 0.3);
+}
+
+.upcoming__movies--card {
+  /* height: 452px; */
+  /* width: 223px; */
+
+  background-color: #ffffff;
+  border: 0.5px solid #dedede;
+  box-sizing: border-box;
+  border-radius: 8px;
+  /* padding: 32px; */
+}
+
+.upcoming__movies--card .card-img-top {
+  height: 244px;
+  width: 159px;
+
+  border-radius: 6px;
+}
+
+.upcoming__movies--card .card-title {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
+
+  text-align: center;
+  letter-spacing: 0.15px;
+  color: #14142b;
+}
+
+.upcoming__movies--card .card-text {
+  font-family: "Open Sans", sans-serif;
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
+  letter-spacing: 0.4px;
+
+  color: #a0a3bd;
+}
+
+.upcoming__movies--card .card-footer {
+  display: flex;
+}
+
+.card-footer .btn {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 18px;
+  height: 33px;
+  width: 159px;
+  border-radius: 4px;
+
+  text-align: center;
+  color: #5f2eea;
+  border-color: #5f2eea;
+}
+
+.card-footer .btn:hover {
+  background-color: #5f2eea;
+  color: white;
+}
+
+.upcoming__movies--card .card-footer {
+  background-color: white;
+  border-top: 0;
+}
+
+.card__join {
+  height: 372px;
+  margin: 80px 130px;
+  border-radius: 8px;
+  text-align: center;
+  align-items: center;
+  box-shadow: #4e4b66;
+}
+
+.card-title1 {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 114%;
+
+  text-align: center;
+  letter-spacing: 0.25px;
+
+  color: #4e4b66;
+}
+
+.card-title2 {
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 55px;
+  letter-spacing: 0.5px;
+  text-align: center;
+  color: #5f2eea;
+}
+
+.card__join--form input {
+  height: 53px;
+  width: 306px;
+
+  border: 2px solid #dedede;
+  box-sizing: border-box;
+  border-radius: 4px;
+
+  font-family: "Mulish";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 23px;
+
+  letter-spacing: 0.75px;
+
+  color: #a0a3bd;
+}
+
+.card__join--form button {
+  height: 53px;
+  width: 120px;
+  border-radius: 4px;
+  background-color: #5f2eea;
+
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 19px;
+
+  text-align: center;
+  letter-spacing: 0.5px;
+
+  color: #ffffff;
+}
+
+.card__join .card-footer {
+  background-color: white;
+  border-top: 0;
+}
+
+.card__join .card-footer p {
+  font-family: "Mulish";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+
+  margin: 0px;
+  text-align: center;
+  letter-spacing: 0.75px;
+
+  color: #6e7191;
+}

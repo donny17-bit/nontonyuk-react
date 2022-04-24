@@ -1,0 +1,107 @@
+@import url("https://fonts.googleapis.com/css2?family=Mulish:wght@600&display=swap");
+
+* {
+  font-family: "Mulish", sans-serif;
+}
+
+.footer {
+  margin-top: 15%;
+  margin-left: 130px;
+  margin-right: 130px;
+  margin-bottom: 3%;
+}
+
+.footer__logo img {
+  height: 43.9418830871582px;
+  width: 170.23092651367188px;
+  top: 13.393310546875px;
+  border-radius: 0px;
+}
+
+.footer__logo p {
+  font-family: "Mulish";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 32px;
+
+  margin: 0;
+  letter-spacing: 0.75px;
+  color: #6e7191;
+}
+
+.footer__explore a {
+  text-decoration: none;
+  display: block;
+  font-family: "Mulish";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+
+  letter-spacing: 0.5px;
+  color: #4e4b66;
+}
+
+.footer__title {
+  font-family: "Mulish";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0.5px;
+
+  color: #000000;
+}
+
+.footer__sponsor_img1 {
+  height: 44.849143981933594px;
+  width: 120.95262145996094px;
+  display: block;
+}
+
+.footer__sponsor_img2 {
+  height: 24.508678436279297px;
+  width: 79.214599609375px;
+  display: block;
+}
+
+.footer__sponsor_img3 {
+  height: 26.520517349243164px;
+  width: 173.28977966308594px;
+  display: block;
+}
+
+.footer__follow_media {
+  align-items: center;
+  display: flex;
+  width: 100%;
+  height: 40px;
+}
+
+.footer__follow_media p {
+  font-family: "Mulish";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 18px;
+
+  letter-spacing: 0.5px;
+
+  color: #6e7191;
+  vertical-align: middle;
+}
+
+.footer__follow_img {
+  object-fit: contain;
+}
+
+.footer__text {
+  text-align: center;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: 0.5px;
+  color: #4e4b66;
+}
