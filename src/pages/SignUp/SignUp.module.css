@@ -36,9 +36,9 @@
 }
 
 .form {
-  /* width: 400px; */
+  width: 100%;
   margin-right: 1%;
-  margin-top: 13%;
+  margin-top: 5%;
   margin-left: 6%;
 }
 
@@ -94,7 +94,6 @@
 
 .d_grid .btn {
   height: 64px;
-  width: 100%;
   border-radius: 16px;
   background-color: #5f2eea;
 
