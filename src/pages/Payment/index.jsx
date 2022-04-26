@@ -3,6 +3,7 @@ import axios from "../../utils/axios";
 import { useNavigate } from "react-router-dom";
 import styles from "./Payment.module.css";
 import Header from "../../components/Header/index";
+// import Header from "../../components/HeaderSignedIn/index";
 import Footer from "../../components/Footer/index";
 
 function Payment() {

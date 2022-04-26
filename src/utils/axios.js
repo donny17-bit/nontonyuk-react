@@ -2,6 +2,7 @@ import axios from "axios";
 
 const axiosApiIntances = axios.create({
   baseURL: "https://project-nontonyuk.herokuapp.com",
+  // timeout: 10000,
 
   // Authorization: "",
 });
@@ -10,7 +11,8 @@ const axiosApiIntances = axios.create({
 axios.interceptors.request.use(
   function (config) {
     // Do something before request is sent
-    // String token = `Bearer ${localStorage.getItem("token")}`;
+    // const token = awa `Bearer ${localStorage.getItem("token")}`;
+
     config.headers.Authorization = `Bearer ${localStorage.getItem("token")}`;
     return config;
   },

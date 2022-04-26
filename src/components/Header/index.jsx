@@ -5,15 +5,15 @@ import styles from "./Header.module.css";
 
 function Header() {
   return (
-    <div class="">
-      <header class="container">
-        <nav class="navbar navbar-expand-lg navbar-light">
-          <div class="container-fluid">
-            <a class="navbar-brand me-5" href="#">
+    <div className="">
+      <header className="container">
+        <nav className="navbar navbar-expand-lg navbar-light">
+          <div className="container-fluid">
+            <a className="navbar-brand me-5" href="#">
               <img src="/assets/img/header/Vector.png" alt="tiket app" />
             </a>
             <button
-              class="navbar-toggler"
+              className="navbar-toggler"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#navbarNav"
@@ -21,33 +21,34 @@ function Header() {
               aria-expanded="false"
               aria-label="Toggle navigation"
             >
-              <span class="navbar-toggler-icon"></span>
+              <span className="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav">
-                <li class={`${styles.nav_item} nav-item`}>
+            <div className="collapse navbar-collapse" id="navbarNav">
+              <ul className="navbar-nav">
+                <li className={`${styles.nav_item} nav-item`}>
                   <a
-                    class={`${styles.nav_link} nav-link`}
+                    className={`${styles.nav_link} nav-link`}
                     aria-current="page"
-                    href="#"
+                    href="home"
                   >
                     Home
                   </a>
                 </li>
-                <li class={`${styles.nav_item} nav-item`}>
-                  <a class={`${styles.nav_link} nav-link`} href="#">
+                <li className={`${styles.nav_item} nav-item`}>
+                  <a className={`${styles.nav_link} nav-link`} href="#">
                     List Movie
                   </a>
                 </li>
               </ul>
             </div>
-            <form class={`${styles.d_flex} d-flex`}>
-              <button
-                class={`btn btn-primary ${styles.signup__btn}`}
-                type="submit"
+            <form className={`${styles.d_flex} d-flex`}>
+              <a
+                className={`btn btn-primary ${styles.signup__btn}`}
+                type="button"
+                href="login"
               >
                 Sign Up
-              </button>
+              </a>
             </form>
           </div>
         </nav>

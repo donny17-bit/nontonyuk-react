@@ -34,14 +34,15 @@ function Login() {
       localStorage.setItem("refreshToken", resultLogin.data.data.refreshToken);
 
       console.log(resultLogin);
-      // const resultUser = await axios.get(`user/${resultLogin.data.data.id}`, {
-      //   headers: { authorization: `Bearer ${resultLogin.data.data.token}` },
-      // });
-      const resultUser = await axios.get(`user/${resultLogin.data.data.id}`);
+      const resultUser = await axios.get(`user/${resultLogin.data.data.id}`, {
+        headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
+      // const resultUser = await axios.get(`user/${resultLogin.data.data.id}`);
 
       console.log(resultUser);
 
       //   output = keadaan user diinfokan kalau sudah login
+      alert("Success Login");
       setIsError(false);
       setMessage(resultLogin.data.msg);
 
@@ -108,7 +109,7 @@ function Login() {
 
             <p className={styles.form__additional}>
               Don't have an account?
-              <a href="localhost:3000/sign-up">Sign Up</a>
+              <a href="sign-up">Sign Up</a>
             </p>
           </div>
         </form>
