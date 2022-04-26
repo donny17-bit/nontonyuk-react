@@ -1,0 +1,40 @@
+.details {
+  /* height: ; */
+}
+
+.details .card_ {
+  padding: 32px;
+
+  border: 2px solid #dedede;
+  box-sizing: border-box;
+  border-radius: 16px;
+}
+
+.card_ img {
+  width: 236px;
+  border-radius: 6px;
+}
+
+.details__title {
+  font-family: "Mulish";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 34px;
+  letter-spacing: 1px;
+
+  color: #14142b;
+}
+
+.details__genre {
+  font-family: "Mulish";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 34px;
+
+  text-align: center;
+  letter-spacing: 0.75px;
+
+  color: #4e4b66;
+}
