@@ -1,40 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Mulish&display=swap");
 
-.banner {
-  position: relative;
-}
-
-.banner__img {
-  width: 750px;
-  /* height: 100%; */
-  object-fit: contain;
-}
-
-.banner__overlay {
-  position: absolute;
-  width: 750px;
-  height: 100%;
-  background-color: #2b156bcc;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.banner__overlay_title h1 {
-  letter-spacing: 5px;
-  font-family: "Inter", sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 48px;
-  line-height: 58px;
-
-  letter-spacing: 0.003em;
-  text-align: center;
-  color: rgba(255, 255, 255, 0.8);
-}
-
 .form {
   /* width: 400px; */
   margin-right: 1%;

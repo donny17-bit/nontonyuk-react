@@ -1,16 +1,21 @@
 import axios from "axios";
 
 const axiosApiIntances = axios.create({
-  baseURL: "https://project-tickitz.herokuapp.com",
+  baseURL: "https://project-nontonyuk.herokuapp.com",
+
+  // Authorization: "",
 });
 
 // Add a request interceptor
 axios.interceptors.request.use(
   function (config) {
     // Do something before request is sent
+    // String token = `Bearer ${localStorage.getItem("token")}`;
+    config.headers.Authorization = `Bearer ${localStorage.getItem("token")}`;
     return config;
   },
   function (error) {
+    console.log(error);
     // Do something with request error
     return Promise.reject(error);
   }
@@ -30,4 +35,7 @@ axios.interceptors.response.use(
   }
 );
 
+// axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem(
+//   "token"
+// )}`;
 export default axiosApiIntances;

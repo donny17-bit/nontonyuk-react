@@ -18,6 +18,7 @@ function App() {
         <Route path="basic/login" element={<BasicLogin />} />
         <Route path="login" element={<Login />} />
         <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/order" element={<Order />} />
