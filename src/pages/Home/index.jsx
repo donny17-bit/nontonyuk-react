@@ -26,33 +26,55 @@ function Home() {
     { id: 12, name: "December" },
   ];
 
-  const limit = 4;
+  const limit = 6;
+  // di set ke bulan saat ini
+  const [release, setRelease] = useState(5);
   const [page, setPage] = useState(1);
-  const [data, setData] = useState([]);
-  const [pageInfo, setPageInfo] = useState({});
+  const [dataShowing, setDataShowing] = useState([]);
+  const [dataRelease, setDataRelease] = useState([]);
+  // const [pageInfo, setPageInfo] = useState({});
 
-  const getDataMovie = async () => {
+  const getShowingMovie = async () => {
     try {
-      // console.log("get data movie");
-
       const resultMovie = await axios.get(`movie?page=${page}&limit=${limit}`);
-      // console.log(resultMovie);
 
-      setData(resultMovie.data.data);
-      setPageInfo(resultMovie.data.pagination);
+      setDataShowing(resultMovie.data.data);
+      // setPageInfo(resultMovie.data.pagination);
     } catch (error) {
       console.log(error.response);
     }
   };
 
-  console.log(data);
-  // data.map((item) => {
-  //   console.log("hello");
-  // });
-  // console.log(pageInfo);
+  const getReleaseMovie = async () => {
+    try {
+      const resultMovie = await axios.get(
+        `movie?page=${page}&limit=${limit}&searchRelease=${release}`
+      );
+
+      setDataRelease(resultMovie.data.data);
+      // setPageInfo(resultMovie.data.pagination);
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
+  const handleMonth = (item) => {
+    setRelease(item);
+  };
+
+  console.log(release);
+  console.log(dataRelease);
 
   useEffect(() => {
-    getDataMovie();
+    getReleaseMovie();
+  }, []);
+
+  useEffect(() => {
+    getReleaseMovie();
+  }, [release]);
+
+  useEffect(() => {
+    getShowingMovie();
   }, []);
 
   return (
@@ -95,7 +117,7 @@ function Home() {
         <div className={`${styles.now__showing_accessories} ms-4 mt-1`}></div>
         <div className={`${styles.now__showing_card_container} mt-5`}>
           <div className="row overflow-auto row-cols-1 row-cols-md-2 g-4">
-            {data.map((item) => (
+            {dataShowing.map((item) => (
               <div
                 className={`${styles.now__showing_card_col} col`}
                 key={item.id}
@@ -117,7 +139,10 @@ function Home() {
           <div className={styles.upcoming__movies_button_row}>
             {month.map((item) => (
               <div className={styles.upcoming__movies_button_col}>
-                <button className={`${styles.btn_} btn btn-outline-primary`}>
+                <button
+                  className={`${styles.btn_} btn btn-outline-primary`}
+                  onClick={() => handleMonth(item.id)}
+                >
                   {item.name}
                 </button>
               </div>
@@ -126,26 +151,14 @@ function Home() {
         </div>
         <div className={`${styles.upcoming__movies_card_container} mt-5`}>
           <div className={`${styles.upcoming__movies_card_row}`}>
-            {}
-            <div className={`${styles.upcoming__movies_card_col}`}>
-              {<DetailCard />}
-            </div>
-            <div className={`${styles.upcoming__movies_card_col}`}>
-              {<DetailCard />}
-            </div>
-            <div className={`${styles.upcoming__movies_card_col}`}>
-              {<DetailCard />}
-            </div>
-            <div className={`${styles.upcoming__movies_card_col}`}>
-              {<DetailCard />}
-            </div>
-            <div className={`${styles.upcoming__movies_card_col}`}>
-              {<DetailCard />}
-            </div>
-
-            <div className={`${styles.upcoming__movies_card_col}`}>
-              {<DetailCard />}
-            </div>
+            {dataRelease.map((item) => (
+              <div
+                className={`${styles.upcoming__movies_card_col}`}
+                key={item.id}
+              >
+                {<DetailCard data={item} />}
+              </div>
+            ))}
           </div>
         </div>
       </section>

@@ -1,4 +1,4 @@
-.upcoming__movies_card {
+.movies_card {
   /* height: 452px; */
   /* width: 223px; */
 
@@ -9,7 +9,7 @@
   padding: 32px;
 }
 
-.upcoming__movies_card .card_img_top {
+.movies_card .card_img_top {
   height: 244px;
   /* width: 159px; */
 
@@ -17,7 +17,7 @@
   border-radius: 6px;
 }
 
-.upcoming__movies_card .card_title {
+.movies_card .card_title {
   font-style: normal;
   font-weight: 700;
   font-size: 18px;
@@ -28,7 +28,7 @@
   color: #14142b;
 }
 
-.upcoming__movies_card .card_text {
+.movies_card .card_text {
   font-family: "Open Sans", sans-serif;
 
   font-style: normal;
@@ -41,7 +41,7 @@
   color: #a0a3bd;
 }
 
-.upcoming__movies_card .card_footer {
+.movies_card .card_footer {
   background-color: white;
   border-top: 0;
   display: flex;
