@@ -14,9 +14,6 @@ function Login() {
   });
 
   const handleChangeForm = (event) => {
-    // console.log("User sedang mengetik");
-    // console.log(event.target.name);
-    // console.log(event.target.value);
     setForm({ ...form, [event.target.name]: event.target.value });
   };
 

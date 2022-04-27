@@ -1,15 +1,43 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "../../utils/axios";
 import { useNavigate } from "react-router-dom";
 import styles from "./Home.module.css";
 import Header from "../../components/Header/index";
 import HeaderSignedIn from "../../components/HeaderSignedIn/index";
 import Footer from "../../components/Footer/index";
+import Cards from "../../components/Cards/index";
 
 function Home() {
   document.title = "Tickitz | Home";
 
-  // console.log(login);
+  const limit = 4;
+  const [page, setPage] = useState(1);
+  const [data, setData] = useState([]);
+  const [pageInfo, setPageInfo] = useState({});
+
+  const getDataMovie = async () => {
+    try {
+      // console.log("get data movie");
+
+      const resultMovie = await axios.get(`movie?page=${page}&limit=${limit}`);
+      // console.log(resultMovie);
+
+      setData(resultMovie.data.data);
+      setPageInfo(resultMovie.data.pagination);
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
+  console.log(data);
+  // data.map((item) => {
+  //   console.log("hello");
+  // });
+  // console.log(pageInfo);
+
+  useEffect(() => {
+    getDataMovie();
+  }, []);
 
   return (
     <>
@@ -51,16 +79,26 @@ function Home() {
         <div className={`${styles.now__showing_accessories} ms-4 mt-1`}></div>
         <div className={`${styles.now__showing_card_container} mt-5`}>
           <div className="row overflow-auto row-cols-1 row-cols-md-2 g-4">
-            <div className={`${styles.now__showing_card_col} col`}>
-              <div className={`${styles.now__showing_card} card`}>
+            {data.map((item) => (
+              <div
+                className={`${styles.now__showing_card_col} col`}
+                key={item.id}
+              >
+                <Cards data={item} />
+              </div>
+            ))}
+            {/* <div className={`${styles.now__showing_card_col} col`}> */}
+            {/* <div className={`${styles.now__showing_card} card`}>
                 <img
-                  src="assets/img/home/Rectangle 119-2.png"
+                  src="https://res.cloudinary.com/dusoicuhh/image/upload/v1651051633/nontonYuk/movies/p10hbxonvxnpclyc5zqz.jpg"
                   className="card-img-top"
                   alt="card-img"
                 />
-              </div>
-            </div>
-            <div className={`${styles.now__showing_card_col} col`}>
+              </div> */}
+            {/* <Cards data={data[0]} /> */}
+            {/* </div> */}
+
+            {/* <div className={`${styles.now__showing_card_col} col`}>
               <div className={`${styles.now__showing_card} card`}>
                 <img
                   src="assets/img/home/Rectangle 119-1.png"
@@ -68,8 +106,8 @@ function Home() {
                   alt="card-img"
                 />
               </div>
-            </div>
-            <div className={`${styles.now__showing_card_col} col`}>
+            </div> */}
+            {/* <div className={`${styles.now__showing_card_col} col`}>
               <div className={`${styles.now__showing_card} card`}>
                 <img
                   src="assets/img/home/Rectangle 119-2.png"
@@ -77,8 +115,8 @@ function Home() {
                   alt="card-img"
                 />
               </div>
-            </div>
-            <div className={`${styles.now__showing_card_col} col`}>
+            </div> */}
+            {/* <div className={`${styles.now__showing_card_col} col`}>
               <div className={`${styles.now__showing_card} card`}>
                 <img
                   src="assets/img/home/Rectangle 119.png"
@@ -86,7 +124,7 @@ function Home() {
                   alt="card-img"
                 />
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
@@ -195,8 +233,7 @@ function Home() {
                     href="#"
                     className={`${styles.btn_} btn btn-outline-primary`}
                   >
-                    {" "}
-                    Details{" "}
+                    Details
                   </a>
                 </div>
               </div>

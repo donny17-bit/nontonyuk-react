@@ -4,6 +4,27 @@ import { useNavigate } from "react-router-dom";
 import styles from "./HeaderSignedIn.module.css";
 
 function HeaderSignedIn() {
+  const [form, setForm] = useState({
+    refreshToken: "",
+  });
+
+  const handleLogout = async (event) => {
+    try {
+      setForm({ ...form, refreshToken: localStorage.getItem("refreshToken") });
+
+      //  msh bug blm bisa logout
+      console.log(form);
+      event.preventDefault();
+      await axios.post("auth/logout", form);
+
+      localStorage.clear();
+
+      alert("Successfully logged out");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="">
       <header className="container-fluid ps-5 pe-5">
@@ -75,10 +96,7 @@ function HeaderSignedIn() {
                     <a
                       className={`dropdown-item`}
                       href="/"
-                      onClick={
-                        (() => alert("Are you sure want to logout"),
-                        () => localStorage.clear())
-                      }
+                      onClick={handleLogout}
                       // style="background-color: red"
                     >
                       Logout

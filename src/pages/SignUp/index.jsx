@@ -2,25 +2,64 @@ import React, { useState } from "react";
 import axios from "../../utils/axios";
 import { useNavigate } from "react-router-dom";
 import styles from "./SignUp.module.css";
+import Banner from "../../components/BannerLogin";
 
 function SignUp() {
+  document.title = "Tickitz | Sign Up";
+
+  const navigate = useNavigate();
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
+    phone: "",
+    email: "",
+    password: "",
+  });
+
+  const handleChangeForm = (event) => {
+    setForm({ ...form, [event.target.name]: event.target.value });
+  };
+
+  const [message, setMessage] = useState("");
+  const [isError, setIsError] = useState(false);
+
+  const handleSubmit = async (event) => {
+    try {
+      event.preventDefault();
+
+      const resultLogin = await axios.post("auth/register", form);
+
+      // localStorage.setItem("token", resultLogin.data.data.token);
+      // localStorage.setItem("refreshToken", resultLogin.data.data.refreshToken);
+
+      // console.log(resultLogin);
+      // const resultUser = await axios.get(`user/${resultLogin.data.data.id}`, {
+      //   headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
+      // });
+      // // const resultUser = await axios.get(`user/${resultLogin.data.data.id}`);
+
+      // console.log(resultUser);
+
+      // //   output = keadaan user diinfokan kalau sudah login
+      // alert("Success Login");
+      // setIsError(false);
+      // setMessage(resultLogin.data.msg);
+
+      // localStorage.setItem("dataUser", JSON.stringify(resultUser.data.data[0]));
+
+      navigate("/login");
+    } catch (error) {
+      console.log(error.response.data.msg);
+      setMessage(error.response.data.msg);
+      setIsError(true);
+    }
+  };
+
   return (
     <>
       <div class="d-flex justify-content-between">
-        <div class={`${styles.banner}`}>
-          <div class={`${styles.banner__overlay}`}>
-            <span class={`${styles.banner__overlay_title}`}>
-              <img src="/assets/img/login/tickitz 1.png" alt="banner__title" />
-              <h1>wait, watch, wow!</h1>
-            </span>
-          </div>
-          <img
-            src="/assets/img/login/image 1.png"
-            alt="banner__marvel"
-            class={styles.banner__img}
-          />
-        </div>
-        <div class={`${styles.form}`}>
+        <Banner />
+        <form class={`${styles.form}`} onSubmit={handleSubmit}>
           <h1>Sign Up</h1>
           <p class={`${styles.form__caption} mt-3 `}>
             Fill your additional details
@@ -34,9 +73,11 @@ function SignUp() {
               First Name
             </label>
             <input
+              name="firstName"
               type="text"
               placeholder="Write your first name"
               class={`${styles.form_control} form-control `}
+              onChange={handleChangeForm}
             />
             <label
               for="inputLastName"
@@ -46,8 +87,10 @@ function SignUp() {
             </label>
             <input
               type="text"
+              name="lastName"
               placeholder="Write your last name"
               class={`${styles.form_control} form-control `}
+              onChange={handleChangeForm}
             />
             <label
               for="inputPhone"
@@ -57,8 +100,10 @@ function SignUp() {
             </label>
             <input
               type="text"
+              name="phone"
               placeholder="Write your phone number"
               class={`${styles.form_control} form-control `}
+              onChange={handleChangeForm}
             />
             <label
               for="inputEmail"
@@ -68,8 +113,10 @@ function SignUp() {
             </label>
             <input
               type="email"
+              name="email"
               placeholder="Write your email"
               class={`${styles.form_control} form-control `}
+              onChange={handleChangeForm}
             />
             <label
               for="inputPassword"
@@ -78,9 +125,11 @@ function SignUp() {
               Password
             </label>
             <input
+              name="password"
               type="password"
               placeholder="Write your password"
               class={`${styles.form_control} form-control `}
+              onChange={handleChangeForm}
             />
             <div class={`${styles.d_grid} d-grid gap-2 mt-5`}>
               <button class={`${styles.btn} btn`} type="submit">
@@ -90,10 +139,10 @@ function SignUp() {
 
             <p class={`${styles.form__additional} mt-4`}>
               Already have an account?
-              <a href="#">Login now</a>
+              <a href="login">Login now</a>
             </p>
           </div>
-        </div>
+        </form>
       </div>
     </>
   );

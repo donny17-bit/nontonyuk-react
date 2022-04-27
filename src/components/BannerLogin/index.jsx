@@ -14,7 +14,7 @@ function BannerLogin() {
           </span>
         </div>
         <img
-          src="/assets/img/login/image 1.png"
+          src="https://res.cloudinary.com/dusoicuhh/image/upload/v1651050983/nontonYuk/public/image_1_t0cznp.png"
           alt="banner__marvel"
           className={styles.banner__img}
         />

@@ -38,3 +38,25 @@
 
   color: #4e4b66;
 }
+
+.synopsis {
+  width: 800px;
+}
+
+.canvas {
+  background-color: #f5f6f8;
+  position: relative;
+  padding: 0px 73px;
+}
+
+.upcoming__movies_card .card_img_top {
+  /* height: 244px; */
+  width: 106px;
+
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.upcoming__movies_card h3 {
+  width: 100px;
+}
