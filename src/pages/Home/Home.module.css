@@ -143,10 +143,27 @@
   box-shadow: 0px 8px 30px rgba(95, 46, 234, 0.3);
 }
 
+/* .upcoming__movies_card_container .row_ {
+  
+} */
+
+.upcoming__movies_card_row {
+  white-space: nowrap;
+  overflow-x: hidden;
+}
+
+.upcoming__movies_card_row:hover {
+  overflow-x: auto;
+}
+
+.upcoming__movies_card_col {
+  display: inline-block;
+  margin: 0px 7px;
+}
+
 .upcoming__movies_card {
   /* height: 452px; */
   /* width: 223px; */
-
   background-color: #ffffff;
   border: 0.5px solid #dedede;
   box-sizing: border-box;

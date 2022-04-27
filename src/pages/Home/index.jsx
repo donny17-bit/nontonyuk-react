@@ -6,9 +6,25 @@ import Header from "../../components/Header/index";
 import HeaderSignedIn from "../../components/HeaderSignedIn/index";
 import Footer from "../../components/Footer/index";
 import Cards from "../../components/Cards/index";
+import DetailCard from "../../components/DetailCard/index";
 
 function Home() {
   document.title = "Tickitz | Home";
+
+  const month = [
+    { id: 1, name: "January" },
+    { id: 2, name: "February" },
+    { id: 3, name: "March" },
+    { id: 4, name: "April" },
+    { id: 5, name: "May" },
+    { id: 6, name: "June" },
+    { id: 7, name: "July" },
+    { id: 8, name: "August" },
+    { id: 9, name: "September" },
+    { id: 10, name: "October" },
+    { id: 11, name: "November" },
+    { id: 12, name: "December" },
+  ];
 
   const limit = 4;
   const [page, setPage] = useState(1);
@@ -87,44 +103,6 @@ function Home() {
                 <Cards data={item} />
               </div>
             ))}
-            {/* <div className={`${styles.now__showing_card_col} col`}> */}
-            {/* <div className={`${styles.now__showing_card} card`}>
-                <img
-                  src="https://res.cloudinary.com/dusoicuhh/image/upload/v1651051633/nontonYuk/movies/p10hbxonvxnpclyc5zqz.jpg"
-                  className="card-img-top"
-                  alt="card-img"
-                />
-              </div> */}
-            {/* <Cards data={data[0]} /> */}
-            {/* </div> */}
-
-            {/* <div className={`${styles.now__showing_card_col} col`}>
-              <div className={`${styles.now__showing_card} card`}>
-                <img
-                  src="assets/img/home/Rectangle 119-1.png"
-                  className="card-img-top"
-                  alt="card-img"
-                />
-              </div>
-            </div> */}
-            {/* <div className={`${styles.now__showing_card_col} col`}>
-              <div className={`${styles.now__showing_card} card`}>
-                <img
-                  src="assets/img/home/Rectangle 119-2.png"
-                  className="card-img-top"
-                  alt="card-img"
-                />
-              </div>
-            </div> */}
-            {/* <div className={`${styles.now__showing_card_col} col`}>
-              <div className={`${styles.now__showing_card} card`}>
-                <img
-                  src="assets/img/home/Rectangle 119.png"
-                  className="card-img-top"
-                  alt="card-img"
-                />
-              </div>
-            </div> */}
           </div>
         </div>
       </section>
@@ -137,154 +115,36 @@ function Home() {
         </div>
         <div className={`${styles.upcoming__movies_button} mt-4`}>
           <div className={styles.upcoming__movies_button_row}>
-            <div className={styles.upcoming__movies_button_col}>
-              <button className={`${styles.btn_} btn btn-outline-primary`}>
-                September
-              </button>
-            </div>
-            <div className={styles.upcoming__movies_button_col}>
-              <button className={`${styles.btn_} btn btn-outline-primary`}>
-                October
-              </button>
-            </div>
-            <div className={styles.upcoming__movies_button_col}>
-              <button className={`${styles.btn_} btn btn-outline-primary`}>
-                November
-              </button>
-            </div>
-            <div className={styles.upcoming__movies_button_col}>
-              <button className={`${styles.btn_} btn btn-outline-primary`}>
-                December
-              </button>
-            </div>
-            <div className={styles.upcoming__movies_button_col}>
-              <button className={`${styles.btn_} btn btn-outline-primary`}>
-                January
-              </button>
-            </div>
-            <div className={styles.upcoming__movies_button_col}>
-              <button className={`${styles.btn_} btn btn-outline-primary`}>
-                February
-              </button>
-            </div>
-            <div className={styles.upcoming__movies_button_col}>
-              <button className={`${styles.btn_} btn btn-outline-primary`}>
-                March
-              </button>
-            </div>
-            <div className={styles.upcoming__movies_button_col}>
-              <button className={`${styles.btn_} btn btn-outline-primary`}>
-                April
-              </button>
-            </div>
-            <div className={styles.upcoming__movies_button_col}>
-              <button className={`${styles.btn_} btn btn-outline-primary`}>
-                May
-              </button>
-            </div>
+            {month.map((item) => (
+              <div className={styles.upcoming__movies_button_col}>
+                <button className={`${styles.btn_} btn btn-outline-primary`}>
+                  {item.name}
+                </button>
+              </div>
+            ))}
           </div>
         </div>
-        <div
-          className={`${styles.upcoming__movies_card_container} card-group mt-5`}
-        >
-          <div className="row overflow-auto row-cols-1 row-cols-md-4 g-4">
-            <div className="col">
-              <div className={`card h-100 ${styles.upcoming__movies_card}`}>
-                <img
-                  src="assets/img/home/Rectangle 139-2.png"
-                  className={`${styles.card_img_top} card-img-top`}
-                  alt="card-img"
-                />
-                <div className="card-body">
-                  <h5 className={`${styles.card_title} card-title`}>
-                    The Witches
-                  </h5>
-                  <p className={`${styles.card_text} card-text`}>
-                    Adventure, Comedy, Family
-                  </p>
-                </div>
-                <div className={`${styles.card_footer} card-footer`}>
-                  <a
-                    href="#"
-                    className={`${styles.btn_} btn btn-outline-primary`}
-                  >
-                    Details
-                  </a>
-                </div>
-              </div>
+        <div className={`${styles.upcoming__movies_card_container} mt-5`}>
+          <div className={`${styles.upcoming__movies_card_row}`}>
+            {}
+            <div className={`${styles.upcoming__movies_card_col}`}>
+              {<DetailCard />}
             </div>
-            <div className="col">
-              <div className={`card h-100 ${styles.upcoming__movies_card}`}>
-                <img
-                  src="assets/img/home/Rectangle 139-1.png"
-                  className={`${styles.card_img_top} card-img-top`}
-                  alt="card-img"
-                />
-                <div className="card-body">
-                  <h5 className={`${styles.card_title} card-title`}>
-                    Black Widow
-                  </h5>
-                  <p className={`${styles.card_text} card-text`}>
-                    Action, Adventure, Sci-fi
-                  </p>
-                </div>
-                <div className={`${styles.card_footer} card-footer`}>
-                  <a
-                    href="#"
-                    className={`${styles.btn_} btn btn-outline-primary`}
-                  >
-                    Details
-                  </a>
-                </div>
-              </div>
+            <div className={`${styles.upcoming__movies_card_col}`}>
+              {<DetailCard />}
             </div>
-            <div className="col">
-              <div className={`card h-100 ${styles.upcoming__movies_card}`}>
-                <img
-                  src="assets/img/home/Rectangle 139-3.png"
-                  className={`${styles.card_img_top} card-img-top`}
-                  alt="card-img"
-                />
-                <div className="card-body">
-                  <h5 className={`${styles.card_title} card-title`}>Tenet</h5>
-                  <p className={`${styles.card_text} card-text`}>
-                    Action, Sci-fi
-                  </p>
-                </div>
-                <div className={`${styles.card_footer} card-footer`}>
-                  <a
-                    href="#"
-                    className={`${styles.btn_} btn btn-outline-primary`}
-                  >
-                    Details
-                  </a>
-                </div>
-              </div>
+            <div className={`${styles.upcoming__movies_card_col}`}>
+              {<DetailCard />}
             </div>
-            <div className="col">
-              <div className={`card h-100 ${styles.upcoming__movies_card}`}>
-                <img
-                  src="assets/img/home/Rectangle 139-1.png"
-                  className={`${styles.card_img_top} card-img-top`}
-                  alt="card-img"
-                />
-                <div className="card-body">
-                  <h5 className={`${styles.card_title} card-title`}>
-                    Black Widow
-                  </h5>
-                  <p className={`${styles.card_text} card-text`}>
-                    Action, Adventure, Sci-fi
-                  </p>
-                </div>
-                <div className={`${styles.card_footer} card-footer`}>
-                  <a
-                    href="#"
-                    className={`${styles.btn_} btn btn-outline-primary`}
-                  >
-                    Details
-                  </a>
-                </div>
-              </div>
+            <div className={`${styles.upcoming__movies_card_col}`}>
+              {<DetailCard />}
+            </div>
+            <div className={`${styles.upcoming__movies_card_col}`}>
+              {<DetailCard />}
+            </div>
+
+            <div className={`${styles.upcoming__movies_card_col}`}>
+              {<DetailCard />}
             </div>
           </div>
         </div>
