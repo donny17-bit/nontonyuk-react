@@ -50,6 +50,7 @@ function Login() {
 
       navigate("/home");
     } catch (error) {
+      alert(error.response.data.msg);
       console.log(error.response.data.msg);
       setMessage(error.response.data.msg);
       setIsError(true);
