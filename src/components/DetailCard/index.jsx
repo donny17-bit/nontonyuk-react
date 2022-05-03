@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./DetailCard.module.css";
 import { useNavigate } from "react-router-dom";
 
+// card for image in detail page
 function DetailCard(props) {
   const { id, name, image, category } = props.data;
 

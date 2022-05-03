@@ -52,8 +52,8 @@ function Login() {
     } catch (error) {
       alert(error.response.data.msg);
       console.log(error.response.data.msg);
-      setMessage(error.response.data.msg);
-      setIsError(true);
+      // setMessage(error.response.data[0].msg);
+      // setIsError(true);
     }
   };
 

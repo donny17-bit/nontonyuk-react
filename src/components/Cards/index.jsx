@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./Cards.module.css";
 
+// card for now showing in home page
 function Cards(props) {
   const { image } = props.data;
 

@@ -49,14 +49,56 @@
   padding: 0px 73px;
 }
 
-.upcoming__movies_card .card_img_top {
-  /* height: 244px; */
-  width: 106px;
-
-  /* object-fit: contain; */
-  border-radius: 6px;
+.booking_card {
+  width: 30%;
 }
 
-/* .upcoming__movies_card h3 {
-  width: 100px;
-} */
+.booking_card .card_img_top {
+  width: 50%;
+  object-fit: contain;
+}
+
+.card_title {
+  font-family: "Mulish";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  /* line-height: 32px; */
+  line-height: 133%;
+
+  letter-spacing: 0.75px;
+
+  color: #000000;
+}
+
+.card_address {
+  font-family: "Mulish";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  /* line-height: 18px; */
+  line-height: 150%;
+  /* or 150% */
+
+  letter-spacing: 0.75px;
+
+  color: #6e7191;
+}
+
+.card_booking {
+  text-decoration: none;
+  font-family: "Mulish";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  /* line-height: 23px; */
+  line-height: 192%;
+  /* identical to box height, or 192% */
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: 0.75px;
+
+  color: #4e4b66;
+}

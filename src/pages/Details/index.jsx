@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "../../utils/axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./Details.module.css";
 import Header from "../../components/Header/index";
 import HeaderSignedIn from "../../components/HeaderSignedIn/index";
@@ -37,13 +37,6 @@ function Details() {
       {localStorage.getItem("token") ? <HeaderSignedIn /> : <Header />}
       <div className={`${styles.details} container mt-5 pb-5 d-flex`}>
         <Cards data={dataDetail} />
-        {/* <div class={`${styles.card_} card`}>
-          <img
-            src="/assets/img/home/Rectangle 119.png"
-            class="card-img-top"
-            alt="details img"
-          />
-        </div> */}
         <div className={`${styles.details__text} ps-5`}>
           <h1 className={styles.details__title}>{dataDetail.name}</h1>
           <p className={`${styles.details__genre} text-start`}>
@@ -76,39 +69,47 @@ function Details() {
           </div>
         </div>
       </div>
-      {/* <div class={`${styles.canvas} text-center pb-5`}> */}
-      {/* <h4 className="pt-5 pb-3">Showtimes and Ticket</h4> */}
+      <div class={`${styles.canvas} text-center pb-5`}>
+        <h4 className="pt-5 pb-3">Showtimes and Ticket</h4>
 
-      {/* <div className="row border mt-4">
+        <div className="row mt-4">
           <div className="col">
-            <div className={`card ${styles.upcoming__movies_card}`}>
-              <div className="row">
-                <div className="col align-middle border">
-                  <img
-                    src="assets/img/footer/Vector-1.png"
-                    className={`${styles.card_img_top} img-fluid ps-3 border align-middle`}
-                    alt="card-img"
-                  />
-                </div>
-                <div className="col border">
-                  <h3 className="">ebv.id</h3>
-                  <p className="">Whatever street No.12, South Purwokerto</p>
+            <div className={`card border ${styles.booking_card}`}>
+              <div className="row ms-1 me-1 align-middle border">
+                <img
+                  src="assets/img/card/CineOne21.png"
+                  className={`${styles.card_img_top} img-fluid`}
+                  alt="card-img"
+                />
+                <div className="col">
+                  <h3 className={`${styles.card_title} text-start mt-4`}>
+                    CineOne21
+                  </h3>
+                  <p className={`${styles.card_address} text-start`}>
+                    Whatever street No.12, South Purwokerto
+                  </p>
                 </div>
               </div>
               <div className="card-body">
                 <div className="row">
                   <div className="col border">
-                    <a href="">8:30am</a>
+                    <Link to="" className={`${styles.card_booking}`}>
+                      8:30am
+                    </Link>
                   </div>
                   <div className="col border">
-                    <a href="">8:30am</a>
+                    <Link to="" className={`${styles.card_booking}`}>
+                      8:30am
+                    </Link>
                   </div>
                   <div className="col border">
-                    <a href="">8:30am</a>
+                    <Link to="" className={`${styles.card_booking}`}>
+                      8:30am
+                    </Link>
                   </div>
-                  <div className="col border">
+                  {/* <div className="col border">
                     <a href="">8:30am</a>
-                  </div>
+                  </div> */}
                 </div>
                 <div className="row">
                   <div className="col border">
@@ -121,7 +122,7 @@ function Details() {
                     <a href="">8:30am</a>
                   </div>
                 </div>
-                <div className="border d-flex justify-content-between pt-3">
+                <div className="border d-flex justify-content-between">
                   <p>Price</p>
                   <p>$30.00/seat</p>
                 </div>
@@ -134,8 +135,8 @@ function Details() {
               </div>
             </div>
           </div>
-        </div> */}
-      {/* </div> */}
+        </div>
+      </div>
       <Footer />
     </>
   );
