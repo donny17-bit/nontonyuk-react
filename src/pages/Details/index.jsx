@@ -6,6 +6,7 @@ import Header from "../../components/Header/index";
 import HeaderSignedIn from "../../components/HeaderSignedIn/index";
 import Footer from "../../components/Footer/index";
 import Cards from "../../components/Cards/index";
+import BookingCard from "../../components/BookingCard/index";
 
 function Details() {
   document.title = "Tickitz | Movie Details";
@@ -72,68 +73,28 @@ function Details() {
       <div class={`${styles.canvas} text-center pb-5`}>
         <h4 className="pt-5 pb-3">Showtimes and Ticket</h4>
 
-        <div className="row mt-4">
-          <div className="col">
-            <div className={`card border ${styles.booking_card}`}>
-              <div className="row ms-1 me-1 align-middle border">
-                <img
-                  src="assets/img/card/CineOne21.png"
-                  className={`${styles.card_img_top} img-fluid`}
-                  alt="card-img"
-                />
-                <div className="col">
-                  <h3 className={`${styles.card_title} text-start mt-4`}>
-                    CineOne21
-                  </h3>
-                  <p className={`${styles.card_address} text-start`}>
-                    Whatever street No.12, South Purwokerto
-                  </p>
-                </div>
-              </div>
-              <div className="card-body">
-                <div className="row">
-                  <div className="col border">
-                    <Link to="" className={`${styles.card_booking}`}>
-                      8:30am
-                    </Link>
-                  </div>
-                  <div className="col border">
-                    <Link to="" className={`${styles.card_booking}`}>
-                      8:30am
-                    </Link>
-                  </div>
-                  <div className="col border">
-                    <Link to="" className={`${styles.card_booking}`}>
-                      8:30am
-                    </Link>
-                  </div>
-                  {/* <div className="col border">
-                    <a href="">8:30am</a>
-                  </div> */}
-                </div>
-                <div className="row">
-                  <div className="col border">
-                    <a href="">8:30am</a>
-                  </div>
-                  <div className="col border">
-                    <a href="">8:30am</a>
-                  </div>
-                  <div className="col border">
-                    <a href="">8:30am</a>
-                  </div>
-                </div>
-                <div className="border d-flex justify-content-between">
-                  <p>Price</p>
-                  <p>$30.00/seat</p>
-                </div>
-                <a
-                  href="#"
-                  className={`${styles.btn_} btn btn-outline-primary`}
-                >
-                  Details
-                </a>
-              </div>
-            </div>
+        <div className="row mt-4 row-cols-3 g-4">
+          <div className={`${styles.BookingCard} col`}>
+            {/* <div className={styles.card_}> 
+            use this if you want to change card size from this class(parent)
+            */}
+            <BookingCard />
+            {/* </div> */}
+          </div>
+          <div className={`col`}>
+            <BookingCard />
+          </div>
+          <div className={`col`}>
+            <BookingCard />
+          </div>
+          <div className={`col`}>
+            <BookingCard />
+          </div>
+          <div className={`col`}>
+            <BookingCard />
+          </div>
+          <div className={`col`}>
+            <BookingCard />
           </div>
         </div>
       </div>
