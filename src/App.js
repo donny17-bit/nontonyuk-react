@@ -8,7 +8,8 @@ import Payment from "./pages/Payment";
 import SignUp from "./pages/SignUp";
 import Order from "./pages/Order";
 import Details from "./pages/Details";
-import Header from "./components/HeaderSignedIn";
+import ViewAll from "./pages/ViewAll";
+// import Header from "./components/HeaderSignedIn";
 
 function App() {
   return (
@@ -24,7 +25,8 @@ function App() {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/order" element={<Order />} />
         <Route path="/details" element={<Details />} />
-        <Route path="header" element={<Header />} />
+        <Route path="/view-all" element={<ViewAll />} />
+        {/* <Route path="header" element={<Header />} /> */}
         {/* <Route path="footer" element={<Footer />} /> */}
       </Routes>
     </BrowserRouter>

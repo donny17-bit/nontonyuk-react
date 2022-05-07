@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../utils/axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./Home.module.css";
 import Header from "../../components/Header/index";
 import HeaderSignedIn from "../../components/HeaderSignedIn/index";
@@ -131,9 +131,9 @@ function Home() {
       <section className={styles.upcoming__movies}>
         <div className="d-flex justify-content-between">
           <h2 className={styles.upcoming__movies_title}>Upcoming Movies</h2>
-          <a href="#" className={styles.upcoming__movies_link}>
+          <Link to="view-all" className={styles.upcoming__movies_link}>
             view all
-          </a>
+          </Link>
         </div>
         <div className={`${styles.upcoming__movies_button} mt-4`}>
           <div className={styles.upcoming__movies_button_row}>
