@@ -11,7 +11,7 @@ function SignUp() {
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
-    phone: "",
+    noTelp: "",
     email: "",
     password: "",
   });
@@ -20,6 +20,8 @@ function SignUp() {
     setForm({ ...form, [event.target.name]: event.target.value });
   };
 
+  console.log(form);
+
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
 
@@ -27,29 +29,13 @@ function SignUp() {
     try {
       event.preventDefault();
 
-      const resultLogin = await axios.post("auth/register", form);
-
-      // localStorage.setItem("token", resultLogin.data.data.token);
-      // localStorage.setItem("refreshToken", resultLogin.data.data.refreshToken);
-
-      // console.log(resultLogin);
-      // const resultUser = await axios.get(`user/${resultLogin.data.data.id}`, {
-      //   headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
-      // });
-      // // const resultUser = await axios.get(`user/${resultLogin.data.data.id}`);
-
-      // console.log(resultUser);
+      await axios.post("auth/register", form);
 
       // //   output = keadaan user diinfokan kalau sudah login
-      // alert("Success Login");
-      // setIsError(false);
-      // setMessage(resultLogin.data.msg);
-
-      // localStorage.setItem("dataUser", JSON.stringify(resultUser.data.data[0]));
-
+      alert("Success sign up, please activate your account via email");
       navigate("/login");
     } catch (error) {
-      console.log(error.response.data.msg);
+      alert(error.response.data.msg);
       setMessage(error.response.data.msg);
       setIsError(true);
     }
@@ -100,7 +86,7 @@ function SignUp() {
             </label>
             <input
               type="text"
-              name="phone"
+              name="noTelp"
               placeholder="Write your phone number"
               class={`${styles.form_control} form-control `}
               onChange={handleChangeForm}

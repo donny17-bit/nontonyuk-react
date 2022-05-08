@@ -4,19 +4,20 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./HeaderSignedIn.module.css";
 
 function HeaderSignedIn() {
-  // const [form, setForm] = useState({
-  //   refreshToken: "",
-  // });
+  const [data, setData] = useState({
+    refreshToken: "",
+  });
+
   const navigate = useNavigate();
 
   const handleLogout = async (event) => {
     try {
-      // setForm({ ...form, refreshToken: localStorage.getItem("refreshToken") });
+      setData({ ...data, refreshToken: localStorage.getItem("refreshToken") });
 
-      //  msh bug blm bisa logout dari backend
-      // console.log(form);
-      // event.preventDefault();
-      // await axios.post("auth/logout", form);
+      event.preventDefault();
+      await axios.post("auth/logout", data, {
+        headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
 
       localStorage.clear();
 
@@ -25,10 +26,6 @@ function HeaderSignedIn() {
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const handleButton = (nav) => {
-    // navigate
   };
 
   return (
@@ -101,12 +98,8 @@ function HeaderSignedIn() {
                   <li>
                     <hr className="dropdown-divider" />
                   </li>
-                  <li className={styles.logout}>
-                    <button
-                      className={`dropdown-item`}
-                      onClick={handleLogout}
-                      // style="background-color: red"
-                    >
+                  <li className={`${styles.logout}`}>
+                    <button className={`dropdown-item`} onClick={handleLogout}>
                       Logout
                     </button>
                   </li>
