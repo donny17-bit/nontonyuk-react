@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import BasicCounter from "./pages/basic/Counter/classComponent";
 import BasicReact from "./pages/basic/React/index";
 import BasicLogin from "./pages/basic/Login";
+import BasicOrder from "./pages/basic/Order";
+
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Payment from "./pages/Payment";
@@ -9,6 +11,7 @@ import SignUp from "./pages/SignUp";
 import Order from "./pages/Order";
 import Details from "./pages/Details";
 import ViewAll from "./pages/ViewAll";
+
 // import Header from "./components/HeaderSignedIn";
 
 function App() {
@@ -18,6 +21,8 @@ function App() {
         <Route path="basic/counter" element={<BasicCounter />} />
         <Route path="basic/react" element={<BasicReact />} />
         <Route path="basic/login" element={<BasicLogin />} />
+        <Route path="basic/order" element={<BasicOrder />} />
+
         <Route path="login" element={<Login />} />
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />

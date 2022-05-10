@@ -25,6 +25,11 @@ function Details() {
     }
   };
 
+  const dateButton = () => {
+    // event.preventDefault;
+    <input class="" type="date" name="date" />;
+  };
+
   // const date = dataDetail.releaseDate;
   // const date1 = date.slice(10, 2);
   // console.log(date1);
@@ -75,9 +80,7 @@ function Details() {
         {/* date and location belum */}
         <form className="row border d-flex justify-content-center">
           <div className="col col-lg-3 border d-grid gap-2">
-            {/* <div class="dropdown"> */}
-            <input class="btn btn-secondary" type="date" />
-            {/* </div> */}
+            <input className="btn btn-secondary" type="date" name="date" />;
           </div>
           <div className="col col-lg-3 border d-grid gap-2">
             <div class="dropdown">
@@ -88,10 +91,14 @@ function Details() {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Dropdown button
+                Theater Location
               </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li>
+              <input
+                type="date"
+                class="dropdown-menu"
+                aria-labelledby="dropdownMenuButton1"
+              />
+              {/* <li>
                   <a class="dropdown-item" href="#">
                     Action
                   </a>
@@ -105,8 +112,8 @@ function Details() {
                   <a class="dropdown-item" href="#">
                     Something else here
                   </a>
-                </li>
-              </ul>
+                </li> */}
+              {/* </ul> */}
             </div>
           </div>
         </form>

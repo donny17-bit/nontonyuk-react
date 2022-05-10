@@ -7,6 +7,7 @@ import HeaderSignedIn from "../../components/HeaderSignedIn/index";
 import Footer from "../../components/Footer/index";
 import DetailCard from "../../components/DetailCard/index";
 
+//belum selesai
 function ViewAll() {
   document.title = "Tickitz | View All";
 
