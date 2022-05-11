@@ -22,7 +22,7 @@ function HeaderSignedIn() {
       localStorage.clear();
 
       alert("Successfully logged out");
-      navigate("/");
+      navigate("/home");
     } catch (error) {
       console.log(error);
     }

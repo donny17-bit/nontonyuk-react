@@ -1,6 +1,4 @@
 import React, { useState, Link } from "react";
-import axios from "../../utils/axios";
-import { useNavigate } from "react-router-dom";
 import styles from "./Header.module.css";
 
 function Header() {

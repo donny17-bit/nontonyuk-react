@@ -14,6 +14,10 @@ import ViewAll from "./pages/ViewAll";
 import ManageMovie from "./pages/ManageMovie";
 import Dashboard from "./pages/Dashboard";
 
+// routing private/public
+import PrivateRoute from "./helpers/route/privateRoute";
+import PublicRoute from "./helpers/route/publicRoute";
+
 // import Header from "./components/HeaderSignedIn";
 
 function App() {
@@ -25,9 +29,20 @@ function App() {
         <Route path="basic/login" element={<BasicLogin />} />
         <Route path="basic/order" element={<BasicOrder />} />
 
+        {/* <Route element={<PublicRoute restricted={false} />}>
+          <Route path="basic/react" element={<BasicReact />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+        </Route> */}
+
+        <Route element={<PrivateRoute />}>
+          <Route path="basic/react" element={<BasicReact />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+        </Route>
+
         <Route path="login" element={<Login />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
+
         <Route path="/payment" element={<Payment />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/order" element={<Order />} />
