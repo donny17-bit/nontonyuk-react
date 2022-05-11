@@ -68,7 +68,7 @@ function Details() {
               <p>{dataDetail.cast}</p>
             </div>
           </div>
-          <div className="row border"></div>
+          <hr />
           <div className={`${styles.synopsis} row mt-3`}>
             <h3>Synopsis</h3>
             <p>{dataDetail.synopsis}</p>

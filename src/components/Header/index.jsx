@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Link } from "react";
 import axios from "../../utils/axios";
 import { useNavigate } from "react-router-dom";
 import styles from "./Header.module.css";
@@ -9,9 +9,9 @@ function Header() {
       <header className="container">
         <nav className="navbar navbar-expand-lg navbar-light">
           <div className="container-fluid">
-            <a className="navbar-brand me-5" href="#">
+            <Link className="navbar-brand me-5" to="/">
               <img src="/assets/img/header/Vector.png" alt="tiket app" />
-            </a>
+            </Link>
             <button
               className="navbar-toggler"
               type="button"
@@ -35,9 +35,9 @@ function Header() {
                   </a>
                 </li>
                 <li className={`${styles.nav_item} nav-item`}>
-                  <a className={`${styles.nav_link} nav-link`} href="#">
+                  <Link className={`${styles.nav_link} nav-link`} to="view-all">
                     List Movie
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>

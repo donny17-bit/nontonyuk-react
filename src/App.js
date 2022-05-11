@@ -11,6 +11,8 @@ import SignUp from "./pages/SignUp";
 import Order from "./pages/Order";
 import Details from "./pages/Details";
 import ViewAll from "./pages/ViewAll";
+import ManageMovie from "./pages/ManageMovie";
+import Dashboard from "./pages/Dashboard";
 
 // import Header from "./components/HeaderSignedIn";
 
@@ -31,6 +33,9 @@ function App() {
         <Route path="/order" element={<Order />} />
         <Route path="/details" element={<Details />} />
         <Route path="/view-all" element={<ViewAll />} />
+        <Route path="/manage-movie" element={<ManageMovie />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+
         {/* <Route path="header" element={<Header />} /> */}
         {/* <Route path="footer" element={<Footer />} /> */}
       </Routes>

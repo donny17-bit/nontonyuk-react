@@ -1,0 +1,169 @@
+.upcoming__movies {
+  padding: 5% 5%;
+  background: #f5f6f8;
+}
+
+.details__title {
+  font-family: "Mulish";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 34px;
+  letter-spacing: 1px;
+
+  color: #14142b;
+}
+
+.details__genre {
+  font-family: "Mulish";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 34px;
+
+  text-align: center;
+  letter-spacing: 0.75px;
+
+  color: #4e4b66;
+}
+
+.synopsis {
+  width: 800px;
+}
+
+/* .canvas {
+    background: #ffffff;
+  } */
+
+.upcoming__movies_card_container {
+  background: #ffffff;
+
+  border-radius: 8px;
+  padding: 45px 72px;
+}
+
+.upcoming__movies_title {
+  font-family: "Mulish";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 30px;
+  letter-spacing: 0.25px;
+
+  color: #000000;
+}
+
+.upcoming__movies_link {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+
+  text-decoration: none;
+  letter-spacing: 0.15px;
+
+  color: #5f2eea;
+}
+
+.upcoming__movies_button_row {
+  white-space: nowrap;
+  overflow-x: hidden;
+  padding-bottom: 20px;
+}
+
+.upcoming__movies_button_row:hover {
+  overflow-x: auto;
+}
+
+.upcoming__movies_button_col {
+  display: inline-block;
+  margin: 0px 7px;
+}
+
+.upcoming__movies_button_col .btn_ {
+  background: white;
+  border-radius: 4px;
+
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 18px;
+
+  text-align: center;
+  color: #5f2eea;
+  border-color: #5f2eea;
+  width: 127px;
+  padding: 12px 27px;
+}
+
+.upcoming__movies_button_col .btn_:hover {
+  color: #ffffff;
+  background: #5f2eea;
+  box-shadow: 0px 8px 30px rgba(95, 46, 234, 0.3);
+}
+
+/* .upcoming__movies_card_container .row_ {
+      
+    } */
+
+.upcoming__movies_card_row {
+  white-space: nowrap;
+  overflow-x: hidden;
+}
+
+.upcoming__movies_card_row:hover {
+  overflow-x: auto;
+}
+
+.upcoming__movies_card_col {
+  display: inline-block;
+  margin: 0px 7px;
+}
+
+.upcoming__movies_card {
+  /* height: 452px; */
+  /* width: 223px; */
+  background-color: #ffffff;
+  border: 0.5px solid #dedede;
+  box-sizing: border-box;
+  border-radius: 8px;
+  padding: 32px;
+}
+
+.upcoming__movies_card .card_img_top {
+  height: 244px;
+  /* width: 159px; */
+
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.upcoming__movies_card .card_title {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
+
+  text-align: center;
+  letter-spacing: 0.15px;
+  color: #14142b;
+}
+
+.upcoming__movies_card .card_text {
+  font-family: "Open Sans", sans-serif;
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
+  letter-spacing: 0.4px;
+
+  color: #a0a3bd;
+}
+
+.upcoming__movies_card .card_footer {
+  background-color: white;
+  border-top: 0;
+  display: flex;
+}

@@ -59,10 +59,7 @@ function HeaderSignedIn() {
                   </Link>
                 </li>
                 <li className={`${styles.nav_item} nav-item`}>
-                  <Link
-                    className={`${styles.nav_link} nav-link disabled`}
-                    to="/"
-                  >
+                  <Link className={`${styles.nav_link} nav-link`} to="view-all">
                     List Movie
                   </Link>
                 </li>

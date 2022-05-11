@@ -1,0 +1,81 @@
+.movies_card {
+  /* height: 452px; */
+  /* width: 223px; */
+
+  background-color: #ffffff;
+  border: 0.5px solid #dedede;
+  box-sizing: border-box;
+  border-radius: 8px;
+  padding: 32px;
+}
+
+.movies_card .card_img_top {
+  height: 244px;
+  /* width: 159px; */
+
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.movies_card .card_title {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
+
+  text-align: center;
+  letter-spacing: 0.15px;
+  color: #14142b;
+}
+
+.movies_card .card_text {
+  font-family: "Open Sans", sans-serif;
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
+  letter-spacing: 0.4px;
+
+  color: #a0a3bd;
+}
+
+.movies_card .card_footer {
+  background-color: white;
+  border-top: 0;
+  display: flex;
+}
+
+.card_footer .btn1_ {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 18px;
+  /* height: 33px; */
+  width: 159px;
+  border-radius: 4px;
+
+  text-align: center;
+  color: #5f2eea;
+  border-color: #5f2eea;
+}
+
+.card_footer .btn2_ {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 18px;
+  /* height: 33px; */
+  width: 159px;
+  border-radius: 4px;
+
+  text-align: center;
+  color: #ed2e7e;
+  border-color: #ed2e7e;
+}
+
+.card_footer .btn_:hover {
+  background-color: #5f2eea;
+  color: white;
+}
