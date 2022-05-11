@@ -4,11 +4,13 @@
 }
 
 .canvas__1 {
-  width: 60%;
+  width: 75%;
+  /* width: 934px; */
 }
 
 .canvas__2 {
-  width: 38%;
+  width: 22%;
+  /* width: 265px; */
 }
 
 .details__title {
@@ -55,7 +57,7 @@
   background: #ffffff;
 
   border-radius: 8px;
-  padding: 45px 72px;
+  padding: 34px 23px;
 }
 
 .upcoming__movies_title {

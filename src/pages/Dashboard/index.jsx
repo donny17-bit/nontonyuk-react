@@ -44,39 +44,98 @@ function Dashboard() {
           {/* </div> */}
 
           <div className={`${styles.order__info} pb-5 mt-3`}>
-            <h1 class={styles.order__info_title}>Order Info</h1>
-            <div
-              class={`${styles.order__info_form} text-center form border mt-3`}
-            >
-              {/* <img
-                src="/assets/img/footer/Vector-1.png"
-                alt="logo_cinema"
-                className={`${styles.order__info_logo}`}
-              /> */}
-              <h3 className={`${styles.order__info_form_title} mt-3 mb-5`}>
-                CineOne21 Cinema
-              </h3>
-              <div class={` d-flex justify-content-between`}>
-                <p class={styles.order__info_data1}>Movie selected</p>
-                <p class={styles.order__info_data2}>Spider-Man: Homecoming</p>
+            <div className="row row-cols-1 g-3">
+              <div class="col dropdown d-grid">
+                <button
+                  class="btn btn-secondary dropdown-toggle"
+                  type="button"
+                  id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Select Movie
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li>
+                    <a class="dropdown-item" href="#">
+                      Action
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">
+                      Another action
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">
+                      Something else here
+                    </a>
+                  </li>
+                </ul>
               </div>
-              <div class={` d-flex justify-content-between`}>
-                <p class={styles.order__info_data1}>Tuesday, 07 July 2020</p>
-                <p class={styles.order__info_data2}>02:00</p>
+              <div class="col dropdown d-grid">
+                <button
+                  class="btn btn-secondary dropdown-toggle"
+                  type="button"
+                  id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Select Movie
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li>
+                    <a class="dropdown-item" href="#">
+                      Action
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">
+                      Another action
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">
+                      Something else here
+                    </a>
+                  </li>
+                </ul>
               </div>
-              <div class={` d-flex justify-content-between`}>
-                <p class={styles.order__info_data1}>One ticket price</p>
-                <p class={styles.order__info_data2}>$10</p>
+              <div class="col dropdown d-grid">
+                <button
+                  class="btn btn-secondary dropdown-toggle"
+                  type="button"
+                  id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Select Movie
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li>
+                    <a class="dropdown-item" href="#">
+                      Action
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">
+                      Another action
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">
+                      Something else here
+                    </a>
+                  </li>
+                </ul>
               </div>
-              <div class={` d-flex justify-content-between`}>
-                <p class={styles.order__info_data1}>Seat choosed</p>
-                <p class={styles.order__info_data2}>C4, C5, C6</p>
+            </div>
+            <div className="row row-cols-1 mt-3">
+              <div className="col d-grid mt-3">
+                <button className="btn btn-outline-primary">Filter</button>
               </div>
-              <div
-                class={` mt-3 pt-4 d-flex border-top justify-content-between`}
-              >
-                <p class={styles.order__info_total1}>Total Payment</p>
-                <p class={styles.order__info_total2}>$30</p>
+              <div className="col d-grid mt-3">
+                <button className="btn btn-outline-primary">Reset</button>
               </div>
             </div>
           </div>
