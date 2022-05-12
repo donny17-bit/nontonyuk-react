@@ -36,8 +36,8 @@ axios.interceptors.response.use(
       alert(error.response.data.msg);
       if (error.response.data.msg !== "jwt expired") {
         // alert(error.response.data.msg);
-        localStorage.clear();
-        window.location.href = "/basic/login";
+        // localStorage.clear();
+        // window.location.href = "/login";
       } else {
         const refreshToken = localStorage.getItem("refreshToken");
         // console.log(refreshToken);
@@ -62,7 +62,7 @@ axios.interceptors.response.use(
           .catch((err) => {
             // alert(error.response.data.msg);
             localStorage.clear();
-            window.location.href = "/basic/login";
+            window.location.href = "/login";
           });
       }
     }

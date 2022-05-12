@@ -15,6 +15,7 @@ import ManageMovie from "./pages/ManageMovie";
 import Dashboard from "./pages/Dashboard";
 
 // routing private/public
+// routingnya ntar aja
 import PrivateRoute from "./helpers/route/privateRoute";
 import PublicRoute from "./helpers/route/publicRoute";
 
@@ -29,19 +30,20 @@ function App() {
         <Route path="basic/login" element={<BasicLogin />} />
         <Route path="basic/order" element={<BasicOrder />} />
 
-        {/* <Route element={<PublicRoute restricted={false} />}>
+        {/* <Route element={<PublicRoute isAdmin={true}/>}> */}
+        {/* <Route path="basic/react" element={<BasicReact />} />
+          <Route path="/" element={<Home />} /> */}
+        <Route path="/login" element={<Login />} />
+        {/* </Route> */}
+        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Home />} />
+
+        {/* <Route element={<PrivateRoute />}>
           <Route path="basic/react" element={<BasicReact />} />
-          <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
         </Route> */}
 
-        <Route element={<PrivateRoute />}>
-          <Route path="basic/react" element={<BasicReact />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-        </Route>
-
-        <Route path="login" element={<Login />} />
+        {/* <Route path="login" element={<Login />} /> */}
 
         <Route path="/payment" element={<Payment />} />
         <Route path="/sign-up" element={<SignUp />} />
