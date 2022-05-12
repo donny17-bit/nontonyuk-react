@@ -8,7 +8,11 @@ import styles from "./ManageMovie.module.css";
 import Cards from "../../components/Cards/index";
 import DetailCardAdmin from "../../components/DetailCardAdmin/index";
 
+import { useSelector, useDispatch } from "react-redux";
+import { reset } from "../../stores/actions/manageMovie.js";
+
 function ManageMovie() {
+  //without redux
   const dataDetail = {
     image: "nontonYuk/movies/z4c88xkk5jnjajwgrlxb.png",
     category: "family, gore",
@@ -20,6 +24,11 @@ function ManageMovie() {
     synopsis:
       "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor inventore fugiat sint? Recusandae vero esse architecto deserunt officia non numquam, quibusdam, quia qui ex quisquam culpa ratione eius quae dolor.",
   };
+
+  // With redux
+  const manageMovie = useSelector((state) => state.manageMovie);
+  const dispatch = useDispatch();
+  console.log(manageMovie);
 
   return (
     <>
@@ -144,7 +153,12 @@ function ManageMovie() {
           </div>
           <div className="row justify-content-end mt-2">
             <div className="d-grid col-2">
-              <button className="btn btn-outline-primary">Reset</button>
+              <button
+                className="btn btn-outline-primary"
+                onClick={() => dispatch(reset())}
+              >
+                Reset
+              </button>
             </div>
             <div className="d-grid col-2">
               <button className="btn btn-outline-primary">Submit</button>

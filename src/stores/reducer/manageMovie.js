@@ -11,12 +11,16 @@ const initialState = {
 
 const manageMovie = (state = initialState, action) => {
   switch (action.type) {
-    // case value:
+    case "RESET": {
+      console.log("RESET SUKSES");
+      return {
+        ...state,
+      };
+    }
 
-    //     break;
-
-    default:
+    default: {
       return state;
+    }
   }
 };
 
