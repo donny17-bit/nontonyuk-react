@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "../../utils/axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Header from "../../components/Header/index";
 import HeaderSignedIn from "../../components/HeaderSignedIn/index";
 import Footer from "../../components/Footer/index";
 import styles from "./ManageMovie.module.css";
 import Cards from "../../components/Cards/index";
+import Cards2 from "../../components/Cards2/index";
 import DetailCardAdmin from "../../components/DetailCardAdmin/index";
 
 import { useSelector, useDispatch } from "react-redux";
-import { postMovie } from "../../stores/actions/manageMovie.js";
+import { getMovie, postMovie } from "../../stores/actions/manageMovie.js";
 
 function ManageMovie() {
   const [form, setForm] = useState({
@@ -23,7 +24,15 @@ function ManageMovie() {
     image: null,
   });
 
+  const [searchParams] = useSearchParams();
+  const params = Object.fromEntries([...searchParams]);
+
+  const limit = 6;
+  const [page, setPage] = useState(params.page ? params.page : "1");
   const [image, setImage] = useState();
+  const [isUpdate, setIsUpdate] = useState(false);
+  const [pageInfo, setPageInfo] = useState({});
+  const [data, setData] = useState([]);
 
   const [duration1, setDuration1] = useState({
     durationHour: "",
@@ -33,11 +42,25 @@ function ManageMovie() {
   const manageMovie = useSelector((state) => state.manageMovie);
   const dispatch = useDispatch();
 
+  const getdataMovie = async () => {
+    try {
+      // PANGGIL ACTION
+      const resultMovie = await dispatch(getMovie(page, limit));
+
+      setData(resultMovie.value.data.data);
+      setPageInfo(resultMovie.value.data.pagination);
+      console.log(resultMovie);
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
   const handleChangeDuration = (event) => {
     // msh bug kelebihan 1 angka
     const { name, value } = event.target;
     setDuration1({ ...duration1, [name]: value });
 
+    // handleChangeForm(event);
     // setForm({
     //   ...form,
     //   duration: `${duration1.durationHour}H ${duration1.durationMinute}`,
@@ -57,11 +80,26 @@ function ManageMovie() {
       });
     }
   };
-  console.log(image);
+  console.log(form);
 
   const handleSubmit = async (event) => {
     try {
       event.preventDefault();
+      // console.log(form);
+      const formData = new FormData();
+      for (const data in form) {
+        formData.append(data, form[data]);
+      }
+
+      // untuk mengecek data di formData
+      for (const data of formData.entries()) {
+        console.log(data[0] + ", " + data[1]);
+        // name, "Bagus"
+      }
+      dispatch(postMovie(formData));
+      getdataMovie();
+      // setImage(null);
+      resetForm();
       setImage(null);
 
       // const resultMovie = await dispatch(postMovie(form));
@@ -77,6 +115,19 @@ function ManageMovie() {
       // setMessage(error.response.data.msg);
       // setIsError(true);
     }
+  };
+
+  const resetForm = () => {
+    setForm({
+      name: "",
+      category: "",
+      director: "",
+      cast: "",
+      releaseDate: "",
+      duration: "",
+      synopsis: "",
+      image: null,
+    });
   };
 
   //without redux
@@ -96,6 +147,10 @@ function ManageMovie() {
   // const manageMovie = useSelector((state) => state.manageMovie);
   // const dispatch = useDispatch();
 
+  useEffect(() => {
+    getdataMovie();
+  }, []);
+
   return (
     <>
       {/* harus sudah sign in dlu headernya */}
@@ -111,15 +166,12 @@ function ManageMovie() {
         >
           <div className="row">
             <div className="col-3">
-              <input
-                type="file"
-                name="image"
-                onChange={(event) => handleChangeForm(event)}
-              />
+              {/* belum pakai redux */}
+              {isUpdate ? <Cards data={form} /> : <Cards2 data={{ image }} />}
               {/* {isUpdate ? <Cards data={form} /> : <Cards data={image}
               } */}
-              {image && <img src={image} alt="Image Movie Preview" />}
-              <Cards data={form} />
+              {/* {image && <img src={image} alt="Image Movie Preview" />} */}
+              {/* <Cards data={form} /> */}
             </div>
             <div className="col">
               <div className="row">
@@ -212,6 +264,15 @@ function ManageMovie() {
                   />
                 </div>
               </div>
+              <div className="row mt-2">
+                <div className="col">
+                  <input
+                    type="file"
+                    name="image"
+                    onChange={(event) => handleChangeForm(event)}
+                  />
+                </div>
+              </div>
             </div>
           </div>
           <div className="row mt-3">
@@ -254,21 +315,14 @@ function ManageMovie() {
         </div>
         <div className={`${styles.upcoming__movies_card_container} pb-5 mt-3`}>
           <div className="row border mt-4 row-cols-4 g-4">
-            <div className="col">
-              <DetailCardAdmin data={dataDetail} />
-            </div>
-            <div className="col">
-              <DetailCardAdmin data={dataDetail} />
-            </div>
-            <div className="col">
-              <DetailCardAdmin data={dataDetail} />
-            </div>
-            <div className="col">
-              <DetailCardAdmin data={dataDetail} />
-            </div>
-            <div className="col">
-              <DetailCardAdmin data={dataDetail} />
-            </div>
+            {data.map((item) => (
+              <div
+                className={`${styles.now__showing_card_col} col`}
+                key={item.id}
+              >
+                <DetailCardAdmin data={item} />
+              </div>
+            ))}
           </div>
         </div>
       </section>
