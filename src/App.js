@@ -12,6 +12,7 @@ import Order from "./pages/Order";
 import Details from "./pages/Details";
 import ViewAll from "./pages/ViewAll";
 import ManageMovie from "./pages/ManageMovie";
+import ManageSchedule from "./pages/ManageSchedule";
 import Dashboard from "./pages/Dashboard";
 
 // routing private/public
@@ -51,6 +52,7 @@ function App() {
         <Route path="/details" element={<Details />} />
         <Route path="/view-all" element={<ViewAll />} />
         <Route path="/manage-movie" element={<ManageMovie />} />
+        <Route path="/manage-schedule" element={<ManageSchedule />} />
         <Route path="/dashboard" element={<Dashboard />} />
 
         {/* <Route path="header" element={<Header />} /> */}

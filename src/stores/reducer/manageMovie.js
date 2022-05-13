@@ -12,7 +12,12 @@ const initialState = {
 const manageMovie = (state = initialState, action) => {
   switch (action.type) {
     case "RESET": {
-      console.log("RESET SUKSES");
+      return {
+        ...state,
+      };
+    }
+
+    case "SUBMIT": {
       return {
         ...state,
       };

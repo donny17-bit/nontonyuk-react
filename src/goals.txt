@@ -1,2 +1,4 @@
 slicing tiket result, dan dashboard --optional 
 manage movie, profile page, 
+
+hoc high order component

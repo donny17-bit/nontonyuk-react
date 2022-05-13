@@ -4,14 +4,15 @@ import { Link, useNavigate } from "react-router-dom";
 import Header from "../../components/Header/index";
 import HeaderSignedIn from "../../components/HeaderSignedIn/index";
 import Footer from "../../components/Footer/index";
-import styles from "./ManageMovie.module.css";
+import styles from "./ManageSchedule.module.css";
 import Cards from "../../components/Cards/index";
 import DetailCardAdmin from "../../components/DetailCardAdmin/index";
+import BookingCardAdmin from "../../components/BookingCardAdmin/index";
 
 import { useSelector, useDispatch } from "react-redux";
 import { reset } from "../../stores/actions/manageMovie.js";
 
-function ManageMovie() {
+function ManageSchedule() {
   //without redux
   const dataDetail = {
     image: "nontonYuk/movies/z4c88xkk5jnjajwgrlxb.png",
@@ -35,7 +36,7 @@ function ManageMovie() {
       {localStorage.getItem("token") ? <HeaderSignedIn /> : <Header />}
       <section className={`${styles.upcoming__movies}`}>
         <div className="d-flex justify-content-between">
-          <label className={styles.upcoming__movies_title}>Form Movie</label>
+          <label className={styles.upcoming__movies_title}>Form Schedule</label>
         </div>
 
         <form className={`${styles.upcoming__movies_card_container} pb-5 mt-3`}>
@@ -45,33 +46,81 @@ function ManageMovie() {
             </div>
             <div className="col">
               <div className="row">
-                <div className="col mb-3 ">
-                  <label className="form-label">Movie Name</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                    placeholder="Enter movie name here"
-                  />
+                <div className="col mb-3">
+                  <label className="form-label">Movie</label>
+                  <div class="dropdown d-grid">
+                    <button
+                      class="btn btn-outline-secondary dropdown-toggle text-start"
+                      type="button"
+                      id="dropdownMenuButton1"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      Choose movie
+                    </button>
+                    <ul
+                      class="dropdown-menu"
+                      aria-labelledby="dropdownMenuButton1"
+                    >
+                      <li>
+                        <a class="dropdown-item" href="#">
+                          Action
+                        </a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#">
+                          Another action
+                        </a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#">
+                          Something else here bkasjdahsdhashdbjaskdjab
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
                 <div className="col mb-3 ">
                   <label for="exampleInputEmail1" class="form-label">
-                    Category
+                    Location
                   </label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                    placeholder="Movie category"
-                  />
+                  <div class="dropdown d-grid">
+                    <button
+                      class="btn btn-outline-secondary dropdown-toggle text-start"
+                      type="button"
+                      id="dropdownMenuButton1"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      Choose location
+                    </button>
+                    <ul
+                      class="dropdown-menu"
+                      aria-labelledby="dropdownMenuButton1"
+                    >
+                      <li>
+                        <a class="dropdown-item" href="#">
+                          Action
+                        </a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#">
+                          Another action
+                        </a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#">
+                          Something else here bkasjdahsdhashdbjaskdjab
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
               <div className="row">
-                <div className="col mb-3 ">
+                <div className="col-6 mb-3 ">
                   <label for="exampleInputEmail1" class="form-label">
-                    Director
+                    Price
                   </label>
                   <input
                     type="text"
@@ -83,67 +132,53 @@ function ManageMovie() {
                 </div>
                 <div className="col mb-3 ">
                   <label for="exampleInputEmail1" class="form-label">
-                    Cast
+                    Date start
                   </label>
                   <input
-                    type="text"
+                    type="date"
                     class="form-control"
                     id="exampleInputEmail1"
                     aria-describedby="emailHelp"
-                    placeholder="Casting"
+                  />
+                </div>
+                <div className="col mb-3 ">
+                  <label for="exampleInputEmail1" class="form-label">
+                    Date end
+                  </label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="exampleInputEmail1"
+                    aria-describedby="emailHelp"
                   />
                 </div>
               </div>
               <div className="row">
-                <div className="col-6 mb-3 ">
+                <div className="col mb-3">
                   <label for="exampleInputEmail1" class="form-label">
-                    Release Date
+                    Premiere
                   </label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                    placeholder="Release date"
-                  />
+                  <br />
+                  <button className="btn btn-outline-primary ">
+                    premiere logo
+                  </button>
+                  <button className="btn btn-outline-primary ">
+                    premiere logo
+                  </button>
+                  <button className="btn btn-outline-primary ">
+                    premiere logo
+                  </button>
                 </div>
                 <div className="col mb-3 ">
                   <label for="exampleInputEmail1" class="form-label">
-                    Duration Hour
+                    Time
                   </label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                    placeholder="Duration"
-                  />
-                </div>
-                <div className="col mb-3 ">
-                  <label for="exampleInputEmail1" class="form-label">
-                    Duration Minute
-                  </label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                    placeholder="Duration"
-                  />
+                  <br />
+                  <button className="btn btn-outline-primary ">
+                    plus logo
+                  </button>
                 </div>
               </div>
-            </div>
-          </div>
-          <div className="row mt-3">
-            <div className="col mb-3 ">
-              <label className="form-label">Synopsis</label>
-              <input
-                type="text"
-                class="form-control"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
-                placeholder="Enter movie name here"
-              />
             </div>
           </div>
           <div className="row justify-content-end mt-2">
@@ -173,24 +208,24 @@ function ManageMovie() {
         </form>
 
         <div className="d-flex justify-content-between mt-5">
-          <label className={styles.upcoming__movies_title}>Data Movie</label>
+          <label className={styles.upcoming__movies_title}>Data Schedule</label>
         </div>
         <div className={`${styles.upcoming__movies_card_container} pb-5 mt-3`}>
-          <div className="row border mt-4 row-cols-4 g-4">
+          <div className="row mt-4 row-cols-3 g-4">
             <div className="col">
-              <DetailCardAdmin data={dataDetail} />
+              <BookingCardAdmin />
             </div>
             <div className="col">
-              <DetailCardAdmin data={dataDetail} />
+              <BookingCardAdmin />
             </div>
             <div className="col">
-              <DetailCardAdmin data={dataDetail} />
+              <BookingCardAdmin />
             </div>
             <div className="col">
-              <DetailCardAdmin data={dataDetail} />
+              <BookingCardAdmin />
             </div>
             <div className="col">
-              <DetailCardAdmin data={dataDetail} />
+              <BookingCardAdmin />
             </div>
           </div>
         </div>
@@ -200,4 +235,4 @@ function ManageMovie() {
   );
 }
 
-export default ManageMovie;
+export default ManageSchedule;
