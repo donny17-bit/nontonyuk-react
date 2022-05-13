@@ -10,7 +10,7 @@ import DetailCardAdmin from "../../components/DetailCardAdmin/index";
 import BookingCardAdmin from "../../components/BookingCardAdmin/index";
 
 import { useSelector, useDispatch } from "react-redux";
-import { reset } from "../../stores/actions/manageMovie.js";
+// import { reset } from "../../stores/actions/manageMovie.js";
 
 function ManageSchedule() {
   //without redux
@@ -185,7 +185,7 @@ function ManageSchedule() {
             <div className="d-grid col-2">
               <button
                 className="btn btn-outline-primary"
-                onClick={() => dispatch(reset())}
+                // onClick={() => dispatch(reset())}
               >
                 Reset
               </button>

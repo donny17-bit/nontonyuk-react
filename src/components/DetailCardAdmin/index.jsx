@@ -31,7 +31,7 @@ function DetailCardAdmin(props) {
               onClick={handleButton}
               className={`${styles.btn1_} btn btn-outline-primary`}
             >
-              Details
+              Update
             </button>
           </div>
           <div className="col border">

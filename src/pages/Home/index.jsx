@@ -8,6 +8,9 @@ import Footer from "../../components/Footer/index";
 import Cards from "../../components/Cards/index";
 import DetailCard from "../../components/DetailCard/index";
 
+import { useSelector, useDispatch } from "react-redux";
+import { getMovie } from "../../stores/actions/manageMovie.js";
+
 function Home() {
   document.title = "Tickitz | Home";
 
@@ -32,14 +35,18 @@ function Home() {
   const [page, setPage] = useState(1);
   const [dataShowing, setDataShowing] = useState([]);
   const [dataRelease, setDataRelease] = useState([]);
-  // const [pageInfo, setPageInfo] = useState({});
+  const [pageInfo, setPageInfo] = useState({});
+
+  const manageMovie = useSelector((state) => state.manageMovie);
+  const dispatch = useDispatch();
 
   const getShowingMovie = async () => {
     try {
-      const resultMovie = await axios.get(`movie?page=${page}&limit=${limit}`);
+      // include redux
+      const resultMovie = await dispatch(getMovie(page, limit));
 
-      setDataShowing(resultMovie.data.data);
-      // setPageInfo(resultMovie.data.pagination);
+      setDataShowing(resultMovie.value.data.data);
+      setPageInfo(resultMovie.value.data.pagination);
     } catch (error) {
       console.log(error.response);
     }
@@ -62,8 +69,8 @@ function Home() {
     setRelease(item);
   };
 
-  console.log(release);
-  console.log(dataRelease);
+  // console.log(release);
+  // console.log(dataRelease);
 
   useEffect(() => {
     getReleaseMovie();
