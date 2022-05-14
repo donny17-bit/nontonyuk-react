@@ -9,30 +9,38 @@ import Cards from "../../components/Cards/index";
 import Cards2 from "../../components/Cards2/index";
 import DetailCardAdmin from "../../components/DetailCardAdmin/index";
 
+// - update harus semua form di isi, kalau input gambar kosong msh error
+
 import { useSelector, useDispatch } from "react-redux";
-import { getMovie, postMovie } from "../../stores/actions/manageMovie.js";
+import {
+  getMovie,
+  postMovie,
+  updateMovie,
+} from "../../stores/actions/manageMovie.js";
 
 function ManageMovie() {
   const [form, setForm] = useState({
     name: "",
     category: "",
+    image: null,
+    releaseDate: "",
     director: "",
     cast: "",
-    releaseDate: "",
     duration: "",
     synopsis: "",
-    image: null,
   });
 
   const [searchParams] = useSearchParams();
   const params = Object.fromEntries([...searchParams]);
 
-  const limit = 6;
-  const [page, setPage] = useState(params.page ? params.page : "1");
+  const limit = 12;
+  const page = 1;
+  // const [page, setPage] = useState(params.page ? params.page : "1");
   const [image, setImage] = useState();
   const [isUpdate, setIsUpdate] = useState(false);
-  const [pageInfo, setPageInfo] = useState({});
-  const [data, setData] = useState([]);
+  const [idMovie, setIdMovie] = useState("");
+  // const [pageInfo, setPageInfo] = useState({});
+  // const [data, setData] = useState([]);
 
   const [duration1, setDuration1] = useState({
     durationHour: "",
@@ -42,14 +50,12 @@ function ManageMovie() {
   const manageMovie = useSelector((state) => state.manageMovie);
   const dispatch = useDispatch();
 
+  console.log(manageMovie.data);
+
   const getdataMovie = async () => {
     try {
       // PANGGIL ACTION
-      const resultMovie = await dispatch(getMovie(page, limit));
-
-      setData(resultMovie.value.data.data);
-      setPageInfo(resultMovie.value.data.pagination);
-      console.log(resultMovie);
+      await dispatch(getMovie(page, limit));
     } catch (error) {
       console.log(error.response);
     }
@@ -75,7 +81,7 @@ function ManageMovie() {
     } else {
       setForm({
         ...form,
-        duration: `${duration1.durationHour}Hour(s) ${duration1.durationMinute}Minute(s)`,
+        duration: `${duration1.durationHour}H ${duration1.durationMinute}M`,
         [name]: value,
       });
     }
@@ -83,38 +89,86 @@ function ManageMovie() {
   console.log(form);
 
   const handleSubmit = async (event) => {
-    try {
-      event.preventDefault();
-      // console.log(form);
-      const formData = new FormData();
-      for (const data in form) {
-        formData.append(data, form[data]);
-      }
-
-      // untuk mengecek data di formData
-      for (const data of formData.entries()) {
-        console.log(data[0] + ", " + data[1]);
-        // name, "Bagus"
-      }
-      dispatch(postMovie(formData));
-      getdataMovie();
-      // setImage(null);
-      resetForm();
-      setImage(null);
-
-      // const resultMovie = await dispatch(postMovie(form));
-
-      // await axios.post("auth/register", form);
-      // console.log(form);
-      // console.log(resultMovie);
-      // //   output = keadaan user diinfokan kalau sudah login
-      alert("Success post movie");
-      // navigate("/login");
-    } catch (error) {
-      alert(error.response.data.msg);
-      // setMessage(error.response.data.msg);
-      // setIsError(true);
+    event.preventDefault();
+    const formData = new FormData();
+    for (const dataForm in form) {
+      formData.append(dataForm, form[dataForm]);
     }
+
+    // untuk mengecek data di formData
+    // for (const data of formData.entries()) {
+    //   console.log(data[0] + ", " + data[1]);
+    //   // name, "Bagus"
+    // }
+
+    await dispatch(postMovie(formData));
+    getdataMovie();
+    resetForm();
+    setImage(null);
+
+    // //   output = keadaan user diinfokan kalau sudah login
+    alert("Success post movie");
+  };
+
+  const setUpdate = (data) => {
+    const {
+      id,
+      name,
+      category,
+      image,
+      releaseDate,
+      director,
+      cast,
+      duration,
+      synopsis,
+    } = data;
+    // const image1 = image.split("/");
+
+    setForm({
+      ...form,
+      name,
+      category,
+      // image: image1[2],
+      image,
+      releaseDate: releaseDate.substring(0, 10),
+      director,
+      cast,
+      duration,
+      synopsis,
+    });
+
+    const duration2 = duration.split(" ");
+    setDuration1({ durationHour: duration2[0], durationMinute: duration2[1] });
+    setIsUpdate(true);
+    setIdMovie(id);
+  };
+
+  const handleUpdate = async (event) => {
+    event.preventDefault();
+
+    // console.log(typeof form.image == "object");
+    if (typeof form.image == "object") {
+      console.log(true);
+      const formData = new FormData();
+      for (const dataForm in form) {
+        formData.append(dataForm, form[dataForm]);
+      }
+
+      await dispatch(updateMovie(idMovie, formData));
+    } else {
+      console.log(false);
+      console.log(form);
+      await dispatch(updateMovie(idMovie, form));
+    }
+
+    // await dispatch(updateMovie(idMovie, form));
+    setIsUpdate(false);
+    resetForm();
+    setImage(null);
+  };
+
+  const handleDelete = () => {
+    console.log(true);
   };
 
   const resetForm = () => {
@@ -128,19 +182,6 @@ function ManageMovie() {
       synopsis: "",
       image: null,
     });
-  };
-
-  //without redux
-  const dataDetail = {
-    image: "nontonYuk/movies/z4c88xkk5jnjajwgrlxb.png",
-    category: "family, gore",
-    name: "LUCA",
-    releaseDate: "20-11-2022",
-    director: "graham bell",
-    duration: "2h 30m",
-    cast: "graham bell, lucas graham",
-    synopsis:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor inventore fugiat sint? Recusandae vero esse architecto deserunt officia non numquam, quibusdam, quia qui ex quisquam culpa ratione eius quae dolor.",
   };
 
   // With redux
@@ -162,16 +203,14 @@ function ManageMovie() {
 
         <form
           className={`${styles.upcoming__movies_card_container} pb-5 mt-3`}
-          onSubmit={handleSubmit}
+          onSubmit={isUpdate ? handleUpdate : handleSubmit}
         >
           <div className="row">
             <div className="col-3">
               {/* belum pakai redux */}
-              {isUpdate ? <Cards data={form} /> : <Cards2 data={{ image }} />}
-              {/* {isUpdate ? <Cards data={form} /> : <Cards data={image}
-              } */}
-              {/* {image && <img src={image} alt="Image Movie Preview" />} */}
-              {/* <Cards data={form} /> */}
+              {image ? <Cards2 data={{ image }} /> : <Cards data={form} />}
+              {/* {isUpdate ? <Cards data={form} /> : <Cards2 data={{ image }} />} */}
+              {/* {image && <img src={image} alt="card-img" />} */}
             </div>
             <div className="col">
               <div className="row">
@@ -183,6 +222,7 @@ function ManageMovie() {
                     class="form-control"
                     onChange={(event) => handleChangeForm(event)}
                     placeholder="Enter movie name here"
+                    value={form.name}
                   />
                 </div>
                 <div className="col mb-3 ">
@@ -195,6 +235,7 @@ function ManageMovie() {
                     class="form-control"
                     onChange={(event) => handleChangeForm(event)}
                     placeholder="Movie category"
+                    value={form.category}
                   />
                 </div>
               </div>
@@ -209,6 +250,7 @@ function ManageMovie() {
                     class="form-control"
                     onChange={(event) => handleChangeForm(event)}
                     placeholder="Directed by.."
+                    value={form.director}
                   />
                 </div>
                 <div className="col mb-3 ">
@@ -221,6 +263,7 @@ function ManageMovie() {
                     class="form-control"
                     onChange={(event) => handleChangeForm(event)}
                     placeholder="Casting"
+                    value={form.cast}
                   />
                 </div>
               </div>
@@ -235,6 +278,7 @@ function ManageMovie() {
                     class="form-control"
                     onChange={(event) => handleChangeForm(event)}
                     placeholder="Release date"
+                    value={form.releaseDate}
                   />
                 </div>
                 <div className="col mb-3 ">
@@ -248,6 +292,7 @@ function ManageMovie() {
                     onChange={(event) => handleChangeDuration(event)}
                     // onChange={(event) => handleChangeForm(event)}
                     placeholder="Duration"
+                    value={duration1.durationHour}
                   />
                 </div>
                 <div className="col mb-3 ">
@@ -261,14 +306,19 @@ function ManageMovie() {
                     onChange={(event) => handleChangeDuration(event)}
                     // onChange={(event) => handleChangeForm(event)}
                     placeholder="Duration"
+                    value={duration1.durationMinute}
                   />
                 </div>
               </div>
-              <div className="row mt-2">
+              <div className="row">
                 <div className="col">
+                  <label for="exampleInputEmail1" class="form-label">
+                    Image
+                  </label>
                   <input
                     type="file"
                     name="image"
+                    class="form-control"
                     onChange={(event) => handleChangeForm(event)}
                   />
                 </div>
@@ -284,43 +334,44 @@ function ManageMovie() {
                 class="form-control"
                 onChange={(event) => handleChangeForm(event)}
                 placeholder="Enter movie name here"
+                value={form.synopsis}
               />
             </div>
           </div>
           <div className="row justify-content-end mt-2">
             <div className="d-grid col-2">
-              <button className="btn btn-outline-primary">Reset</button>
+              <button
+                className="btn btn-outline-primary"
+                type="reset"
+                onClick={() => resetForm()}
+              >
+                Reset
+              </button>
             </div>
             <div className="d-grid col-2">
               <button className="btn btn-outline-primary" type="submit">
-                Submit
+                {isUpdate ? "Update" : "Submit"}
               </button>
             </div>
           </div>
-
-          {/* <div className={`${styles.upcoming__movies_card_row} row-cols-4`}>
-            {dataRelease.map((item) => (
-              <div
-                className={`${styles.upcoming__movies_card_col}`}
-                key={item.id}
-              >
-                {<DetailCard data={item} />}
-              </div>
-            ))}
-          </div> */}
         </form>
 
         <div className="d-flex justify-content-between mt-5">
           <label className={styles.upcoming__movies_title}>Data Movie</label>
         </div>
         <div className={`${styles.upcoming__movies_card_container} pb-5 mt-3`}>
-          <div className="row border mt-4 row-cols-4 g-4">
-            {data.map((item) => (
+          <div className="row mt-4 row-cols-4 g-4">
+            {manageMovie.data.map((item) => (
               <div
                 className={`${styles.now__showing_card_col} col`}
                 key={item.id}
               >
-                <DetailCardAdmin data={item} />
+                <DetailCardAdmin
+                  data={item}
+                  setUpdate={setUpdate}
+                  // handleUpdate={handleUpdate}
+                  handleDelete={handleDelete}
+                />
               </div>
             ))}
           </div>

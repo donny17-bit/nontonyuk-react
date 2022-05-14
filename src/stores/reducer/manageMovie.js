@@ -4,15 +4,6 @@ const initialState = {
   data: [],
   pageInfo: {},
   msg: "",
-
-  // name: "",
-  // category: "",
-  // director: "",
-  // cast: "",
-  // releaseDate: "",
-  // duration: "",
-  // synopsis: "",
-  // image: null,
 };
 
 const manageMovie = (state = initialState, action) => {
@@ -44,17 +35,58 @@ const manageMovie = (state = initialState, action) => {
         msg: action.payload.response.data.msg,
       };
     }
-    // case "RESET": {
-    //   return {
-    //     ...state,
-    //   };
-    // }
 
-    // case "SUBMIT": {
-    //   return {
-    //     ...state,
-    //   };
-    // }
+    case "POST_MOVIE_PENDING": {
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+      };
+    }
+
+    case "POST_MOVIE_FULFILLED": {
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        msg: action.payload.data.msg,
+      };
+    }
+
+    case "POST_MOVIE_REJECTED": {
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        msg: action.payload.response.data.msg,
+      };
+    }
+
+    case "UPDATE_MOVIE_PENDING": {
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+      };
+    }
+
+    case "UPDATE_MOVIE_FULFILLED": {
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        // msg: action.payload.data.msg,
+      };
+    }
+
+    case "UPDATE_MOVIE_REJECTED": {
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        // msg: action.payload.response.data.msg,
+      };
+    }
 
     default: {
       return state;

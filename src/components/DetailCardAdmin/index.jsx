@@ -6,13 +6,6 @@ import { useNavigate } from "react-router-dom";
 function DetailCardAdmin(props) {
   const { id, name, image, category } = props.data;
 
-  const navigate = useNavigate();
-
-  const handleButton = () => {
-    localStorage.setItem("IdMovie", id);
-    navigate("/details");
-  };
-
   return (
     <div className={`card h-100 ${styles.movies_card}`}>
       <img
@@ -28,15 +21,15 @@ function DetailCardAdmin(props) {
         <div className="row text-center g-2">
           <div className="col">
             <button
-              onClick={handleButton}
+              onClick={() => props.setUpdate(props.data)}
               className={`${styles.btn1_} btn btn-outline-primary`}
             >
               Update
             </button>
           </div>
-          <div className="col border">
+          <div className="col">
             <button
-              onClick={handleButton}
+              onClick={() => props.handleDelete(id)}
               className={`${styles.btn2_} btn btn-outline-danger`}
             >
               Delete
