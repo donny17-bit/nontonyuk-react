@@ -30,6 +30,8 @@ export const updateMovie = (id, form) => {
 export const deleteMovie = (id) => {
   return {
     type: "DELETE_MOVIE",
-    payload: axios.patch(`movie/${id}`),
+    payload: axios.delete(`movie/${id}`, {
+      headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
+    }),
   };
 };

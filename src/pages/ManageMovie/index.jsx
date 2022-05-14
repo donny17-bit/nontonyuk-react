@@ -16,6 +16,7 @@ import {
   getMovie,
   postMovie,
   updateMovie,
+  deleteMovie,
 } from "../../stores/actions/manageMovie.js";
 
 function ManageMovie() {
@@ -50,15 +51,11 @@ function ManageMovie() {
   const manageMovie = useSelector((state) => state.manageMovie);
   const dispatch = useDispatch();
 
-  console.log(manageMovie.data);
+  // console.log(manageMovie.data);
 
   const getdataMovie = async () => {
-    try {
-      // PANGGIL ACTION
-      await dispatch(getMovie(page, limit));
-    } catch (error) {
-      console.log(error.response);
-    }
+    // PANGGIL ACTION
+    await dispatch(getMovie(page, limit));
   };
 
   const handleChangeDuration = (event) => {
@@ -86,7 +83,7 @@ function ManageMovie() {
       });
     }
   };
-  console.log(form);
+  // console.log(form);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -165,10 +162,20 @@ function ManageMovie() {
     setIsUpdate(false);
     resetForm();
     setImage(null);
+    getdataMovie();
+    alert("Success update movie");
   };
 
-  const handleDelete = () => {
-    console.log(true);
+  const setDelete = (id) => {
+    console.log(id);
+  };
+
+  const handleDelete = async (data) => {
+    // event.preventDefault();
+    console.log(data);
+    // await dispatch(deleteMovie(id));
+    // getdataMovie();
+    alert("Success delete movie");
   };
 
   const resetForm = () => {
@@ -183,10 +190,6 @@ function ManageMovie() {
       image: null,
     });
   };
-
-  // With redux
-  // const manageMovie = useSelector((state) => state.manageMovie);
-  // const dispatch = useDispatch();
 
   useEffect(() => {
     getdataMovie();
@@ -369,8 +372,9 @@ function ManageMovie() {
                 <DetailCardAdmin
                   data={item}
                   setUpdate={setUpdate}
-                  // handleUpdate={handleUpdate}
-                  handleDelete={handleDelete}
+                  setDelete={setDelete}
+
+                  // handleDelete={handleDelete}
                 />
               </div>
             ))}
