@@ -167,3 +167,30 @@
   border-top: 0;
   display: flex;
 }
+
+.btn_premiere1 {
+  background: url("../../../public/assets/img/card/CineOne21.png") no-repeat
+    scroll 0 0 transparent;
+  background-size: contain;
+  cursor: pointer;
+
+  width: 100px;
+}
+
+.btn_premiere2 {
+  background: url("../../../public/assets/img/card/ebv.id.png");
+  background-size: contain;
+  cursor: pointer;
+
+  /* padding-bottom: 2px; */
+  width: 100px;
+}
+
+.btn_premiere3 {
+  background: url("../../../public/assets/img/card/hiflix.png") no-repeat scroll
+    0 0 transparent;
+  background-size: contain;
+  cursor: pointer;
+
+  width: 100px;
+}

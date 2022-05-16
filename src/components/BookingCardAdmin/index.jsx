@@ -3,9 +3,10 @@ import axios from "../../utils/axios";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./BookingCardAdmin.module.css";
 
-function BookingCardAdmin() {
+function BookingCardAdmin(props) {
+  console.log(props);
+
   return (
-    // <div className="col">
     <div className={`card ${styles.booking_card}`}>
       <div className="row ms-1 me-1 ">
         <img

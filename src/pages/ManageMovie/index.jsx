@@ -31,6 +31,7 @@ function ManageMovie() {
     synopsis: "",
   });
 
+  // buat searcing
   const [searchParams] = useSearchParams();
   const params = Object.fromEntries([...searchParams]);
 

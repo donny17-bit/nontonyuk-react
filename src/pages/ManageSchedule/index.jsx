@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "../../utils/axios";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "../../components/Header/index";
@@ -8,9 +8,17 @@ import styles from "./ManageSchedule.module.css";
 import Cards from "../../components/Cards/index";
 import DetailCardAdmin from "../../components/DetailCardAdmin/index";
 import BookingCardAdmin from "../../components/BookingCardAdmin/index";
+import Cards2 from "../../components/Cards2/index";
 
 import { useSelector, useDispatch } from "react-redux";
-// import { reset } from "../../stores/actions/manageMovie.js";
+import {
+  getSchedule,
+  postSchedule,
+  updateSchedule,
+  deleteSchedule,
+} from "../../stores/actions/schedule.js";
+
+import { getMovie } from "../../stores/actions/manageMovie.js";
 
 function ManageSchedule() {
   //without redux
@@ -27,8 +35,154 @@ function ManageSchedule() {
   };
 
   // With redux
-  const manageMovie = useSelector((state) => state.manageMovie);
+  const schedule = useSelector((state) => state.schedule);
+  const movie = useSelector((state) => state.manageMovie);
   const dispatch = useDispatch();
+
+  console.log(schedule);
+  // buat sementara mash static
+  const location = [
+    "Jakarta",
+    "Surabaya",
+    "Yogyakarta",
+    "Solo",
+    "Medan",
+    "Balikpapan",
+    "Semarang",
+    "Bandung",
+    "Denpasar",
+  ];
+
+  const [image, setImage] = useState();
+  const [form, setForm] = useState({
+    movieId: "",
+    premiere: "",
+    price: "",
+    dateStart: "",
+    dateEnd: "",
+    time: "",
+    location: "",
+  });
+
+  const page = 1;
+  const limit = 20; // nnti dibuat all data(banyaknya data)
+  const [movieSchedule, setMovieSchedule] = useState({});
+
+  const getdataMovie = async () => {
+    // PANGGIL ACTION
+    await dispatch(getMovie(page, limit));
+  };
+
+  const getDataSchedule = async () => {
+    await dispatch(getSchedule(page, limit));
+  };
+
+  // console.log(getdataMovie(1, 20));
+
+  const [movieId, setmovieId] = useState("");
+  const [inputTime, setInputTime] = useState("");
+  const [time, setTime] = useState([]);
+
+  const handleChangeForm = (event) => {
+    const { name, value } = event.target;
+
+    setForm({
+      ...form,
+      [name]: value,
+    });
+  };
+
+  const handlePremiere = (event, value) => {
+    console.log(event.target);
+    console.log(value);
+
+    setForm({
+      ...form,
+      [event.target.name]: value,
+    });
+  };
+
+  const handleButton = (event) => {
+    const { name, value } = event.target;
+    let value1 = [];
+
+    if (name == "movieId") {
+      value1 = value.split(",");
+
+      // console.log(value);
+
+      setForm({
+        ...form,
+        [name]: value1[0],
+        movie: value1[1],
+        image: value1[2],
+      });
+    } else {
+      setForm({
+        ...form,
+        [name]: value,
+      });
+    }
+  };
+
+  const handlePlus = () => {
+    setInputTime(
+      <input type="text" name="time" onKeyPress={(event) => handleKey(event)} />
+    );
+  };
+
+  const handleKey = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      // setForm({
+      //   ...form,
+      //   [event.target.name]: `${event.target.value},`,
+      // });
+      setTime([...time, event.target.value]);
+      setInputTime("");
+    }
+  };
+
+  console.log(time.toString());
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    setForm({
+      ...form,
+      time: time.toString(),
+    });
+
+    delete form.movie;
+    delete form.image;
+
+    await dispatch(postSchedule(form));
+
+    resetForm();
+    alert("Success post schedule");
+  };
+
+  const resetForm = () => {
+    setForm({
+      movieId: "",
+      premiere: "",
+      price: "",
+      dateStart: "",
+      dateEnd: "",
+      time: "",
+      location: "",
+    });
+
+    setTime([]);
+  };
+
+  useEffect(() => {
+    getdataMovie();
+  }, []);
+
+  useEffect(() => {
+    getDataSchedule();
+  }, []);
 
   return (
     <>
@@ -39,10 +193,14 @@ function ManageSchedule() {
           <label className={styles.upcoming__movies_title}>Form Schedule</label>
         </div>
 
-        <form className={`${styles.upcoming__movies_card_container} pb-5 mt-3`}>
+        <form
+          className={`${styles.upcoming__movies_card_container} pb-5 mt-3`}
+          onSubmit={handleSubmit}
+        >
           <div className="row">
             <div className="col-3">
-              <Cards data={dataDetail} />
+              {image ? <Cards2 data={{ image }} /> : <Cards data={form} />}
+              {/* <Cards data={dataDetail} /> */}
             </div>
             <div className="col">
               <div className="row">
@@ -56,27 +214,26 @@ function ManageSchedule() {
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                     >
-                      Choose movie
+                      {form.movieId ? form.movie : "Choose movie"}
                     </button>
+
                     <ul
                       class="dropdown-menu"
                       aria-labelledby="dropdownMenuButton1"
                     >
-                      <li>
-                        <a class="dropdown-item" href="#">
-                          Action
-                        </a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="#">
-                          Another action
-                        </a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="#">
-                          Something else here bkasjdahsdhashdbjaskdjab
-                        </a>
-                      </li>
+                      {movie.data.map((item) => (
+                        <li key={item.id}>
+                          <button
+                            name="movieId"
+                            class="dropdown-item"
+                            type="button"
+                            value={[item.id, item.name, item.image]}
+                            onClick={(event) => handleButton(event)}
+                          >
+                            {item.name}
+                          </button>
+                        </li>
+                      ))}
                     </ul>
                   </div>
                 </div>
@@ -92,27 +249,25 @@ function ManageSchedule() {
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                     >
-                      Choose location
+                      {form.location ? form.location : "Choose location"}
                     </button>
                     <ul
                       class="dropdown-menu"
                       aria-labelledby="dropdownMenuButton1"
                     >
-                      <li>
-                        <a class="dropdown-item" href="#">
-                          Action
-                        </a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="#">
-                          Another action
-                        </a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="#">
-                          Something else here bkasjdahsdhashdbjaskdjab
-                        </a>
-                      </li>
+                      {location.map((item) => (
+                        <li>
+                          <button
+                            type="button"
+                            class="dropdown-item"
+                            name="location"
+                            value={item}
+                            onClick={(event) => handleButton(event)}
+                          >
+                            {item}
+                          </button>
+                        </li>
+                      ))}
                     </ul>
                   </div>
                 </div>
@@ -125,9 +280,10 @@ function ManageSchedule() {
                   <input
                     type="text"
                     class="form-control"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                    placeholder="Directed by.."
+                    name="price"
+                    placeholder="Price"
+                    value={form.price}
+                    onChange={(event) => handleChangeForm(event)}
                   />
                 </div>
                 <div className="col mb-3 ">
@@ -137,8 +293,9 @@ function ManageSchedule() {
                   <input
                     type="date"
                     class="form-control"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
+                    name="dateStart"
+                    value={form.dateStart}
+                    onChange={(event) => handleChangeForm(event)}
                   />
                 </div>
                 <div className="col mb-3 ">
@@ -148,63 +305,98 @@ function ManageSchedule() {
                   <input
                     type="date"
                     class="form-control"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
+                    name="dateEnd"
+                    value={form.dateEnd}
+                    onChange={(event) => handleChangeForm(event)}
                   />
                 </div>
               </div>
-              <div className="row">
+              <div className="row ">
                 <div className="col mb-3">
                   <label for="exampleInputEmail1" class="form-label">
                     Premiere
                   </label>
                   <br />
-                  <button className="btn btn-outline-primary ">
-                    premiere logo
-                  </button>
-                  <button className="btn btn-outline-primary ">
-                    premiere logo
-                  </button>
-                  <button className="btn btn-outline-primary ">
-                    premiere logo
-                  </button>
+                  <input
+                    className={`${
+                      styles.btn_premiere1
+                    } btn btn-outline-primary ${
+                      form.premiere == "cineone21" ? `active` : ``
+                    }`}
+                    type="button"
+                    name="premiere"
+                    onClick={(event) => handlePremiere(event, "cineone21")}
+                  />
+
+                  <input
+                    className={`${
+                      styles.btn_premiere2
+                    } btn btn-outline-primary ${
+                      form.premiere == "ebv.id" ? `active` : ``
+                    }`}
+                    type="button"
+                    name="premiere"
+                    onClick={(event) => handlePremiere(event, "ebv.id")}
+                  />
+
+                  <input
+                    className={`${
+                      styles.btn_premiere3
+                    } btn btn-outline-primary ${
+                      form.premiere == "hiflix" ? `active` : ``
+                    }`}
+                    type="button"
+                    name="premiere"
+                    onClick={(event) => handlePremiere(event, "hiflix")}
+                  />
                 </div>
                 <div className="col mb-3 ">
-                  <label for="exampleInputEmail1" class="form-label">
-                    Time
-                  </label>
-                  <br />
-                  <button className="btn btn-outline-primary ">
-                    plus logo
-                  </button>
+                  <div className="row-3">
+                    <div className="col ">
+                      <label for="exampleInputEmail1" class="form-label">
+                        Time
+                      </label>
+                      <br />
+
+                      <button
+                        type="button"
+                        className="btn btn-outline-primary"
+                        onClick={(event) => handlePlus(event)}
+                        data-bs-target="#input"
+                      >
+                        <img src="/assets/img/card/add.png" alt="" />
+                      </button>
+                      <div className="col">{inputTime}</div>
+                    </div>
+                    <div className="col text-bottom ">
+                      <div className="row row-cols-4 mt-3">
+                        {time.map((item) => (
+                          <div className="col align-text-bottom ">{item}</div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
+              {/* <div className="row border"></div> */}
             </div>
           </div>
           <div className="row justify-content-end mt-2">
             <div className="d-grid col-2">
               <button
+                type="button"
                 className="btn btn-outline-primary"
-                // onClick={() => dispatch(reset())}
+                onClick={() => resetForm()}
               >
                 Reset
               </button>
             </div>
             <div className="d-grid col-2">
-              <button className="btn btn-outline-primary">Submit</button>
+              <button className="btn btn-outline-primary" type="submit">
+                Submit
+              </button>
             </div>
           </div>
-
-          {/* <div className={`${styles.upcoming__movies_card_row} row-cols-4`}>
-            {dataRelease.map((item) => (
-              <div
-                className={`${styles.upcoming__movies_card_col}`}
-                key={item.id}
-              >
-                {<DetailCard data={item} />}
-              </div>
-            ))}
-          </div> */}
         </form>
 
         <div className="d-flex justify-content-between mt-5">
@@ -213,7 +405,7 @@ function ManageSchedule() {
         <div className={`${styles.upcoming__movies_card_container} pb-5 mt-3`}>
           <div className="row mt-4 row-cols-3 g-4">
             <div className="col">
-              <BookingCardAdmin />
+              <BookingCardAdmin data={schedule.data} />
             </div>
             <div className="col">
               <BookingCardAdmin />
