@@ -1,4 +1,5 @@
-import React, { useState, Link } from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
 
 function Header() {
@@ -24,29 +25,32 @@ function Header() {
             <div className="collapse navbar-collapse" id="navbarNav">
               <ul className="navbar-nav">
                 <li className={`${styles.nav_item} nav-item`}>
-                  <a
+                  <Link
                     className={`${styles.nav_link} nav-link`}
                     aria-current="page"
-                    href="home"
+                    to="/home"
                   >
                     Home
-                  </a>
+                  </Link>
                 </li>
                 <li className={`${styles.nav_item} nav-item`}>
-                  <Link className={`${styles.nav_link} nav-link`} to="view-all">
+                  <Link
+                    className={`${styles.nav_link} nav-link`}
+                    to="/view-all"
+                  >
                     List Movie
                   </Link>
                 </li>
               </ul>
             </div>
             <form className={`${styles.d_flex} d-flex`}>
-              <a
+              <Link
                 className={`btn btn-primary ${styles.signup__btn}`}
                 type="button"
-                href="login"
+                to="/login"
               >
                 Sign Up
-              </a>
+              </Link>
             </form>
           </div>
         </nav>

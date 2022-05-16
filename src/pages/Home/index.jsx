@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "../../utils/axios";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Home.module.css";
-import Header from "../../components/Header/index";
+import Header from "../../components/Header/index.jsx";
 import HeaderSignedIn from "../../components/HeaderSignedIn/index";
 import Footer from "../../components/Footer/index";
 import Cards from "../../components/Cards/index";
@@ -69,8 +69,8 @@ function Home() {
     setRelease(item);
   };
 
-  // console.log(release);
-  // console.log(dataRelease);
+  console.log(release);
+  console.log(dataRelease);
 
   useEffect(() => {
     getReleaseMovie();

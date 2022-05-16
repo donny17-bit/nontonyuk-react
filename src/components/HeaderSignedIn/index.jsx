@@ -22,7 +22,7 @@ function HeaderSignedIn() {
       localStorage.clear();
 
       alert("Successfully logged out");
-      navigate("/home");
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
@@ -73,10 +73,7 @@ function HeaderSignedIn() {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  <img
-                    src="https://cdn-icons.flaticon.com/png/512/1144/premium/1144760.png?token=exp=1651001096~hmac=5caa57ed0a81fc3aa77801c0d5901cd1"
-                    alt="img_logo"
-                  />
+                  <img src="/assets/img/header/user.png" alt="img_logo" />
                 </button>
                 <ul
                   className="dropdown-menu"
