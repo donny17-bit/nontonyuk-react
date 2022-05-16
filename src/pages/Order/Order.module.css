@@ -41,7 +41,7 @@
   margin: 30px 48px;
 }
 
-.movie__selected_data button {
+.movie__selected_data .btn_link {
   background: #eff0f7;
   opacity: 0.8;
   border: 8px solid #eff0f7;

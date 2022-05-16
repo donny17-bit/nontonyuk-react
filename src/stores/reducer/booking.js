@@ -8,14 +8,14 @@ const initialState = {
 
 const booking = (state = initialState, action) => {
   switch (action.type) {
-    // case "TEMP_BOOKING_PENDING": {
-    //   return {
-    //     ...state,
-    //     isLoading: true,
-    //     isError: false,
-    //   };
-    // }
-    case "TEMP_BOOKING": {
+    case "TEMP_BOOKING_PENDING": {
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+      };
+    }
+    case "TEMP_BOOKING_FULFILLED": {
       return {
         ...state,
         isLoading: false,
@@ -25,7 +25,34 @@ const booking = (state = initialState, action) => {
         // msg: action.payload.data.msg,
       };
     }
-    // case "TEMP_BOOKING_REJECTED": {
+    case "TEMP_BOOKING_REJECTED": {
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        data: [],
+        pageInfo: {},
+        // msg: action.payload.response.data.msg,
+      };
+    }
+    // case "GET_SCHEDULE_PENDING": {
+    //   return {
+    //     ...state,
+    //     isLoading: true,
+    //     isError: false,
+    //   };
+    // }
+    // case "GET_SCHEDULE_FULFILLED": {
+    //   return {
+    //     ...state,
+    //     isLoading: false,
+    //     isError: false,
+    //     data: action.payload.data.data,
+    //     pageInfo: action.payload.data.pagination,
+    //     msg: action.payload.data.msg,
+    //   };
+    // }
+    // case "GET_SCHEDULE_REJECTED": {
     //   return {
     //     ...state,
     //     isLoading: false,
@@ -35,33 +62,6 @@ const booking = (state = initialState, action) => {
     //     msg: action.payload.response.data.msg,
     //   };
     // }
-    //   case "GET_SCHEDULE_PENDING": {
-    //     return {
-    //       ...state,
-    //       isLoading: true,
-    //       isError: false,
-    //     };
-    //   }
-    //   case "GET_SCHEDULE_FULFILLED": {
-    //     return {
-    //       ...state,
-    //       isLoading: false,
-    //       isError: false,
-    //       data: action.payload.data.data,
-    //       pageInfo: action.payload.data.pagination,
-    //       msg: action.payload.data.msg,
-    //     };
-    //   }
-    //   case "GET_SCHEDULE_REJECTED": {
-    //     return {
-    //       ...state,
-    //       isLoading: false,
-    //       isError: true,
-    //       data: [],
-    //       pageInfo: {},
-    //       msg: action.payload.response.data.msg,
-    //     };
-    //   }
 
     //   case "POST_SCHEDULE_PENDING": {
     //     return {

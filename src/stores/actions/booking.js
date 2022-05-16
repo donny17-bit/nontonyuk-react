@@ -11,6 +11,16 @@ export const dataTempBooking = (data) => {
   };
 };
 
+export const getBooking = () => {
+  return {
+    type: "GET_BOOKING",
+    // limit kalau blkngnya 0 tdk terbaca, exm 10 dibaca 1 (-)
+    //     payload: axios.get(`schedule?limit=${limit}&page=${page}&`, {
+    //       headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
+    //     }),
+  };
+};
+
 // export const postSchedule = (form) => {
 //   return {
 //     type: "POST_SCHEDULE",

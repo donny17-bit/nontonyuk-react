@@ -1,10 +1,9 @@
 import axios from "../../utils/axios";
 
-export const getUser = (page, limit) => {
+export const getUser = (id) => {
   return {
     type: "GET_USER",
-    // limit kalau blkngnya 0 tdk terbaca, exm 10 dibaca 1 (-)
-    payload: axios.get(`user?limit=${limit}&page=${page}&`, {
+    payload: axios.get(`user/${id}`, {
       headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
     }),
   };

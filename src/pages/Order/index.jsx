@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../utils/axios";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import styles from "./Order.module.css";
 import Header from "../../components/Header/index";
 import Footer from "../../components/Footer/index";
@@ -8,9 +8,7 @@ import Seat from "../../components/Seat/index";
 import OrderCard from "../../components/OrderCard/index";
 
 import { useSelector, useDispatch } from "react-redux";
-import { getMovie } from "../../stores/actions/manageMovie.js";
-import { getSchedule } from "../../stores/actions/schedule";
-import { dataTempBooking } from "../../stores/actions/booking";
+import { booking, dataTempBooking } from "../../stores/actions/booking.js";
 
 export default function Order() {
   document.title = "Tickitz | Order";
@@ -18,6 +16,9 @@ export default function Order() {
   const navigate = useNavigate();
   const { state } = useLocation();
   const [dataOrder, setDataOrder] = useState(state);
+
+  // const booking = useSelector((state) => state.booking);
+  // const dispatch = useDispatch();
 
   const listSeat = ["A", "B", "C", "D", "E", "F", "G"];
   const [selectedSeat, setSelectedSeat] = useState([]);
@@ -46,12 +47,16 @@ export default function Order() {
 
   console.log(selectedSeat);
 
-  const handleBooking = () => {
+  const handleChangeMovie = () => {
+    navigate("/details", { state: { ...dataOrder } });
+  };
+
+  const handleBooking = async () => {
     console.log(dataOrder);
     console.log(selectedSeat);
-    navigate("/payment", {
-      state: { ...dataOrder, seat: selectedSeat },
-    });
+
+    // await dispatch(dataTempBooking({ ...dataOrder, seat: selectedSeat }));
+    navigate("/payment", { state: { ...dataOrder, seat: selectedSeat } });
   };
 
   // useEffect()
@@ -70,9 +75,13 @@ export default function Order() {
                 <p class={`${styles.movie__selected_data1} align-middle pt-2`}>
                   {state.name}
                 </p>
-                <button className="btn btn-outline-secondary">
+                <Link
+                  type="button"
+                  to="/view-all"
+                  className={`${styles.btn_link} btn btn-outline-secondary`}
+                >
                   Change Movie
-                </button>
+                </Link>
               </div>
             </div>
           </section>
@@ -94,7 +103,10 @@ export default function Order() {
           <div
             className={`${styles.seat_btn} d-flex justify-content-between mt-5`}
           >
-            <button className={`btn btn-outline-primary`}>
+            <button
+              className={`btn btn-outline-primary`}
+              onClick={() => handleChangeMovie()}
+            >
               Change your movie
             </button>
             <button

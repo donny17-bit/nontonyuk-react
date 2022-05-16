@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "../../utils/axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./Payment.module.css";
 import Header from "../../components/Header/index";
 // import Header from "../../components/HeaderSignedIn/index";
 import Footer from "../../components/Footer/index";
+import { useSelector, useDispatch } from "react-redux";
+import { getUser } from "../../stores/actions/user.js";
 
 function Payment() {
   document.title = "Tickitz | Payment";
@@ -12,7 +14,18 @@ function Payment() {
   const navigate = useNavigate();
   const { state } = useLocation();
 
+  let dataUser = localStorage.getItem("dataUser");
+  dataUser = JSON.parse(dataUser);
+
+  // console.log(dataUser.id);
+  // const booking = useSelector((state) => state.booking);
+  // const dispatch = useDispatch();
+
   console.log(state);
+
+  const handleButton = () => {
+    navigate("/order", { state });
+  };
 
   return (
     <>
@@ -59,7 +72,12 @@ function Payment() {
           <div
             className={`${styles.payment__method_btn} d-flex justify-content-between mt-5`}
           >
-            <button className={`btn btn-outline-primary`}>Previous step</button>
+            <button
+              className={`btn btn-outline-primary`}
+              onClick={() => handleButton()}
+            >
+              Previous step
+            </button>
             <button className={`btn btn-outline-primary`}>
               Pay your order
             </button>
@@ -74,15 +92,16 @@ function Payment() {
                   Full Name
                 </label>
                 <input
-                  placeholder="Write your full name"
+                  type="text"
                   class={`${styles.form_control} form-control`}
+                  value={`${dataUser.firstName}  ${dataUser.lastName}`}
                 />
                 <label class={`${styles.form_label} form-label mt-4`}>
                   Email
                 </label>
                 <input
                   type="email"
-                  placeholder="Write your email"
+                  value={dataUser.email}
                   class={`${styles.form_control} form-control`}
                 />
                 <label class={`${styles.form_label} form-label mt-4`}>
@@ -93,7 +112,7 @@ function Payment() {
                   <input
                     type="text"
                     class={`${styles.form_control} form-control`}
-                    placeholder="Write your number"
+                    value={dataUser.noTelp}
                   />
                 </div>
                 {/* <div
