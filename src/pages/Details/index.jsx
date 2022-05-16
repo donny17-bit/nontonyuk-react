@@ -8,11 +8,84 @@ import Footer from "../../components/Footer/index";
 import Cards from "../../components/Cards/index";
 import BookingCard from "../../components/BookingCard/index";
 
+import { useSelector, useDispatch } from "react-redux";
+import { getMovie } from "../../stores/actions/manageMovie.js";
+import { getSchedule } from "../../stores/actions/schedule";
+import { dataTempBooking } from "../../stores/actions/booking";
+
 function Details() {
   document.title = "Tickitz | Movie Details";
-  const id = localStorage.getItem("IdMovie");
 
+  const navigate = useNavigate();
+
+  const limit = 12;
+  const page = 1;
+  const id = localStorage.getItem("IdMovie");
   const [dataDetail, setDataDetail] = useState([]);
+
+  const [dataOrder, setDataOrder] = useState({
+    // movieId: params.id,
+    dateBooking: new Date().toISOString().split("T")[0],
+  });
+
+  const movie = useSelector((state) => state.manageMovie);
+  const schedule = useSelector((state) => state.schedule);
+  const booking = useSelector((state) => state.booking);
+  const dispatch = useDispatch();
+  const [location, setLocation] = useState("");
+
+  // buat searching data movie di schedule berdasarkan idMovie
+  let scheduleMovie = [];
+
+  schedule.data.map((item) => {
+    if (item.movieId == id) {
+      scheduleMovie = [...scheduleMovie, item];
+    }
+  });
+
+  console.log(scheduleMovie);
+
+  const changeDateBooking = (data) => {
+    setDataOrder({ ...dataOrder, ...data });
+  };
+
+  // console.log(dataOrder);
+
+  const handleChange = (event) => {
+    // console.log(event.target.value);
+    setDataOrder({ dateBooking: event.target.value });
+  };
+
+  const handleBooking = async () => {
+    await dispatch(dataTempBooking(dataOrder));
+    navigate("/order");
+  };
+
+  // console.log(dataOrder);
+
+  const getdataMovie = async () => {
+    await dispatch(getMovie(page, limit));
+  };
+
+  const getDataSchedule = async () => {
+    // (msh bug)
+    await dispatch(getSchedule(page == 1 ? "" : page, 5));
+  };
+
+  // msh blm bsa search dengn kota
+  const handleLocation = (event) => {
+    setLocation(event.target.value);
+
+    scheduleMovie = [];
+    schedule.data.map((item) => {
+      if (item.location == event.target.value) {
+        // delete scheduleMovie.item;
+        console.log(false);
+        console.log(scheduleMovie);
+        scheduleMovie = [...scheduleMovie, item];
+      }
+    });
+  };
 
   const getDetail = async () => {
     try {
@@ -36,6 +109,14 @@ function Details() {
 
   useEffect(() => {
     getDetail();
+  }, []);
+
+  useEffect(() => {
+    getDataSchedule();
+  }, []);
+
+  useEffect(() => {
+    getdataMovie();
   }, []);
 
   return (
@@ -76,70 +157,70 @@ function Details() {
         </div>
       </div>
       <div class={`${styles.canvas} text-center pb-5`}>
-        <h4 className="pt-5 pb-3 border">Showtimes and Ticket</h4>
+        <h4 className="pt-5 pb-3">Showtimes and Ticket</h4>
         {/* date and location belum */}
-        <form className="row border d-flex justify-content-center">
-          <div className="col col-lg-3 border d-grid gap-2">
-            <input className="btn btn-secondary" type="date" name="date" />;
+        <form className="row d-flex justify-content-center">
+          <div className="col col-lg-3 d-grid gap-2">
+            <input
+              className="form-control"
+              type="date"
+              name="date"
+              value={dataOrder.dateBooking}
+              onChange={(event) => handleChange(event)}
+            />
+            ;
           </div>
-          <div className="col col-lg-3 border d-grid gap-2">
-            <div class="dropdown">
+          <div className="col col-3 d-grid gap-2">
+            <div class={`"${styles.btn_location} dropdown d-grid"`}>
               <button
-                class="btn btn-secondary dropdown-toggle"
+                class={`${styles.btn_location_1} btn btn-outline-secondary dropdown-toggle text-start"`}
                 type="button"
                 id="dropdownMenuButton1"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Theater Location
+                {/* msh belum */}
+                {scheduleMovie.location
+                  ? scheduleMovie.location
+                  : "Theater location"}
               </button>
-              <input
-                type="date"
-                class="dropdown-menu"
-                aria-labelledby="dropdownMenuButton1"
-              />
-              {/* <li>
-                  <a class="dropdown-item" href="#">
-                    Action
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">
-                    Another action
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="#">
-                    Something else here
-                  </a>
-                </li> */}
-              {/* </ul> */}
+
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                {scheduleMovie.map((item) => (
+                  <li key={item.id}>
+                    <button
+                      name="location"
+                      class="dropdown-item"
+                      type="button"
+                      value={item.location}
+                      onClick={(event) => handleLocation(event)}
+                    >
+                      {item.location}
+                    </button>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </form>
-        <div className="row border mt-4 row-cols-3 g-4">
-          <div className={`${styles.BookingCard} col`}>
-            {/* <div className={styles.card_}> 
+        <div className="row mt-4 row-cols-3 g-4">
+          {scheduleMovie.map((item) => (
+            <div className={`col`}>
+              <BookingCard
+                data={[item, dataOrder]}
+                changeDateBooking={changeDateBooking}
+                handleBooking={handleBooking}
+              />
+            </div>
+          ))}
+
+          {/* <div className={`${styles.BookingCard} col`}>
+            <div className={styles.card_}> 
             use this if you want to change card size from this class(parent)
-            */}
+           
             <BookingCard />
-            {/* </div> */}
-          </div>
-          <div className={`col`}>
-            <BookingCard />
-          </div>
-          <div className={`col`}>
-            <BookingCard />
-          </div>
-          <div className={`col`}>
-            <BookingCard />
-          </div>
-          <div className={`col`}>
-            <BookingCard />
-          </div>
-          <div className={`col`}>
-            <BookingCard />
-          </div>
+            </div>
+          </div> */}
         </div>
       </div>
       <Footer />

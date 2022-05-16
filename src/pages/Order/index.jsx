@@ -5,8 +5,18 @@ import styles from "./Order.module.css";
 import Header from "../../components/Header/index";
 import Footer from "../../components/Footer/index";
 
+import { useSelector, useDispatch } from "react-redux";
+import { getMovie } from "../../stores/actions/manageMovie.js";
+import { getSchedule } from "../../stores/actions/schedule";
+import { dataTempBooking } from "../../stores/actions/booking";
+
 function Order() {
   document.title = "Tickitz | Order";
+
+  const booking = useSelector((state) => state.booking);
+  const dispatch = useDispatch();
+
+  console.log(booking);
 
   return (
     <>

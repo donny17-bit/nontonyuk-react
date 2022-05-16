@@ -63,7 +63,7 @@ function ManageSchedule() {
 
   const getDataSchedule = async () => {
     // ga mau update kalau blm ganti limit?
-    await dispatch(getSchedule(page == 1 ? "" : page, 5));
+    await dispatch(getSchedule(page == 1 ? "" : page, 12));
   };
 
   // console.log(getdataMovie(1, 20));
