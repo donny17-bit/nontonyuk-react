@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "../../utils/axios";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./Payment.module.css";
 import Header from "../../components/Header/index";
 // import Header from "../../components/HeaderSignedIn/index";
@@ -8,6 +8,11 @@ import Footer from "../../components/Footer/index";
 
 function Payment() {
   document.title = "Tickitz | Payment";
+
+  const navigate = useNavigate();
+  const { state } = useLocation();
+
+  console.log(state);
 
   return (
     <>
@@ -21,145 +26,34 @@ function Payment() {
                 class={`${styles.payment__info_data} mt-5 border-bottom d-flex justify-content-between`}
               >
                 <p class={styles.data1}>Date & time</p>
-                <p class={styles.data2}>Tuesday, 07 July 2020 at 02:00</p>
+                <p class={styles.data2}>
+                  {state.dateBooking} at {state.timeBooking}
+                </p>
               </div>
               <div
                 class={`${styles.payment__info_data} border-bottom d-flex justify-content-between`}
               >
                 <p class={styles.data1}>Movie title</p>
-                <p class={styles.data2}>Spider-Man: Homecoming</p>
+                <p class={styles.data2}>{state.name}</p>
               </div>
               <div
                 class={`${styles.payment__info_data} border-bottom d-flex justify-content-between`}
               >
                 <p class={styles.data1}>Cinema name</p>
-                <p class={styles.data2}>CineOne21 Cinema</p>
+                <p class={styles.data2}>{state.premiere} Cinema</p>
               </div>
               <div
                 class={`${styles.payment__info_data} border-bottom d-flex justify-content-between`}
               >
                 <p class={styles.data1}>Number of tickets</p>
-                <p class={styles.data2}>3 pieces</p>
+                <p class={styles.data2}>{state.seat.length} pieces</p>
               </div>
               <div
                 class={`${styles.payment__info_data} mb-5 d-flex justify-content-between`}
               >
                 <p class={styles.data1}>Total payment</p>
-                <p class={styles.total}>$30,00</p>
+                <p class={styles.total}>Rp {state.price * state.seat.length}</p>
               </div>
-            </div>
-          </section>
-          <section class={`${styles.payment__method} mt-5`}>
-            <h1 class={styles.payment__method_title}>
-              Choose a Payment Method
-            </h1>
-            <div class={`${styles.payment__method_container} mt-3`}>
-              <div class={`${styles.payment__method_row} row mb-5`}>
-                <div class={`${styles.payment__method_col} col `}>
-                  <div
-                    class={`${styles.payment__method_logo} btn btn-outline-secondary`}
-                  >
-                    <img
-                      src="assets/img/payment/Bank BCA.png"
-                      class={`${styles.payment__method_img1} mt-2`}
-                      alt="btn-img"
-                    />
-                  </div>
-                </div>
-                <div class={`${styles.payment__method_col} col`}>
-                  <div
-                    class={`${styles.payment__method_logo} btn btn-outline-secondary`}
-                  >
-                    <img
-                      src="assets/img/payment/Bank BRI.png"
-                      class={`${styles.payment__method_img2}`}
-                      alt="btn-img"
-                    />
-                  </div>
-                </div>
-                <div class={`${styles.payment__method_col} col`}>
-                  <div
-                    class={`${styles.payment__method_logo} btn btn-outline-secondary`}
-                  >
-                    <img
-                      src="assets/img/payment/Logo DANA.png"
-                      class={`${styles.payment__method_img3} mt-1`}
-                      alt="btn-img"
-                    />
-                  </div>
-                </div>
-                <div class={`${styles.payment__method_col} col`}>
-                  <div
-                    class={`${styles.payment__method_logo} btn btn-outline-secondary`}
-                  >
-                    <img
-                      src="assets/img/payment/Logo GoPay.png"
-                      class={`${styles.payment__method_img4} mt-1`}
-                      alt="btn-img"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class={`${styles.payment__method_row} row `}>
-                <div class={`${styles.payment__method_col} col`}>
-                  <div
-                    class={`${styles.payment__method_logo} btn btn-outline-secondary`}
-                  >
-                    <img
-                      src="assets/img/payment/logos_google-pay.png"
-                      class={`${styles.payment__method_img5} mt-2`}
-                      alt="btn-img"
-                    />
-                  </div>
-                </div>
-                <div class={`${styles.payment__method_col} col`}>
-                  <div
-                    class={`${styles.payment__method_logo} btn btn-outline-secondary`}
-                  >
-                    <img
-                      src="assets/img/payment/logos_paypal.png"
-                      class={`${styles.payment__method_img6} mt-1`}
-                      alt="btn-img"
-                    />
-                  </div>
-                </div>
-                <div class={`${styles.payment__method_col} col`}>
-                  <div
-                    class={`${styles.payment__method_logo} btn btn-outline-secondary`}
-                  >
-                    <img
-                      src="assets/img/payment/logos_visa.png"
-                      class={`${styles.payment__method_img7} mt-2`}
-                      alt="btn-img"
-                    />
-                  </div>
-                </div>
-                <div class={`${styles.payment__method_col} col`}>
-                  <div
-                    class={`${styles.payment__method_logo} btn btn-outline-secondary`}
-                  >
-                    <img
-                      src="assets/img/payment/ovo.png"
-                      class={`${styles.payment__method_img8}`}
-                      alt="btn-img"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className={`${styles.payment__method_accessories} row `}>
-                <div className="col border mb-3 mt-3"></div>
-                <div
-                  className={`${styles.payment__method_accessories_text} col-1 text-center`}
-                >
-                  or
-                </div>
-                <div className="col border mb-3 mt-3"></div>
-              </div>
-              <p
-                className={`${styles.payment__method_optional} text-center mt-4`}
-              >
-                Pay via cash. <a href="">See how it work</a>
-              </p>
             </div>
           </section>
           <div

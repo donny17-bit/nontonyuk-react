@@ -3,6 +3,7 @@ import BasicCounter from "./pages/basic/Counter/classComponent";
 import BasicReact from "./pages/basic/React/index";
 import BasicLogin from "./pages/basic/Login";
 import BasicOrder from "./pages/basic/Order";
+import Seat from "./components/Seat";
 
 import Login from "./pages/Login";
 import Home from "./pages/Home";
@@ -30,6 +31,7 @@ function App() {
         <Route path="basic/react" element={<BasicReact />} />
         <Route path="basic/login" element={<BasicLogin />} />
         <Route path="basic/order" element={<BasicOrder />} />
+        <Route path="seat" element={<Seat />} />
 
         {/* <Route element={<PublicRoute isAdmin={true}/>}> */}
         {/* <Route path="basic/react" element={<BasicReact />} />

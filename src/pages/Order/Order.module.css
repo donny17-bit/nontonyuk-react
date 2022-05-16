@@ -85,7 +85,7 @@
 .seat_container {
   width: 100%;
   /* height buat sementara */
-  height: 661px;
+  /* height: 661px; */
   display: inline-block;
   padding: 56px 48px;
 
@@ -132,91 +132,6 @@
   border: 2px solid #f7f7fc;
   box-sizing: border-box;
   border-radius: 4px;
-}
-
-.order__info_title {
-  font-family: "Mulish";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 24px;
-  line-height: 30px;
-  letter-spacing: 0.25px;
-
-  color: #14142b;
-}
-
-.order__info_form {
-  width: 100%;
-  padding: 40px 20px 20px 20px;
-  display: inline-block;
-
-  background-color: white;
-  border-radius: 6px;
-}
-
-.order__info_logo {
-  width: 132px;
-}
-
-.order__info_form_title {
-  font-family: "Mulish";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 34px;
-
-  letter-spacing: 0.75px;
-
-  color: #14142b;
-}
-
-.order__info_data1 {
-  font-family: "Mulish";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 24px;
-
-  letter-spacing: 0.75px;
-
-  color: #6b6b6b;
-}
-
-.order__info_data2 {
-  font-family: "Mulish";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 24px;
-
-  letter-spacing: 0.75px;
-
-  color: #14142b;
-}
-
-.order__info_total1 {
-  font-family: "Mulish";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 18px;
-  line-height: 34px;
-
-  letter-spacing: 0.75px;
-
-  color: #000000;
-}
-
-.order__info_total2 {
-  font-family: "Mulish";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 24px;
-  line-height: 30px;
-  display: flex;
-
-  letter-spacing: 0.25px;
-
-  color: #5f2eea;
 }
 
 /* .alert {

@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./BookingCard.module.css";
 
 function BookingCard(props) {
-  const { id, movieId, premiere, time, price } = props.data[0];
+  const { name, movieId, id, premiere, time, price } = props.data[0];
   const { scheduleId } = props.data[1];
 
   let image;
@@ -40,7 +40,14 @@ function BookingCard(props) {
                 type="button"
                 className={`${styles.card_booking} btn btn-link`}
                 onClick={() =>
-                  props.changeDateBooking({ scheduleId: id, timeBooking: item })
+                  props.changeDateBooking({
+                    scheduleId: id,
+                    timeBooking: item,
+                    name: name,
+                    movieid: movieId,
+                    premiere: premiere,
+                    price: price,
+                  })
                 }
               >
                 {item}
@@ -62,7 +69,7 @@ function BookingCard(props) {
           <button
             href="#"
             className={`${styles.btn_} btn btn-primary`}
-            onClick={() => props.handleBooking()}
+            onClick={() => props.handleBooking(props.data[0])}
             disabled={id === scheduleId ? false : true}
           >
             Book now

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import "./index.css";
 
 export default function Seat(props) {
@@ -32,7 +33,7 @@ export default function Seat(props) {
                   : "seat__list--available"
               }`}
               onClick={() => {
-                // reserved.includes(item) ? null : selectedSeat(item);
+                return reserved.includes(item) ? null : selectedSeat(item);
               }}
             ></div>
           </div>
@@ -50,7 +51,7 @@ export default function Seat(props) {
                   : "seat__list--available"
               }`}
               onClick={() => {
-                // reserved.includes(item) ? null : selectedSeat(item);
+                return reserved.includes(item) ? null : selectedSeat(item);
               }}
             ></div>
           </div>
@@ -59,3 +60,10 @@ export default function Seat(props) {
     </div>
   );
 }
+
+Seat.propTypes = {
+  rowSeat: PropTypes.array,
+  selectedSeat: PropTypes.array,
+  reserved: PropTypes.array,
+  selected: PropTypes.array,
+};

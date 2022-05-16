@@ -46,6 +46,9 @@ function Details() {
   console.log(scheduleMovie);
 
   const changeDateBooking = (data) => {
+    // const { id, name, movieId } = data;
+    // await setDataOrder({ ...dataOrder, name: name, movieId: movieId });
+
     setDataOrder({ ...dataOrder, ...data });
   };
 
@@ -56,9 +59,12 @@ function Details() {
     setDataOrder({ dateBooking: event.target.value });
   };
 
-  const handleBooking = async () => {
-    await dispatch(dataTempBooking(dataOrder));
-    navigate("/order");
+  const handleBooking = async (data) => {
+    // const { name, movieId } = data;
+    // await setDataOrder({ ...dataOrder, name: name, movieId: movieId });
+
+    navigate("/order", { state: dataOrder });
+    // console.log(dataOrder);
   };
 
   // console.log(dataOrder);

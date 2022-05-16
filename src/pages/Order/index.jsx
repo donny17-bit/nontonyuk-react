@@ -1,22 +1,60 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "../../utils/axios";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./Order.module.css";
 import Header from "../../components/Header/index";
 import Footer from "../../components/Footer/index";
+import Seat from "../../components/Seat/index";
+import OrderCard from "../../components/OrderCard/index";
 
 import { useSelector, useDispatch } from "react-redux";
 import { getMovie } from "../../stores/actions/manageMovie.js";
 import { getSchedule } from "../../stores/actions/schedule";
 import { dataTempBooking } from "../../stores/actions/booking";
 
-function Order() {
+export default function Order() {
   document.title = "Tickitz | Order";
 
-  const booking = useSelector((state) => state.booking);
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { state } = useLocation();
+  const [dataOrder, setDataOrder] = useState(state);
 
-  console.log(booking);
+  const listSeat = ["A", "B", "C", "D", "E", "F", "G"];
+  const [selectedSeat, setSelectedSeat] = useState([]);
+  const [reservedSeat, setReservedSeat] = useState([]);
+
+  // const booking = useSelector((state) => state.booking);
+  // const dispatch = useDispatch();
+
+  //   PROSES GET SEAT
+
+  const handleSelectSeat = async (seat) => {
+    console.log(seat);
+    if (selectedSeat.includes(seat)) {
+      const deleteSeat = selectedSeat.filter((el) => {
+        return el !== seat;
+      });
+      setSelectedSeat(deleteSeat);
+      // setDataOrder({ ...dataOrder, seat: deleteSeat.toString() });
+    } else {
+      setSelectedSeat([...selectedSeat, seat]);
+      // setDataOrder({ ...dataOrder, seat: seat.toString() });
+    }
+  };
+
+  //   setDataOrder({ ...dataOrder, seat: selectedSeat.toString() });
+
+  console.log(selectedSeat);
+
+  const handleBooking = () => {
+    console.log(dataOrder);
+    console.log(selectedSeat);
+    navigate("/payment", {
+      state: { ...dataOrder, seat: selectedSeat },
+    });
+  };
+
+  // useEffect()
 
   return (
     <>
@@ -30,7 +68,7 @@ function Order() {
                 class={`${styles.movie__selected_data} m-4 d-flex align-middle justify-content-between`}
               >
                 <p class={`${styles.movie__selected_data1} align-middle pt-2`}>
-                  Spider-Man : Homecoming
+                  {state.name}
                 </p>
                 <button className="btn btn-outline-secondary">
                   Change Movie
@@ -40,7 +78,18 @@ function Order() {
           </section>
           <section class={`${styles.seat} mt-5`}>
             <h1 class={styles.seat_title}>Choose Your Seat</h1>
-            <div class={`${styles.seat_container} mt-3`}></div>
+            <div class={`${styles.seat_container} mt-3`}>
+              {listSeat.map((item) => (
+                <div key={item}>
+                  <Seat
+                    rowSeat={item}
+                    selectedSeat={handleSelectSeat}
+                    reserved={reservedSeat}
+                    selected={selectedSeat}
+                  />
+                </div>
+              ))}
+            </div>
           </section>
           <div
             className={`${styles.seat_btn} d-flex justify-content-between mt-5`}
@@ -48,46 +97,18 @@ function Order() {
             <button className={`btn btn-outline-primary`}>
               Change your movie
             </button>
-            <button className={`btn btn-outline-primary`}>Checkout now</button>
+            <button
+              className={`btn btn-outline-primary`}
+              onClick={handleBooking}
+            >
+              Checkout now
+            </button>
           </div>
         </div>
         <div class={`${styles.canvas__2} mt-5 ms-4`}>
           <aside class={styles.order__info}>
             <h1 class={styles.order__info_title}>Order Info</h1>
-            <div
-              class={`${styles.order__info_form} text-center form border mt-3`}
-            >
-              <img
-                src="/assets/img/footer/Vector-1.png"
-                alt="logo_cinema"
-                className={`${styles.order__info_logo}`}
-              />
-              <h3 className={`${styles.order__info_form_title} mt-3 mb-5`}>
-                CineOne21 Cinema
-              </h3>
-              <div class={` d-flex justify-content-between`}>
-                <p class={styles.order__info_data1}>Movie selected</p>
-                <p class={styles.order__info_data2}>Spider-Man: Homecoming</p>
-              </div>
-              <div class={` d-flex justify-content-between`}>
-                <p class={styles.order__info_data1}>Tuesday, 07 July 2020</p>
-                <p class={styles.order__info_data2}>02:00</p>
-              </div>
-              <div class={` d-flex justify-content-between`}>
-                <p class={styles.order__info_data1}>One ticket price</p>
-                <p class={styles.order__info_data2}>$10</p>
-              </div>
-              <div class={` d-flex justify-content-between`}>
-                <p class={styles.order__info_data1}>Seat choosed</p>
-                <p class={styles.order__info_data2}>C4, C5, C6</p>
-              </div>
-              <div
-                class={` mt-3 pt-4 d-flex border-top justify-content-between`}
-              >
-                <p class={styles.order__info_total1}>Total Payment</p>
-                <p class={styles.order__info_total2}>$30</p>
-              </div>
-            </div>
+            <OrderCard data={[state, selectedSeat]} />
           </aside>
         </div>
       </div>
@@ -95,5 +116,3 @@ function Order() {
     </>
   );
 }
-
-export default Order;
