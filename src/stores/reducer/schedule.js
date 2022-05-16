@@ -6,7 +6,7 @@ const initialState = {
   msg: "",
 };
 
-const manageMovie = (state = initialState, action) => {
+const schedule = (state = initialState, action) => {
   switch (action.type) {
     case "GET_SCHEDULE_PENDING": {
       return {
@@ -120,4 +120,4 @@ const manageMovie = (state = initialState, action) => {
   }
 };
 
-export default manageMovie;
+export default schedule;

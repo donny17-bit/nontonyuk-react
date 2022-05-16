@@ -4,18 +4,28 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./BookingCardAdmin.module.css";
 
 function BookingCardAdmin(props) {
-  console.log(props);
+  // console.log(props);
+
+  const { premiere, time, price } = props.data;
+  let image;
+  if (premiere === "cineone21") {
+    image = "/assets/img/card/CineOne21.png";
+  } else if (premiere === "ebv.id") {
+    image = "/assets/img/card/ebv.id.png";
+  } else {
+    image = "/assets/img/card/hiflix.png";
+  }
 
   return (
     <div className={`card ${styles.booking_card}`}>
       <div className="row ms-1 me-1 ">
         <img
-          src="assets/img/card/CineOne21.png"
+          src={image}
           className={`${styles.card_img_top} img-fluid`}
           alt="card-img"
         />
         <div className="col">
-          <h3 className={`${styles.card_title} text-start mt-4`}>CineOne21</h3>
+          <h3 className={`${styles.card_title} text-start mt-4`}>{premiere}</h3>
           <p className={`${styles.card_address} text-start`}>
             Whatever street No.12, South Purwokerto
           </p>
@@ -23,41 +33,13 @@ function BookingCardAdmin(props) {
       </div>
       <div className="card-body">
         <div className="row row-cols-4">
-          <div className="col">
-            <Link to="" className={`${styles.card_booking}`}>
-              8:30am
-            </Link>
-          </div>
-          <div className="col">
-            <Link to="" className={`${styles.card_booking}`}>
-              8:30am
-            </Link>
-          </div>
-          <div className="col">
-            <Link to="" className={`${styles.card_booking}`}>
-              8:30am
-            </Link>
-          </div>
-          <div className="col">
-            <Link to="" className={`${styles.card_booking}`}>
-              8:30am
-            </Link>
-          </div>
-          <div className="col">
-            <Link to="" className={`${styles.card_booking}`}>
-              8:30am
-            </Link>
-          </div>
-          <div className="col">
-            <Link to="" className={`${styles.card_booking}`}>
-              8:30am
-            </Link>
-          </div>
-          <div className="col">
-            <Link to="" className={`${styles.card_booking}`}>
-              8:30am
-            </Link>
-          </div>
+          {time.split(",").map((item) => (
+            <div className="col">
+              <Link to="" className={`${styles.card_booking}`}>
+                {item}
+              </Link>
+            </div>
+          ))}
         </div>
         <div
           className={`${styles.card_footer} d-flex justify-content-between row`}
@@ -66,24 +48,25 @@ function BookingCardAdmin(props) {
             <p className={styles.card_price}>Price</p>
           </div>
           <div className="col text-end">
-            <p className={styles.card_seat}>$30.00/seat</p>
+            <p className={styles.card_seat}>{`${price}/seat`}</p>
           </div>
         </div>
         <div className={`${styles.card_btn} row`}>
           <div className="d-grid col">
             <button
-              href="#"
               className={`${styles.btn_} btn btn-outline-primary`}
+              onClick={() => props.setUpdate(props.data)}
             >
-              Delete
+              Update
             </button>
           </div>
           <div className="d-grid col">
             <button
               href="#"
               className={`${styles.btn_} btn btn-outline-danger`}
+              onClick={() => props.setDelete(props.data)}
             >
-              Update
+              Delete
             </button>
           </div>
         </div>

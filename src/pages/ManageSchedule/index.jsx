@@ -21,19 +21,6 @@ import {
 import { getMovie } from "../../stores/actions/manageMovie.js";
 
 function ManageSchedule() {
-  //without redux
-  const dataDetail = {
-    image: "nontonYuk/movies/z4c88xkk5jnjajwgrlxb.png",
-    category: "family, gore",
-    name: "LUCA",
-    releaseDate: "20-11-2022",
-    director: "graham bell",
-    duration: "2h 30m",
-    cast: "graham bell, lucas graham",
-    synopsis:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor inventore fugiat sint? Recusandae vero esse architecto deserunt officia non numquam, quibusdam, quia qui ex quisquam culpa ratione eius quae dolor.",
-  };
-
   // With redux
   const schedule = useSelector((state) => state.schedule);
   const movie = useSelector((state) => state.manageMovie);
@@ -54,6 +41,7 @@ function ManageSchedule() {
   ];
 
   const [image, setImage] = useState();
+  const [isUpdate, setIsUpdate] = useState(false);
   const [form, setForm] = useState({
     movieId: "",
     premiere: "",
@@ -74,14 +62,16 @@ function ManageSchedule() {
   };
 
   const getDataSchedule = async () => {
-    await dispatch(getSchedule(page, limit));
+    // ga mau update kalau blm ganti limit?
+    await dispatch(getSchedule(page == 1 ? "" : page, 5));
   };
 
   // console.log(getdataMovie(1, 20));
 
   const [movieId, setmovieId] = useState("");
   const [inputTime, setInputTime] = useState("");
-  const [time, setTime] = useState([]);
+  const [tempTime, setTempTime] = useState([]);
+  const [id, setId] = useState();
 
   const handleChangeForm = (event) => {
     const { name, value } = event.target;
@@ -114,9 +104,9 @@ function ManageSchedule() {
       setForm({
         ...form,
         [name]: value1[0],
-        movie: value1[1],
-        image: value1[2],
+        name: value1[1],
       });
+      setImage(value1[2]);
     } else {
       setForm({
         ...form,
@@ -134,32 +124,56 @@ function ManageSchedule() {
   const handleKey = (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
-      // setForm({
-      //   ...form,
-      //   [event.target.name]: `${event.target.value},`,
-      // });
-      setTime([...time, event.target.value]);
+
+      setTempTime([...tempTime, event.target.value]);
       setInputTime("");
+      setForm({
+        ...form,
+        time: tempTime.toString(),
+      });
+      // msh telat 1 inputan (-)
     }
   };
-
-  console.log(time.toString());
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    setForm({
-      ...form,
-      time: time.toString(),
-    });
+    delete form.name;
+    // delete form.image;
 
-    delete form.movie;
-    delete form.image;
+    // await setForm({
+    //   ...form,
+    //   time: tempTime.toString(),
+    // });
+
+    console.log(form);
 
     await dispatch(postSchedule(form));
 
     resetForm();
     alert("Success post schedule");
+    getDataSchedule();
+  };
+
+  const handleUpdate = async (event) => {
+    event.preventDefault();
+
+    delete form.name;
+    // delete form.image;
+
+    // await setForm({
+    //   ...form,
+    //   time: tempTime.toString(),
+    // });
+
+    console.log(form);
+    console.log(id);
+    await dispatch(updateSchedule(id, form));
+
+    resetForm();
+    setIsUpdate(false);
+    alert("Success update schedule");
+    getDataSchedule();
   };
 
   const resetForm = () => {
@@ -173,7 +187,50 @@ function ManageSchedule() {
       location: "",
     });
 
-    setTime([]);
+    setImage();
+    setTempTime([]);
+  };
+
+  const setUpdate = (data) => {
+    console.log(data);
+    const {
+      id,
+      movieId,
+      premiere,
+      price,
+      dateStart,
+      dateEnd,
+      time,
+      location,
+      name,
+    } = data;
+    // const image1 = image.split("/");
+
+    setForm({
+      ...form,
+      movieId,
+      premiere,
+      price,
+      dateStart: dateStart.substring(0, 10),
+      dateEnd: dateEnd.substring(0, 10),
+      time,
+      location,
+      name,
+    });
+
+    setId(id);
+    setImage(data.image);
+    const tempTime = time.split(",");
+    setTempTime(tempTime);
+    setIsUpdate(true);
+  };
+
+  const setDelete = async (data) => {
+    const { id } = data;
+
+    await dispatch(deleteSchedule(id));
+    getDataSchedule();
+    alert("Success delete schedule");
   };
 
   useEffect(() => {
@@ -195,12 +252,12 @@ function ManageSchedule() {
 
         <form
           className={`${styles.upcoming__movies_card_container} pb-5 mt-3`}
-          onSubmit={handleSubmit}
+          onSubmit={isUpdate ? handleUpdate : handleSubmit}
         >
           <div className="row">
             <div className="col-3">
-              {image ? <Cards2 data={{ image }} /> : <Cards data={form} />}
-              {/* <Cards data={dataDetail} /> */}
+              {/* {image ? <Cards2 data={{ image }} /> : <Cards data={form} />} */}
+              <Cards data={{ image }} />
             </div>
             <div className="col">
               <div className="row">
@@ -214,7 +271,7 @@ function ManageSchedule() {
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                     >
-                      {form.movieId ? form.movie : "Choose movie"}
+                      {form.movieId ? form.name : "Choose movie"}
                     </button>
 
                     <ul
@@ -370,7 +427,7 @@ function ManageSchedule() {
                     </div>
                     <div className="col text-bottom ">
                       <div className="row row-cols-4 mt-3">
-                        {time.map((item) => (
+                        {tempTime.map((item) => (
                           <div className="col align-text-bottom ">{item}</div>
                         ))}
                       </div>
@@ -393,7 +450,7 @@ function ManageSchedule() {
             </div>
             <div className="d-grid col-2">
               <button className="btn btn-outline-primary" type="submit">
-                Submit
+                {isUpdate ? "Update" : "Submit"}
               </button>
             </div>
           </div>
@@ -404,21 +461,18 @@ function ManageSchedule() {
         </div>
         <div className={`${styles.upcoming__movies_card_container} pb-5 mt-3`}>
           <div className="row mt-4 row-cols-3 g-4">
-            <div className="col">
-              <BookingCardAdmin data={schedule.data} />
-            </div>
-            <div className="col">
-              <BookingCardAdmin />
-            </div>
-            <div className="col">
-              <BookingCardAdmin />
-            </div>
-            <div className="col">
-              <BookingCardAdmin />
-            </div>
-            <div className="col">
-              <BookingCardAdmin />
-            </div>
+            {schedule.data.map((item) => (
+              <div
+                className="col"
+                // key={item.id}
+              >
+                <BookingCardAdmin
+                  data={item}
+                  setUpdate={setUpdate}
+                  setDelete={setDelete}
+                />
+              </div>
+            ))}
           </div>
         </div>
       </section>
