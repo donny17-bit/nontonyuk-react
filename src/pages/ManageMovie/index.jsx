@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from "react";
 import axios from "../../utils/axios";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import {
+  Link,
+  useNavigate,
+  createSearchParams,
+  useSearchParams,
+} from "react-router-dom";
 import Header from "../../components/Header/index";
-import HeaderSignedIn from "../../components/HeaderSignedIn/index";
+import HeaderAdmin from "../../components/HeaderAdmin/index";
 import Footer from "../../components/Footer/index";
 import styles from "./ManageMovie.module.css";
 import Cards from "../../components/Cards/index";
 import Cards2 from "../../components/Cards2/index";
 import DetailCardAdmin from "../../components/DetailCardAdmin/index";
+import Pagination from "react-paginate";
 
 // - update harus semua form di isi, kalau input gambar kosong msh error
 
@@ -20,6 +26,10 @@ import {
 } from "../../stores/actions/manageMovie.js";
 
 function ManageMovie() {
+  document.title = "Tickitz | Manage Movie";
+  let dataUser = localStorage.getItem("dataUser");
+  dataUser = JSON.parse(dataUser);
+
   const [form, setForm] = useState({
     name: "",
     category: "",
@@ -31,16 +41,25 @@ function ManageMovie() {
     synopsis: "",
   });
 
+  const navigate = useNavigate();
   // buat searcing
   const [searchParams] = useSearchParams();
   const params = Object.fromEntries([...searchParams]);
 
-  const limit = 12;
-  const page = 1;
+  let limit = 8;
   // const [page, setPage] = useState(params.page ? params.page : "1");
   const [image, setImage] = useState();
   const [isUpdate, setIsUpdate] = useState(false);
   const [idMovie, setIdMovie] = useState("");
+  const [page, setPage] = useState(params.page ? params.page : "1");
+  const [sort, setSort] = useState(params.sort ? params.sort : "ascending");
+
+  const [searchMovie, setSearchMovie] = useState(
+    params.searchMovie ? params.searchMovie : null
+  );
+  const [releaseDate, setReleaseDate] = useState(
+    params.releaseDate ? params.releaseDate : null
+  );
   // const [pageInfo, setPageInfo] = useState({});
   // const [data, setData] = useState([]);
 
@@ -56,6 +75,7 @@ function ManageMovie() {
 
   const getdataMovie = async () => {
     // PANGGIL ACTION
+    limit = 8;
     await dispatch(getMovie(page, limit));
   };
 
@@ -141,6 +161,10 @@ function ManageMovie() {
     setIdMovie(id);
   };
 
+  const handleSort = (event) => {
+    setSort(event.target.value);
+  };
+
   const handleUpdate = async (event) => {
     event.preventDefault();
 
@@ -174,8 +198,8 @@ function ManageMovie() {
   const handleDelete = async (data) => {
     // event.preventDefault();
     console.log(data);
-    // await dispatch(deleteMovie(id));
-    // getdataMovie();
+    await dispatch(deleteMovie(data.id));
+    getdataMovie();
     alert("Success delete movie");
   };
 
@@ -192,14 +216,52 @@ function ManageMovie() {
     });
   };
 
+  const handleSortMonth = (item) => {
+    setReleaseDate(item.number);
+  };
+
+  const handleSearchMovie = (event) => {
+    if (event.key == "Enter") {
+      event.preventDefault();
+      setSearchMovie(event.target.value);
+      // setSort()
+    }
+  };
+
+  const handlePagination = (data) => {
+    setPage(data.selected + 1);
+  };
+
   useEffect(() => {
     getdataMovie();
   }, []);
 
+  useEffect(() => {
+    getdataMovie();
+    const params = {};
+    if (page !== "1") {
+      console.log(page);
+      params.page = page;
+    }
+    if (releaseDate) {
+      params.releaseDate = releaseDate;
+    }
+    if (searchMovie) {
+      console.log(searchMovie);
+      params.searchName = searchMovie;
+    }
+    if (sort) {
+      params.sort = sort;
+    }
+    navigate({
+      pathname: "/manage-movie",
+      search: `?${createSearchParams(params)}`,
+    });
+  }, [page, releaseDate, sort, searchMovie]);
+
   return (
     <>
-      {/* harus sudah sign in dlu headernya */}
-      {localStorage.getItem("token") ? <HeaderSignedIn /> : <Header />}
+      {dataUser.role == "admin" ? <HeaderAdmin /> : <Header />}
       <section className={`${styles.upcoming__movies}`}>
         <div className="d-flex justify-content-between">
           <label className={styles.upcoming__movies_title}>Form Movie</label>
@@ -359,9 +421,58 @@ function ManageMovie() {
             </div>
           </div>
         </form>
-
-        <div className="d-flex justify-content-between mt-5">
-          <label className={styles.upcoming__movies_title}>Data Movie</label>
+        <div className="mt-5">
+          <div className="row ">
+            <div className="col-7 ">
+              <label className={styles.upcoming__movies_title}>
+                Data Movie
+              </label>
+            </div>
+            <div className="col-3 text-end">
+              <div class="dropdown">
+                <button
+                  class="btn btn-secondary dropdown-toggle"
+                  type="button"
+                  id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  {sort ? sort.toUpperCase() : "Sort"}
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li>
+                    <button
+                      class="dropdown-item"
+                      value="ascending"
+                      name="sort"
+                      onClick={(event) => handleSort(event)}
+                    >
+                      Ascending
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      class="dropdown-item"
+                      value="descending"
+                      name="sort"
+                      onClick={(event) => handleSort(event)}
+                    >
+                      Descending
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className="col-2">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="search movie name..."
+                name="searchMovie"
+                onKeyPress={(event) => handleSearchMovie(event)}
+              />
+            </div>
+          </div>
         </div>
         <div className={`${styles.upcoming__movies_card_container} pb-5 mt-3`}>
           <div className="row mt-4 row-cols-4 g-4">
@@ -374,13 +485,23 @@ function ManageMovie() {
                   data={item}
                   setUpdate={setUpdate}
                   setDelete={setDelete}
-
-                  // handleDelete={handleDelete}
+                  handleDelete={handleDelete}
                 />
               </div>
             ))}
           </div>
         </div>
+        <Pagination
+          previousLabel={"Previous"}
+          nextLabel={"Next"}
+          breakLabel={"..."}
+          pageCount={manageMovie.pageInfo.totalPage}
+          onPageChange={handlePagination}
+          containerClassName={"pagination"}
+          subContainerClassName={"pages pagination"}
+          activeClassName={"active"}
+          initialPage={page - 1}
+        />
       </section>
       <Footer />
     </>

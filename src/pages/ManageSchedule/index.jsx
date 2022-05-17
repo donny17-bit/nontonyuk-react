@@ -3,6 +3,7 @@ import axios from "../../utils/axios";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "../../components/Header/index";
 import HeaderSignedIn from "../../components/HeaderSignedIn/index";
+import HeaderAdmin from "../../components/HeaderAdmin/index";
 import Footer from "../../components/Footer/index";
 import styles from "./ManageSchedule.module.css";
 import Cards from "../../components/Cards/index";
@@ -21,6 +22,11 @@ import {
 import { getMovie } from "../../stores/actions/manageMovie.js";
 
 function ManageSchedule() {
+  document.title = "Tickitz | Manage Schedule";
+
+  let dataUser = localStorage.getItem("dataUser");
+  dataUser = JSON.parse(dataUser);
+
   // With redux
   const schedule = useSelector((state) => state.schedule);
   const movie = useSelector((state) => state.manageMovie);
@@ -243,8 +249,7 @@ function ManageSchedule() {
 
   return (
     <>
-      {/* harus sudah sign in dlu headernya */}
-      {localStorage.getItem("token") ? <HeaderSignedIn /> : <Header />}
+      {dataUser.role == "admin" ? <HeaderAdmin /> : <Header />}
       <section className={`${styles.upcoming__movies}`}>
         <div className="d-flex justify-content-between">
           <label className={styles.upcoming__movies_title}>Form Schedule</label>

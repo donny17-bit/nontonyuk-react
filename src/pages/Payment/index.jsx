@@ -3,7 +3,7 @@ import axios from "../../utils/axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./Payment.module.css";
 import Header from "../../components/Header/index";
-// import Header from "../../components/HeaderSignedIn/index";
+import HeaderSignedIn from "../../components/HeaderSignedIn/index";
 import Footer from "../../components/Footer/index";
 import { useSelector, useDispatch } from "react-redux";
 import { getUser } from "../../stores/actions/user.js";
@@ -29,7 +29,7 @@ function Payment() {
 
   return (
     <>
-      <Header />
+      {localStorage.getItem("token") ? <HeaderSignedIn /> : <Header />}
       <div class={`${styles.canvas} pb-5 d-flex`}>
         <div class={`${styles.canvas__1} mt-5`}>
           <section class={styles.payment__info}>

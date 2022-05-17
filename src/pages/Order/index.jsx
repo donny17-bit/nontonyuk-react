@@ -3,6 +3,7 @@ import axios from "../../utils/axios";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import styles from "./Order.module.css";
 import Header from "../../components/Header/index";
+import HeaderSignedIn from "../../components/HeaderSignedIn/index";
 import Footer from "../../components/Footer/index";
 import Seat from "../../components/Seat/index";
 import OrderCard from "../../components/OrderCard/index";
@@ -63,7 +64,7 @@ export default function Order() {
 
   return (
     <>
-      <Header />
+      {localStorage.getItem("token") ? <HeaderSignedIn /> : <Header />}
       <div class={`${styles.canvas} pb-5 d-flex`}>
         <div class={`${styles.canvas__1} mt-5`}>
           <section class={styles.movie__selected}>

@@ -1,4 +1,25 @@
-slicing tiket result, dan dashboard --optional 
-manage movie, profile page, 
+yg belum :
+- sorting
+- blm pake redux di user
+- user page (profile)
+- booking (midtrans)
+- get movie di manage movie msh blm ke update jika submit
+- same di manage schedule
+- env
+- image default mash di local
+- backend update image, blm kehapus di cloudinary
+- backend hapus image, blm kehapus di cloudinary
+- eslint
+- paginataion di redux msh blm
+- delete di manage movie msh slah
+- input time manage movie/schedule kelebihan 1 input/telat 1 input
+- input duration di manage movie msh blm bagus, kalau di update numpuk (exm, database 2h 30m
+jadi 2hh 30mm setelah update)
+- search bru di view all
+- search blm pakai redux
+- rapihin code
+- redux persist
+- private route
 
-hoc high order component
+additional:
+- readme frontend/backend

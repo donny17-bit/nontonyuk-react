@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./Home.module.css";
 import Header from "../../components/Header/index.jsx";
 import HeaderSignedIn from "../../components/HeaderSignedIn/index";
+import HeaderAdmin from "../../components/HeaderAdmin/index";
 import Footer from "../../components/Footer/index";
 import Cards from "../../components/Cards/index";
 import DetailCard from "../../components/DetailCard/index";
@@ -12,6 +13,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { getMovie } from "../../stores/actions/manageMovie.js";
 
 function Home() {
+  let dataUser = {};
+  if (localStorage.getItem("dataUser")) {
+    dataUser = localStorage.getItem("dataUser");
+    dataUser = JSON.parse(dataUser);
+  } else {
+    dataUser = { role: null };
+  }
+
   document.title = "Tickitz | Home";
 
   const month = [
@@ -65,6 +74,16 @@ function Home() {
     }
   };
 
+  // const isAdmin = (user) => {
+  //   if (user == "admin") {
+  //     <HeaderAdmin />;
+  //   } else if (user == "user") {
+  //     <HeaderSignedIn />;
+  //   } else {
+  //     <Header />;
+  //   }
+  // };
+
   const handleMonth = (item) => {
     setRelease(item);
   };
@@ -86,7 +105,14 @@ function Home() {
 
   return (
     <>
-      {localStorage.getItem("token") ? <HeaderSignedIn /> : <Header />}
+      {dataUser.role == "admin" ? (
+        <HeaderAdmin />
+      ) : // <Header />
+      dataUser.role == "user" ? (
+        <HeaderSignedIn />
+      ) : (
+        <Header />
+      )}
       <div className="container">
         <section className="banner ms-5 me-5 d-flex justify-content-between">
           <div className={`${styles.banner__text} ms-3`}>
