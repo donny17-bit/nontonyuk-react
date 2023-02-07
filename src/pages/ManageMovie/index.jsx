@@ -488,17 +488,26 @@ function ManageMovie() {
             ))}
           </div>
         </div>
-        <Pagination
-          previousLabel={"Previous"}
-          nextLabel={"Next"}
-          breakLabel={"..."}
-          pageCount={manageMovie.pageInfo.totalPage}
-          onPageChange={handlePagination}
-          containerClassName={"pagination"}
-          subContainerClassName={"pages pagination"}
-          activeClassName={"active"}
-          initialPage={page - 1}
-        />
+        <div className={`d-flex justify-content-center`}>
+          <Pagination
+            className={`${styles.pagination_}`}
+            pageClassName={`pt-3`}
+            pageLinkClassName={`${styles.pagination__link_page} p-3`}
+            activeClassName={`${styles.pagination__active} rounded`}
+            activeLinkClassName={`${styles.pagination__link_active}`}
+            previousClassName={`${styles.pagination__nextprev} pt-3 pb-3`}
+            nextClassName={`${styles.pagination__nextprev} pt-3 pb-3`}
+            previousLinkClassName={`${styles.pagination__nextprev} p-3`}
+            nextLinkClassName={`${styles.pagination__nextprev} p-3`}
+            previousLabel={"<"}
+            nextLabel={">"}
+            breakLabel={"..."}
+            breakClassName={"p-3"}
+            pageCount={manageMovie.pageInfo.totalPage}
+            onPageChange={handlePagination}
+            initialPage={page - 1}
+          />
+        </div>
       </section>
       <Footer />
     </>
