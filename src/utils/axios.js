@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const axiosApiIntances = axios.create({
-  baseURL: "https://project-nontonyuk.herokuapp.com",
+  baseURL: "https://nontonyuk.deta.dev",
+  // baseURL: "127.0.0.1:3001",
   // timeout: 10000,
 
   // Authorization: "",
