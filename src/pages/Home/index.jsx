@@ -197,7 +197,7 @@ function Home() {
       </section>
       <section>
         <div
-          className={`${styles.card__join} card border-light shadow p-3 mb-5 bg-body`}
+          className={`${styles.card__join} card border-light shadow p-3 pb-5 bg-body`}
         >
           <div className="card-body">
             <h5 className={styles.card_title1}>Be the vanguard of the</h5>

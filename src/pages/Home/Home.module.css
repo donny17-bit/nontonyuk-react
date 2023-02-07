@@ -229,11 +229,9 @@
 
 .card__join {
   height: 372px;
-  margin: 80px 130px;
-  /* border-radius: 8px; */
+  margin: 80px 130px 200px 130px;
   text-align: center;
   align-items: center;
-  /* box-shadow: #4e4b66; */
 }
 
 .card_title1 {
