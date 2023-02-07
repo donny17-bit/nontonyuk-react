@@ -107,7 +107,6 @@
     } */
 
 .upcoming__movies_card_row {
-  white-space: nowrap;
   overflow-x: hidden;
 }
 

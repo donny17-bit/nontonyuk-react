@@ -7,6 +7,7 @@
   box-sizing: border-box;
   border-radius: 8px;
   padding: 32px;
+  display: flex;
 }
 
 .movies_card .card_img_top {
@@ -44,7 +45,6 @@
 .movies_card .card_footer {
   background-color: white;
   border-top: 0;
-  display: flex;
 }
 
 .card_footer .btn_ {
@@ -64,4 +64,5 @@
 .card_footer .btn_:hover {
   background-color: #5f2eea;
   color: white;
+  border-color: #5f2eea;
 }

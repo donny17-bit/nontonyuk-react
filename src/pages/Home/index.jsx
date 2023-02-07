@@ -182,11 +182,11 @@ function Home() {
             ))}
           </div>
         </div>
-        <div className={`${styles.upcoming__movies_card_container} mt-5`}>
-          <div className={`${styles.upcoming__movies_card_row}`}>
+        <div className={`${styles.upcoming__movies_card_row} mt-5`}>
+          <div className={`row-cols-4 d-flex`}>
             {dataRelease.map((item) => (
               <div
-                className={`${styles.upcoming__movies_card_col}`}
+                className={`${styles.upcoming__movies_card_col} col me-3`}
                 key={item.id}
               >
                 {<DetailCard data={item} />}

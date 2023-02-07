@@ -21,17 +21,20 @@ function DetailCard(props) {
         alt="card-img"
       />
       <div className="card-body">
-        <h5 className={`${styles.card_title} card-title`}>{name}</h5>
-        <p className={`${styles.card_text} card-text`}>{category}</p>
+        <h5 className={`${styles.card_title} card-title text-wrap`}>{name}</h5>
+        <p className={`${styles.card_text} card-text text-wrap`}>{category}</p>
       </div>
       <div className={`${styles.card_footer} card-footer`}>
-        {/* <Link to=""></Link> */}
-        <button
-          onClick={handleButton}
-          className={`${styles.btn_} btn btn-outline-primary`}
-        >
-          Details
-        </button>
+        <div className="row text-center">
+          <div className="col">
+            <button
+              onClick={handleButton}
+              className={`${styles.btn_} btn btn-outline-primary`}
+            >
+              Details
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

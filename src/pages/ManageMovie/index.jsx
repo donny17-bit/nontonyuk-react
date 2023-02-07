@@ -477,10 +477,7 @@ function ManageMovie() {
         <div className={`${styles.upcoming__movies_card_container} pb-5 mt-3`}>
           <div className="row mt-4 row-cols-4 g-4">
             {manageMovie.data.map((item) => (
-              <div
-                className={`${styles.now__showing_card_col} col`}
-                key={item.id}
-              >
+              <div className={`col`} key={item.id}>
                 <DetailCardAdmin
                   data={item}
                   setUpdate={setUpdate}
