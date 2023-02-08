@@ -1,11 +1,14 @@
 import axios from "../../utils/axios";
 
-export const getMovie = (page, limit) => {
+export const getMovie = (page, limit, isUpdated) => {
   return {
     type: "GET_MOVIE",
-    payload: axios.get(`movie?limit=${limit}&page=${page}&`, {
-      headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
-    }),
+    payload: axios.get(
+      `movie?limit=${limit}&page=${page}&isUpdate=${isUpdated}`,
+      {
+        headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
+      }
+    ),
   };
 };
 

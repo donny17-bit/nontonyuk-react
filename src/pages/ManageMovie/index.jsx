@@ -42,17 +42,20 @@ function ManageMovie() {
   });
 
   const navigate = useNavigate();
-  // buat searcing
+  // for searcing
   const [searchParams] = useSearchParams();
   const params = Object.fromEntries([...searchParams]);
 
-  let limit = 8;
+  let limit = 0;
   // const [page, setPage] = useState(params.page ? params.page : "1");
   const [image, setImage] = useState();
   const [isUpdate, setIsUpdate] = useState(false);
   const [idMovie, setIdMovie] = useState("");
   const [page, setPage] = useState(params.page ? params.page : "1");
   const [sort, setSort] = useState(params.sort ? params.sort : "ascending");
+  const [isUpdated, setIsUpdated] = useState(
+    params.isUpdate ? params.isUpdate : "false"
+  );
 
   const [searchMovie, setSearchMovie] = useState(
     params.searchMovie ? params.searchMovie : null
@@ -71,13 +74,7 @@ function ManageMovie() {
   const manageMovie = useSelector((state) => state.manageMovie);
   const dispatch = useDispatch();
 
-  // console.log(manageMovie.data);
-
-  const getdataMovie = async () => {
-    // PANGGIL ACTION
-    limit = 8;
-    await dispatch(getMovie(page, limit));
-  };
+  console.log(manageMovie.pageInfo.totalPage);
 
   const handleChangeDuration = (event) => {
     // msh bug kelebihan 1 angka
@@ -104,7 +101,6 @@ function ManageMovie() {
       });
     }
   };
-  // console.log(form);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -120,7 +116,8 @@ function ManageMovie() {
     // }
 
     await dispatch(postMovie(formData));
-    getdataMovie();
+    setIsUpdated("true");
+    // getdataMovie();
     resetForm();
     setImage(null);
 
@@ -232,16 +229,24 @@ function ManageMovie() {
     setPage(data.selected + 1);
   };
 
+  const getdataMovie = async () => {
+    // PANGGIL ACTION
+    limit = 12;
+    await dispatch(getMovie(page, limit, isUpdated));
+  };
+
   useEffect(() => {
     getdataMovie();
   }, []);
 
   useEffect(() => {
     getdataMovie();
-    const params = {};
     if (page !== "1") {
-      console.log(page);
       params.page = page;
+    }
+    if (page === manageMovie.pageInfo.totalPage) {
+      setIsUpdated("false");
+      params.isUpdate = "false";
     }
     if (releaseDate) {
       params.releaseDate = releaseDate;
@@ -253,11 +258,16 @@ function ManageMovie() {
     if (sort) {
       params.sort = sort;
     }
+    if (isUpdated === "true") {
+      params.isUpdate = isUpdated;
+    } else {
+      params.isUpdate = isUpdated;
+    }
     navigate({
       pathname: "/manage-movie",
       search: `?${createSearchParams(params)}`,
     });
-  }, [page, releaseDate, sort, searchMovie]);
+  }, [page, releaseDate, sort, searchMovie, isUpdated]);
 
   return (
     <>
