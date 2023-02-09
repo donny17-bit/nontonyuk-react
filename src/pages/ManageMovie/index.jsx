@@ -121,7 +121,7 @@ function ManageMovie() {
     resetForm();
     setImage(null);
 
-    // //   output = keadaan user diinfokan kalau sudah login
+    // //   output = keadaan user diinfokan kalau sudah upload movie
     alert("Success post movie");
   };
 
@@ -295,107 +295,115 @@ function ManageMovie() {
                   <input
                     name="name"
                     type="text"
-                    class="form-control"
+                    className={`form-control`}
                     onChange={(event) => handleChangeForm(event)}
                     placeholder="Enter movie name here"
                     value={form.name}
+                    required
                   />
                 </div>
                 <div className="col mb-3 ">
-                  <label for="exampleInputEmail1" class="form-label">
+                  <label for="exampleInputEmail1" className="form-label">
                     Category
                   </label>
                   <input
                     name="category"
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     onChange={(event) => handleChangeForm(event)}
                     placeholder="Movie category"
                     value={form.category}
+                    required
                   />
                 </div>
               </div>
               <div className="row">
                 <div className="col mb-3 ">
-                  <label for="exampleInputEmail1" class="form-label">
+                  <label for="exampleInputEmail1" className="form-label">
                     Director
                   </label>
                   <input
                     name="director"
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     onChange={(event) => handleChangeForm(event)}
                     placeholder="Directed by.."
                     value={form.director}
+                    required
                   />
                 </div>
                 <div className="col mb-3 ">
-                  <label for="exampleInputEmail1" class="form-label">
+                  <label for="exampleInputEmail1" className="form-label">
                     Cast
                   </label>
                   <input
                     name="cast"
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     onChange={(event) => handleChangeForm(event)}
                     placeholder="Casting"
                     value={form.cast}
+                    required
                   />
                 </div>
               </div>
               <div className="row">
                 <div className="col-6 mb-3 ">
-                  <label for="exampleInputEmail1" class="form-label">
+                  <label for="exampleInputEmail1" className="form-label">
                     Release Date
                   </label>
                   <input
                     name="releaseDate"
                     type="date"
-                    class="form-control"
+                    className="form-control"
                     onChange={(event) => handleChangeForm(event)}
                     placeholder="Release date"
                     value={form.releaseDate}
+                    required
                   />
                 </div>
                 <div className="col mb-3 ">
-                  <label for="exampleInputEmail1" class="form-label">
+                  <label for="exampleInputEmail1" className="form-label">
                     Duration Hour
                   </label>
                   <input
                     name="durationHour"
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     onChange={(event) => handleChangeDuration(event)}
                     // onChange={(event) => handleChangeForm(event)}
                     placeholder="Duration"
                     value={duration1.durationHour}
+                    required
                   />
                 </div>
                 <div className="col mb-3 ">
-                  <label for="exampleInputEmail1" class="form-label">
+                  <label for="exampleInputEmail1" className="form-label">
                     Duration Minute
                   </label>
                   <input
                     name="durationMinute"
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     onChange={(event) => handleChangeDuration(event)}
                     // onChange={(event) => handleChangeForm(event)}
                     placeholder="Duration"
                     value={duration1.durationMinute}
+                    required
                   />
                 </div>
               </div>
               <div className="row">
                 <div className="col">
-                  <label for="exampleInputEmail1" class="form-label">
+                  <label for="exampleInputEmail1" className="form-label">
                     Image
                   </label>
                   <input
                     type="file"
                     name="image"
-                    class="form-control"
+                    className="form-control"
                     onChange={(event) => handleChangeForm(event)}
+                    required
                   />
                 </div>
               </div>
@@ -404,13 +412,15 @@ function ManageMovie() {
           <div className="row mt-3">
             <div className="col mb-3 ">
               <label className="form-label">Synopsis</label>
-              <input
+              <textarea
                 name="synopsis"
                 type="text"
-                class="form-control"
+                className="form-control"
+                rows="5"
                 onChange={(event) => handleChangeForm(event)}
-                placeholder="Enter movie name here"
+                placeholder="Enter movie synopsis "
                 value={form.synopsis}
+                required
               />
             </div>
           </div>
@@ -439,9 +449,9 @@ function ManageMovie() {
               </label>
             </div>
             <div className="col-3 text-end">
-              <div class="dropdown">
+              <div className="dropdown">
                 <button
-                  class="btn btn-secondary dropdown-toggle"
+                  className="btn btn-secondary dropdown-toggle"
                   type="button"
                   id="dropdownMenuButton1"
                   data-bs-toggle="dropdown"
@@ -449,10 +459,13 @@ function ManageMovie() {
                 >
                   {sort ? sort.toUpperCase() : "Sort"}
                 </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <ul
+                  className="dropdown-menu"
+                  aria-labelledby="dropdownMenuButton1"
+                >
                   <li>
                     <button
-                      class="dropdown-item"
+                      className="dropdown-item"
                       value="ascending"
                       name="sort"
                       onClick={(event) => handleSort(event)}
@@ -462,7 +475,7 @@ function ManageMovie() {
                   </li>
                   <li>
                     <button
-                      class="dropdown-item"
+                      className="dropdown-item"
                       value="descending"
                       name="sort"
                       onClick={(event) => handleSort(event)}
