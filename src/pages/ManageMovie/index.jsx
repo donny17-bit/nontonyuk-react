@@ -14,6 +14,7 @@ import Cards from "../../components/Cards/index";
 import Cards2 from "../../components/Cards2/index";
 import DetailCardAdmin from "../../components/DetailCardAdmin/index";
 import Pagination from "react-paginate";
+import { Modal } from "bootstrap";
 
 // - update harus semua form di isi, kalau input gambar kosong msh error
 
@@ -120,6 +121,17 @@ function ManageMovie() {
     button.disabled = true;
   };
 
+  const modal = () => {
+    const popUp = new Modal(document.getElementById("myModal"));
+    const modalMovie = document.getElementById("modal-movie-name");
+    modalMovie.textContent = form.name;
+
+    popUp.show();
+    setTimeout(() => {
+      popUp.hide();
+    }, 5000);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     disableBtn();
@@ -134,17 +146,12 @@ function ManageMovie() {
     //   // name, "Bagus"
     // }
 
-    // await setTimeout(() => console.log("Initial timeout!"), 3000);
-
-    await dispatch(postMovie(formData));
-    // setIsUpdated("true");
+    // await dispatch(postMovie(formData));
     enableBtn();
     // getdataMovie();
     resetForm();
     setImage(null);
-
-    // //   output = keadaan user diinfokan kalau sudah upload movie
-    alert("Success post movie");
+    modal();
   };
 
   const setUpdate = (data) => {
@@ -461,68 +468,45 @@ function ManageMovie() {
               </button>
             </div>
             <div className="d-grid col-2">
-              <button
-                id="button-submit"
-                className="btn btn-outline-primary"
-                // data-bs-toggle="modal"
-                // data-bs-target="#modal"
-                // data-bs-target="#staticBackdrop"
-                // type="submit"
-                // disabled
-              >
+              <button id="button-submit" className="btn btn-outline-primary">
                 {isUpdate ? "Update" : isLoading ? loading : "Submit"}
-                {/* {isUpdate ? (
-                  "Update"
-                ) : isLoading ? (
-                  <span
-                    className="spinner-grow spinner-grow-sm"
-                    role="status"
-                  ></span>
-                ) : (
-                  "Submit"
-                )} */}
               </button>
             </div>
 
             {/* <!-- Modal --> */}
             <div
-              className="modal fade "
-              id="modal"
-              // id="exampleModal"
-              // data-bs-backdrop="static"
-              data-bs-keyboard="false"
+              class="modal fade"
+              id="myModal"
               tabindex="-1"
               aria-hidden="true"
             >
-              <div className="modal-dialog modal-dialog-centered">
-                <div className="modal-content">
-                  <div className="modal-header">
-                    <h5 className="modal-title">Uploading movie</h5>
+              <div class="modal-dialog ">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Movie Uploaded</h5>
                     <button
                       type="button"
-                      className="btn-close"
+                      class="btn-close"
                       data-bs-dismiss="modal"
                       aria-label="Close"
                     ></button>
                   </div>
-                  <div className="modal-body d-flex justify-content-center">
-                    <div
-                      className="spinner-grow spinner-grow-sm"
-                      role="status"
-                    ></div>
-                    <div className="spinner-grow" role="status"></div>
-                    <div className="spinner-grow" role="status"></div>
+                  <div class="modal-body">
+                    <label
+                      className="d-flex justify-content-center"
+                      id="modal-movie-name"
+                    ></label>
+                    <label className="form-label d-flex justify-content-center">
+                      Successfully added to database
+                    </label>
                   </div>
-                  <div className="modal-footer">
+                  <div class="modal-footer">
                     <button
                       type="button"
-                      className="btn btn-secondary"
+                      class="btn btn-secondary"
                       data-bs-dismiss="modal"
                     >
                       Close
-                    </button>
-                    <button type="button" className="btn btn-primary">
-                      Understood
                     </button>
                   </div>
                 </div>
