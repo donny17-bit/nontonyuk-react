@@ -38,7 +38,7 @@ function Home() {
     { id: 12, name: "December" },
   ];
 
-  const limit = 4;
+  const limit = 10;
   // di set ke bulan saat ini
   const [release, setRelease] = useState(3);
   const [page, setPage] = useState(1);

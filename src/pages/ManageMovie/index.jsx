@@ -143,6 +143,7 @@ function ManageMovie() {
 
     await dispatch(postMovie(formData));
     enableBtn();
+    setIsUpdated("true");
     // getdataMovie();
     modal();
     resetForm();
