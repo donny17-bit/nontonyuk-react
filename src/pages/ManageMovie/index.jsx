@@ -50,6 +50,7 @@ function ManageMovie() {
   // const [page, setPage] = useState(params.page ? params.page : "1");
   const [image, setImage] = useState();
   const [isUpdate, setIsUpdate] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [idMovie, setIdMovie] = useState("");
   const [page, setPage] = useState(params.page ? params.page : "1");
   const [sort, setSort] = useState(params.sort ? params.sort : "ascending");
@@ -73,8 +74,6 @@ function ManageMovie() {
 
   const manageMovie = useSelector((state) => state.manageMovie);
   const dispatch = useDispatch();
-
-  console.log(manageMovie.pageInfo.totalPage);
 
   const handleChangeDuration = (event) => {
     // msh bug kelebihan 1 angka
@@ -102,8 +101,28 @@ function ManageMovie() {
     }
   };
 
+  const loading = (
+    <>
+      <span className="spinner-grow spinner-grow-sm" role="status"></span>
+      Loading...
+    </>
+  );
+
+  const enableBtn = () => {
+    setIsLoading(false);
+    const button = document.getElementById("button-submit");
+    button.disabled = false;
+  };
+
+  const disableBtn = () => {
+    setIsLoading(true);
+    const button = document.getElementById("button-submit");
+    button.disabled = true;
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+    disableBtn();
     const formData = new FormData();
     for (const dataForm in form) {
       formData.append(dataForm, form[dataForm]);
@@ -115,8 +134,11 @@ function ManageMovie() {
     //   // name, "Bagus"
     // }
 
+    // await setTimeout(() => console.log("Initial timeout!"), 3000);
+
     await dispatch(postMovie(formData));
-    setIsUpdated("true");
+    // setIsUpdated("true");
+    enableBtn();
     // getdataMovie();
     resetForm();
     setImage(null);
@@ -201,6 +223,10 @@ function ManageMovie() {
   };
 
   const resetForm = () => {
+    setDuration1({
+      durationHour: "",
+      durationMinute: "",
+    });
     setForm({
       name: "",
       category: "",
@@ -211,6 +237,7 @@ function ManageMovie() {
       synopsis: "",
       image: null,
     });
+    setImage();
   };
 
   const handleSortMonth = (item) => {
@@ -252,7 +279,6 @@ function ManageMovie() {
       params.releaseDate = releaseDate;
     }
     if (searchMovie) {
-      console.log(searchMovie);
       params.searchName = searchMovie;
     }
     if (sort) {
@@ -435,9 +461,72 @@ function ManageMovie() {
               </button>
             </div>
             <div className="d-grid col-2">
-              <button className="btn btn-outline-primary" type="submit">
-                {isUpdate ? "Update" : "Submit"}
+              <button
+                id="button-submit"
+                className="btn btn-outline-primary"
+                // data-bs-toggle="modal"
+                // data-bs-target="#modal"
+                // data-bs-target="#staticBackdrop"
+                // type="submit"
+                // disabled
+              >
+                {isUpdate ? "Update" : isLoading ? loading : "Submit"}
+                {/* {isUpdate ? (
+                  "Update"
+                ) : isLoading ? (
+                  <span
+                    className="spinner-grow spinner-grow-sm"
+                    role="status"
+                  ></span>
+                ) : (
+                  "Submit"
+                )} */}
               </button>
+            </div>
+
+            {/* <!-- Modal --> */}
+            <div
+              className="modal fade "
+              id="modal"
+              // id="exampleModal"
+              // data-bs-backdrop="static"
+              data-bs-keyboard="false"
+              tabindex="-1"
+              aria-hidden="true"
+            >
+              <div className="modal-dialog modal-dialog-centered">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <h5 className="modal-title">Uploading movie</h5>
+                    <button
+                      type="button"
+                      className="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+                  <div className="modal-body d-flex justify-content-center">
+                    <div
+                      className="spinner-grow spinner-grow-sm"
+                      role="status"
+                    ></div>
+                    <div className="spinner-grow" role="status"></div>
+                    <div className="spinner-grow" role="status"></div>
+                  </div>
+                  <div className="modal-footer">
+                    <button
+                      type="button"
+                      className="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                    <button type="button" className="btn btn-primary">
+                      Understood
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </form>

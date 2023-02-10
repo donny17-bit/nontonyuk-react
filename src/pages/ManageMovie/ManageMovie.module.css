@@ -212,13 +212,3 @@
 .pagination__nextprev:hover {
   color: #5f2eea;
 }
-
-.is_valid {
-  /* border: red !important; */
-  border-color: green !important;
-  /* color: yellow; */
-}
-
-.is_not_valid {
-  border-color: red !important;
-}
