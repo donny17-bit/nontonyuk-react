@@ -77,41 +77,47 @@ function HeaderAdmin() {
                 </li>
               </ul>
             </div>
-            <form className={`${styles.d_flex} d-flex`}>
-              <div className="dropdown dropstart">
-                <button
-                  className={`btn btn-outline-secondary  ${styles.signup__btn}`}
-                  type="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <img src="/assets/img/header/user.png" alt="img_logo" />
-                </button>
-                <ul
-                  className="dropdown-menu"
-                  aria-labelledby="dropdownMenuLink"
-                >
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Profile
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Setting
-                    </a>
-                  </li>
-                  <li>
-                    <hr className="dropdown-divider" />
-                  </li>
-                  <li className={`${styles.logout}`}>
-                    <button className={`dropdown-item`} onClick={handleLogout}>
-                      Logout
-                    </button>
-                  </li>
-                </ul>
-              </div>
-            </form>
+            <div className={`${styles.d_flex} d-flex`}>
+              <form className={`${styles.d_flex} d-flex`}>
+                <div className="dropdown dropstart">
+                  <button
+                    className={`btn btn-outline-secondary  ${styles.signup__btn}`}
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    id="dropdownMenuButton1"
+                    // aria-expanded="false"
+                  >
+                    <img src="/assets/img/header/user.png" alt="img_logo" />
+                  </button>
+                  <ul
+                    className="dropdown-menu"
+                    aria-labelledby="dropdownMenuLink"
+                  >
+                    <li>
+                      <a className="dropdown-item" href="#">
+                        Profile
+                      </a>
+                    </li>
+                    <li>
+                      <a className="dropdown-item" href="#">
+                        Setting
+                      </a>
+                    </li>
+                    <li>
+                      <hr className="dropdown-divider" />
+                    </li>
+                    <li className={`${styles.logout}`}>
+                      <button
+                        className={`dropdown-item`}
+                        onClick={handleLogout}
+                      >
+                        Logout
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              </form>
+            </div>
           </div>
         </nav>
       </header>

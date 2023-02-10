@@ -121,11 +121,10 @@ function ManageMovie() {
     button.disabled = true;
   };
 
-  const modal = () => {
-    const popUp = new Modal(document.getElementById("myModal"));
+  const modal = async () => {
+    const popUp = new Modal(document.getElementById("modalNotif"));
     const modalMovie = document.getElementById("modal-movie-name");
     modalMovie.textContent = form.name;
-
     popUp.show();
     setTimeout(() => {
       popUp.hide();
@@ -135,23 +134,19 @@ function ManageMovie() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     disableBtn();
+
+    // untuk mengecek data di formData
     const formData = new FormData();
     for (const dataForm in form) {
       formData.append(dataForm, form[dataForm]);
     }
 
-    // untuk mengecek data di formData
-    // for (const data of formData.entries()) {
-    //   console.log(data[0] + ", " + data[1]);
-    //   // name, "Bagus"
-    // }
-
-    // await dispatch(postMovie(formData));
+    await dispatch(postMovie(formData));
     enableBtn();
     // getdataMovie();
+    modal();
     resetForm();
     setImage(null);
-    modal();
   };
 
   const setUpdate = (data) => {
@@ -476,7 +471,7 @@ function ManageMovie() {
             {/* <!-- Modal --> */}
             <div
               class="modal fade"
-              id="myModal"
+              id="modalNotif"
               tabindex="-1"
               aria-hidden="true"
             >
