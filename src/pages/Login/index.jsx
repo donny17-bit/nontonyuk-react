@@ -17,31 +17,48 @@ function Login() {
     setForm({ ...form, [event.target.name]: event.target.value });
   };
 
-  const [message, setMessage] = useState("");
-  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // const [message, setMessage] = useState("");
+  // const [isError, setIsError] = useState(false);
+
+  const loading = (
+    <>
+      <span className="spinner-grow spinner-grow-sm" role="status"></span>
+      Loading...
+    </>
+  );
+
+  const disableBtn = () => {
+    setIsLoading(true);
+    const button = document.getElementById("button-submit");
+    button.disabled = true;
+  };
+
+  const failNotif = (notif) => {
+    const text = document.getElementById("notif");
+    text.textContent = notif;
+  };
 
   const handleSubmit = async (event) => {
     try {
       event.preventDefault();
 
+      disableBtn();
       const resultLogin = await axios.post("auth/login", form);
       //   proses get data user by id
 
       localStorage.setItem("token", resultLogin.data.data.token);
       localStorage.setItem("refreshToken", resultLogin.data.data.refreshToken);
 
-      console.log(resultLogin);
       const resultUser = await axios.get(`user/${resultLogin.data.data.id}`, {
         headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
       });
-      // const resultUser = await axios.get(`user/${resultLogin.data.data.id}`);
-
-      console.log(resultUser);
 
       //   output = keadaan user diinfokan kalau sudah login
-      alert("Success Login");
-      setIsError(false);
-      setMessage(resultLogin.data.msg);
+      // alert("Success Login");
+      // setIsError(false);
+      // setMessage(resultLogin.data.msg);
 
       localStorage.setItem("dataUser", JSON.stringify(resultUser.data.data[0]));
 
@@ -50,8 +67,7 @@ function Login() {
 
       navigate("/home");
     } catch (error) {
-      alert(error.response.data.msg);
-      console.log(error.response.data.msg);
+      failNotif(error.response.data.msg);
       // setMessage(error.response.data[0].msg);
       // setIsError(true);
     }
@@ -80,6 +96,7 @@ function Login() {
               placeholder="Write your email"
               className={`${styles.form_control} form-control `}
               onChange={handleChangeForm}
+              required
             />
             <label
               for="inputPassword"
@@ -93,13 +110,19 @@ function Login() {
               placeholder="Write your password"
               className={`${styles.form_control} form-control `}
               onChange={handleChangeForm}
+              required
             />
+            <br />
+            <p className={`${styles.notif__login} text-center`} id="notif"></p>
             <div className={`${styles.d_grid} d-grid gap-2 mt-5`}>
-              <button className={`${styles.btn} btn`} type="submit">
-                Sign In
+              <button
+                className={`${styles.btn_} btn`}
+                type="submit"
+                id="button-submit"
+              >
+                {isLoading ? loading : "Sign In"}
               </button>
             </div>
-
             <p className={`${styles.form__additional} mt-4`}>
               Forgot your password?
               <a href="#">Reset now</a>
