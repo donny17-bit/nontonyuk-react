@@ -68,6 +68,7 @@ function ManageMovie() {
   // const [pageInfo, setPageInfo] = useState({});
   // const [data, setData] = useState([]);
 
+  const [dataDel, setDataDel] = useState();
   const [duration1, setDuration1] = useState({
     durationHour: "",
     durationMinute: "",
@@ -121,7 +122,7 @@ function ManageMovie() {
     button.disabled = true;
   };
 
-  const modal = async () => {
+  const modalNotif = async () => {
     const popUp = new Modal(document.getElementById("modalNotif"));
     const modalMovie = document.getElementById("modal-movie-name");
     modalMovie.textContent = form.name;
@@ -129,6 +130,17 @@ function ManageMovie() {
     setTimeout(() => {
       popUp.hide();
     }, 5000);
+  };
+
+  const modalDelete = (data) => {
+    setDataDel(data);
+    const popUp = new Modal(document.getElementById("modalDelete"));
+    popUp.show();
+  };
+
+  const handleDelete = async (dataDel) => {
+    await dispatch(deleteMovie(dataDel.id));
+    setIsUpdated("true");
   };
 
   const handleSubmit = async (event) => {
@@ -145,7 +157,7 @@ function ManageMovie() {
     enableBtn();
     setIsUpdated("true");
     // getdataMovie();
-    modal();
+    modalNotif();
     resetForm();
     setImage(null);
   };
@@ -211,18 +223,6 @@ function ManageMovie() {
     setImage(null);
     getdataMovie();
     alert("Success update movie");
-  };
-
-  const setDelete = (id) => {
-    console.log(id);
-  };
-
-  const handleDelete = async (data) => {
-    // event.preventDefault();
-    console.log(data);
-    await dispatch(deleteMovie(data.id));
-    getdataMovie();
-    alert("Success delete movie");
   };
 
   const resetForm = () => {
@@ -470,23 +470,23 @@ function ManageMovie() {
 
             {/* <!-- Modal --> */}
             <div
-              class="modal fade"
+              className="modal fade"
               id="modalNotif"
               tabindex="-1"
               aria-hidden="true"
             >
-              <div class="modal-dialog ">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title">Movie Uploaded</h5>
+              <div className="modal-dialog ">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <h5 className="modal-title">Movie Uploaded</h5>
                     <button
                       type="button"
-                      class="btn-close"
+                      className="btn-close"
                       data-bs-dismiss="modal"
                       aria-label="Close"
                     ></button>
                   </div>
-                  <div class="modal-body">
+                  <div className="modal-body">
                     <label
                       className="d-flex justify-content-center"
                       id="modal-movie-name"
@@ -495,10 +495,10 @@ function ManageMovie() {
                       Successfully added to database
                     </label>
                   </div>
-                  <div class="modal-footer">
+                  <div className="modal-footer">
                     <button
                       type="button"
-                      class="btn btn-secondary"
+                      className="btn btn-secondary"
                       data-bs-dismiss="modal"
                     >
                       Close
@@ -572,11 +572,54 @@ function ManageMovie() {
                 <DetailCardAdmin
                   data={item}
                   setUpdate={setUpdate}
-                  setDelete={setDelete}
-                  handleDelete={handleDelete}
+                  modalDelete={modalDelete}
                 />
               </div>
             ))}
+          </div>
+
+          {/* <!-- Modal delete--> */}
+          <div
+            className="modal fade"
+            id="modalDelete"
+            tabindex="-1"
+            aria-hidden="true"
+          >
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title" id="exampleModalLabel">
+                    Are you sure want to delete this movie?
+                  </h5>
+                  <button
+                    type="button"
+                    className="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div className="modal-body">
+                  By deleting this movie you agree with the further risk
+                </div>
+                <div className="modal-footer">
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-danger"
+                    data-bs-dismiss="modal"
+                    onClick={() => handleDelete(dataDel)}
+                  >
+                    Yes, I know
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div className={`d-flex justify-content-center`}>

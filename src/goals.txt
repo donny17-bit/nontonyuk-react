@@ -21,5 +21,11 @@ jadi 2hh 30mm setelah update)
 - redux persist
 - private route
 
+bug:
+-manage movie delete tidak bisa continue,
+jika delete 1 movie page ke refresh lalu jika delete lagi page tidak terrefresh 
+-manage movie add movie tidak bisa continue,
+jika add 1 movie page ke refresh lalu jika add lagi page tidak terrefresh
+
 additional:
 - readme frontend/backend

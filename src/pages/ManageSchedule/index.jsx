@@ -268,7 +268,7 @@ function ManageSchedule() {
               <div className="row">
                 <div className="col mb-3">
                   <label className="form-label">Movie</label>
-                  <div class="dropdown d-grid">
+                  <div class={`dropdown d-grid`}>
                     <button
                       class="btn btn-outline-secondary dropdown-toggle text-start"
                       type="button"
@@ -279,9 +279,10 @@ function ManageSchedule() {
                       {form.movieId ? form.name : "Choose movie"}
                     </button>
 
-                    <ul
-                      class="dropdown-menu"
+                    <div
+                      class={`${styles.dropdown_} dropdown-menu`}
                       aria-labelledby="dropdownMenuButton1"
+                      role="menu"
                     >
                       {movie.data.map((item) => (
                         <li key={item.id}>
@@ -296,7 +297,7 @@ function ManageSchedule() {
                           </button>
                         </li>
                       ))}
-                    </ul>
+                    </div>
                   </div>
                 </div>
                 <div className="col mb-3 ">
@@ -314,7 +315,7 @@ function ManageSchedule() {
                       {form.location ? form.location : "Choose location"}
                     </button>
                     <ul
-                      class="dropdown-menu"
+                      class={`${styles.dropdown_} dropdown-menu`}
                       aria-labelledby="dropdownMenuButton1"
                     >
                       {location.map((item) => (
