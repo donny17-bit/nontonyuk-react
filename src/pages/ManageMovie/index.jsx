@@ -397,10 +397,9 @@ function ManageMovie() {
                   </label>
                   <input
                     name="durationHour"
-                    type="text"
+                    type="number"
                     className="form-control"
                     onChange={(event) => handleChangeDuration(event)}
-                    // onChange={(event) => handleChangeForm(event)}
                     placeholder="Duration"
                     value={duration1.durationHour}
                     required
@@ -412,7 +411,7 @@ function ManageMovie() {
                   </label>
                   <input
                     name="durationMinute"
-                    type="text"
+                    type="number"
                     className="form-control"
                     onChange={(event) => handleChangeDuration(event)}
                     // onChange={(event) => handleChangeForm(event)}
@@ -539,7 +538,7 @@ function ManageMovie() {
                       name="sort"
                       onClick={(event) => handleSort(event)}
                     >
-                      Ascending
+                      A-Z
                     </button>
                   </li>
                   <li>
@@ -549,7 +548,7 @@ function ManageMovie() {
                       name="sort"
                       onClick={(event) => handleSort(event)}
                     >
-                      Descending
+                      B-Z
                     </button>
                   </li>
                 </ul>

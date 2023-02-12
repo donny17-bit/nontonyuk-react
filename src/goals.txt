@@ -3,7 +3,7 @@ yg belum :
 - blm pake redux di user
 - user page (profile)
 - booking (midtrans)
-- get movie di manage movie msh blm ke update jika submit
+- get schedule di manage movie msh blm ke update jika submit
 - same di manage schedule
 - env
 - image default mash di local
