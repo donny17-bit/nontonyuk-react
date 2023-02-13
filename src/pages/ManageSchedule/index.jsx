@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "../../utils/axios";
-import { Link, useNavigate } from "react-router-dom";
 import Header from "../../components/Header/index";
 import HeaderSignedIn from "../../components/HeaderSignedIn/index";
 import HeaderAdmin from "../../components/HeaderAdmin/index";
@@ -10,6 +9,12 @@ import Cards from "../../components/Cards/index";
 import DetailCardAdmin from "../../components/DetailCardAdmin/index";
 import BookingCardAdmin from "../../components/BookingCardAdmin/index";
 import Cards2 from "../../components/Cards2/index";
+import {
+  Link,
+  useNavigate,
+  createSearchParams,
+  useSearchParams,
+} from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -24,6 +29,10 @@ import { getMovie } from "../../stores/actions/manageMovie.js";
 function ManageSchedule() {
   document.title = "Tickitz | Manage Schedule";
 
+  // for searcing
+  const [searchParams] = useSearchParams();
+  const params = Object.fromEntries([...searchParams]);
+
   let dataUser = localStorage.getItem("dataUser");
   dataUser = JSON.parse(dataUser);
 
@@ -32,7 +41,18 @@ function ManageSchedule() {
   const movie = useSelector((state) => state.manageMovie);
   const dispatch = useDispatch();
 
-  console.log(schedule);
+  const [page, setPage] = useState(params.page ? params.page : "1");
+  const [isUpdated, setIsUpdated] = useState(
+    params.isUpdate ? params.isUpdate : "false"
+  );
+
+  // const [selectLocation, setSelectLocation] = useState({
+  //   value: "Choose location"
+  // })
+  const [selectLocation, setSelectLocation] = useState();
+  const [selectMovie, setSelectMovie] = useState();
+
+  // console.log(schedule);
   // buat sementara mash static
   const location = [
     "Jakarta",
@@ -58,21 +78,18 @@ function ManageSchedule() {
     location: "",
   });
 
-  const page = 1;
   const limit = 20; // nnti dibuat all data(banyaknya data)
   const [movieSchedule, setMovieSchedule] = useState({});
 
   const getdataMovie = async () => {
     // PANGGIL ACTION
-    await dispatch(getMovie(page, limit));
+    await dispatch(getMovie(page, limit, "false"));
   };
 
   const getDataSchedule = async () => {
     // ga mau update kalau blm ganti limit?
-    await dispatch(getSchedule(page == 1 ? "" : page, 12));
+    await dispatch(getSchedule(page, 12, isUpdated));
   };
-
-  // console.log(getdataMovie(1, 20));
 
   const [movieId, setmovieId] = useState("");
   const [inputTime, setInputTime] = useState("");
@@ -88,6 +105,28 @@ function ManageSchedule() {
     });
   };
 
+  const handleChangeMovie = (event) => {
+    let value = event.target.value;
+    value = value.split(",");
+    setSelectMovie(value[0]);
+
+    setForm({
+      ...form,
+      movieId: value[0],
+    });
+    setImage(value[2]);
+  };
+
+  const handleChangeLocation = (event) => {
+    setSelectLocation(event.target.value);
+    let value = event.target.value;
+
+    setForm({
+      ...form,
+      location: value,
+    });
+  };
+
   const handlePremiere = (event, value) => {
     console.log(event.target);
     console.log(value);
@@ -98,32 +137,16 @@ function ManageSchedule() {
     });
   };
 
-  const handleButton = (event) => {
-    const { name, value } = event.target;
-    let value1 = [];
-
-    if (name == "movieId") {
-      value1 = value.split(",");
-
-      // console.log(value);
-
-      setForm({
-        ...form,
-        [name]: value1[0],
-        name: value1[1],
-      });
-      setImage(value1[2]);
-    } else {
-      setForm({
-        ...form,
-        [name]: value,
-      });
-    }
-  };
+  console.log(form);
 
   const handlePlus = () => {
     setInputTime(
-      <input type="text" name="time" onKeyPress={(event) => handleKey(event)} />
+      <input
+        type="text"
+        name="time"
+        onKeyPress={(event) => handleKey(event)}
+        required
+      />
     );
   };
 
@@ -144,17 +167,23 @@ function ManageSchedule() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    delete form.name;
+    console.log(form);
+    // delete form.name;
     // delete form.image;
 
-    // await setForm({
-    //   ...form,
-    //   time: tempTime.toString(),
-    // });
+    await setForm({
+      ...form,
+      time: tempTime.toString(),
+    });
 
-    console.log(form);
+    const setData = {
+      ...form,
+      time: tempTime.toString(),
+    };
 
-    await dispatch(postSchedule(form));
+    console.log(setData);
+
+    // await dispatch(postSchedule(form));
 
     resetForm();
     alert("Success post schedule");
@@ -195,6 +224,8 @@ function ManageSchedule() {
 
     setImage();
     setTempTime([]);
+    setSelectLocation();
+    setSelectMovie();
   };
 
   const setUpdate = (data) => {
@@ -241,11 +272,12 @@ function ManageSchedule() {
 
   useEffect(() => {
     getdataMovie();
-  }, []);
-
-  useEffect(() => {
     getDataSchedule();
   }, []);
+
+  // useEffect(() => {
+  //   getDataSchedule();
+  // }, []);
 
   return (
     <>
@@ -268,71 +300,46 @@ function ManageSchedule() {
               <div className="row">
                 <div className="col mb-3">
                   <label className="form-label">Movie</label>
-                  <div class={`dropdown d-grid`}>
-                    <button
-                      class="btn btn-outline-secondary dropdown-toggle text-start"
-                      type="button"
-                      id="dropdownMenuButton1"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      {form.movieId ? form.name : "Choose movie"}
-                    </button>
-
-                    <div
-                      class={`${styles.dropdown_} dropdown-menu`}
-                      aria-labelledby="dropdownMenuButton1"
-                      role="menu"
-                    >
-                      {movie.data.map((item) => (
-                        <li key={item.id}>
-                          <button
-                            name="movieId"
-                            class="dropdown-item"
-                            type="button"
-                            value={[item.id, item.name, item.image]}
-                            onClick={(event) => handleButton(event)}
-                          >
-                            {item.name}
-                          </button>
-                        </li>
-                      ))}
-                    </div>
-                  </div>
+                  <select
+                    id="selectMovie"
+                    className={`form-select d-grid`}
+                    onChange={(event) => handleChangeMovie(event)}
+                    name="movieId"
+                    value={selectMovie ? selectMovie : ""}
+                    required
+                  >
+                    <option selected disabled value="">
+                      Choose movie..
+                    </option>
+                    {movie.data.map((item) => (
+                      <option
+                        key={item.id}
+                        value={[item.id, item.name, item.image]}
+                      >
+                        {item.name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
                 <div className="col mb-3 ">
-                  <label for="exampleInputEmail1" class="form-label">
-                    Location
-                  </label>
-                  <div class="dropdown d-grid">
-                    <button
-                      class="btn btn-outline-secondary dropdown-toggle text-start"
-                      type="button"
-                      id="dropdownMenuButton1"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      {form.location ? form.location : "Choose location"}
-                    </button>
-                    <ul
-                      class={`${styles.dropdown_} dropdown-menu`}
-                      aria-labelledby="dropdownMenuButton1"
-                    >
-                      {location.map((item) => (
-                        <li>
-                          <button
-                            type="button"
-                            class="dropdown-item"
-                            name="location"
-                            value={item}
-                            onClick={(event) => handleButton(event)}
-                          >
-                            {item}
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  <label className="form-label">Location</label>
+                  <select
+                    className={`form-select d-grid`}
+                    id="selectLocation"
+                    name="location"
+                    onChange={(event) => handleChangeLocation(event)}
+                    value={selectLocation ? selectLocation : ""}
+                    required
+                  >
+                    <option selected disabled value="">
+                      Choose city
+                    </option>
+                    {location.map((item) => (
+                      <option value={item} key={Math.random()}>
+                        {item}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </div>
               <div className="row">
@@ -341,8 +348,9 @@ function ManageSchedule() {
                     Price
                   </label>
                   <input
-                    type="text"
-                    class="form-control"
+                    required
+                    type="number"
+                    className="form-control"
                     name="price"
                     placeholder="Price"
                     value={form.price}
@@ -350,33 +358,35 @@ function ManageSchedule() {
                   />
                 </div>
                 <div className="col mb-3 ">
-                  <label for="exampleInputEmail1" class="form-label">
+                  <label for="exampleInputEmail1" className="form-label">
                     Date start
                   </label>
                   <input
                     type="date"
-                    class="form-control"
+                    className="form-control"
                     name="dateStart"
                     value={form.dateStart}
                     onChange={(event) => handleChangeForm(event)}
+                    required
                   />
                 </div>
                 <div className="col mb-3 ">
-                  <label for="exampleInputEmail1" class="form-label">
+                  <label for="exampleInputEmail1" className="form-label">
                     Date end
                   </label>
                   <input
                     type="date"
-                    class="form-control"
+                    className="form-control"
                     name="dateEnd"
                     value={form.dateEnd}
                     onChange={(event) => handleChangeForm(event)}
+                    required
                   />
                 </div>
               </div>
               <div className="row ">
                 <div className="col mb-3">
-                  <label for="exampleInputEmail1" class="form-label">
+                  <label for="exampleInputEmail1" className="form-label">
                     Premiere
                   </label>
                   <br />
@@ -416,7 +426,7 @@ function ManageSchedule() {
                 <div className="col mb-3 ">
                   <div className="row-3">
                     <div className="col ">
-                      <label for="exampleInputEmail1" class="form-label">
+                      <label for="exampleInputEmail1" className="form-label">
                         Time
                       </label>
                       <br />
@@ -434,7 +444,12 @@ function ManageSchedule() {
                     <div className="col text-bottom ">
                       <div className="row row-cols-4 mt-3">
                         {tempTime.map((item) => (
-                          <div className="col align-text-bottom ">{item}</div>
+                          <div
+                            className="col align-text-bottom "
+                            key={Math.random()}
+                          >
+                            {item}
+                          </div>
                         ))}
                       </div>
                     </div>
@@ -468,10 +483,7 @@ function ManageSchedule() {
         <div className={`${styles.upcoming__movies_card_container} pb-5 mt-3`}>
           <div className="row mt-4 row-cols-3 g-4">
             {schedule.data.map((item) => (
-              <div
-                className="col"
-                // key={item.id}
-              >
+              <div className="col" key={item.id}>
                 <BookingCardAdmin
                   data={item}
                   setUpdate={setUpdate}

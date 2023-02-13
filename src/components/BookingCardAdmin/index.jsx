@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./BookingCardAdmin.module.css";
 
 function BookingCardAdmin(props) {
-  // console.log(props);
+  // console.log(props.data);
 
   const { premiere, time, price } = props.data;
   let image;
@@ -34,7 +34,7 @@ function BookingCardAdmin(props) {
       <div className="card-body">
         <div className="row row-cols-4">
           {time.split(",").map((item) => (
-            <div className="col">
+            <div className="col" key={`${Math.random()}`}>
               <Link to="" className={`${styles.card_booking}`}>
                 {item}
               </Link>

@@ -1,12 +1,15 @@
 import axios from "../../utils/axios";
 
-export const getSchedule = (page, limit) => {
+export const getSchedule = (page, limit, isUpdated) => {
   return {
     type: "GET_SCHEDULE",
     // limit kalau blkngnya 0 tdk terbaca, exm 10 dibaca 1 (-)
-    payload: axios.get(`schedule?limit=${limit}&page=${page}&`, {
-      headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
-    }),
+    payload: axios.get(
+      `schedule?limit=${limit}&page=${page}&isUpdate=${isUpdated}&`,
+      {
+        headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
+      }
+    ),
   };
 };
 
